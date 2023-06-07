@@ -1,0 +1,264 @@
+<app-navbar></app-navbar>
+<!-- Landing Page Content -->
+<!-- 1 -->
+<section class="bg-home">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 p-0">
+        <div class="box">
+          <img src="../../../assets/images/dashboard/banner.jpg" class="img-fluid" alt="">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="box-content card">
+                  <form class="d-flex">
+                    <input class="form-control  searchbx shadow-none" type="search" placeholder="Search"
+                      aria-label="Search">
+                    <button class="btn cus-btns shadow-none"> <i
+                        class="fa-solid fa-magnifying-glass mx-1"></i>Search</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 2 -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="search-fbox">
+          <form class="d-flex">
+            <!-- <input class="form-control  shadow-none filter-box" type="search" placeholder="Search" aria-label="Search"> -->
+            <select class="form-select filter-box" aria-label="Default select example">
+              <option selected class="selects">High to low price</option>
+              <option value="1" class="selects">One</option>
+              <option value="2" class="selects">Two</option>
+              <option value="3" class="selects">Three</option>
+            </select>
+
+          </form>
+        </div>
+      </div>
+      <div class="col-6  text-end">
+        <div class="filter-box-c">
+          <a href="" class="nav-link nav-link-f">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#999999" viewBox="0 0 16 16">
+              <path
+                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+            </svg>
+            <span>Filter</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- 3 -->
+<section class="py-4">
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let item of images;let i = index" class="col-lg-3 col-md-6 col-md-3">
+        <div  class="card cus-product-cart">
+          <div class="card-img-main" (click)="getCard(i)">
+            <div class="card-img">
+              <img [src]="item.imageUrl" alt="avtr">
+            </div>
+          </div>
+          <div class="card-body cus-card-body">
+            <div class="row gx-0">
+              <div class="col-6">
+                <div class="avtr">
+                  <p>{{item?.name}}</p>
+                </div>
+                <p>{{item?.collectionType}}</p>
+              </div>
+              <div class="col-6 text-end">
+                <div class="avtrs">
+                  <p>${{item?.price}}</p>
+                </div>
+              </div>
+              <div class="row gx-0 align-items-center">
+                <div class="col-6">
+                  <div class="dwnl">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="17" height="17" fill="#777676">
+                      <path
+                        d="M256 464a208 208 0 1 1 0-416 208 208 0 1 1 0 416zM256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6c4.5-4.2 7.1-10.1 7.1-16.3c0-12.3-10-22.3-22.3-22.3H304V160c0-17.7-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32v96H150.3C138 256 128 266 128 278.3c0 6.2 2.6 12.1 7.1 16.3l107.1 99.9c3.8 3.5 8.7 5.5 13.8 5.5s10.1-2 13.8-5.5l107.1-99.9z" />
+                    </svg>
+                    <span class="mx-1">2,234</span>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="dwnl2">
+                    <button class="btn cus-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    (click)="showProduct(item._id)">Show</button>
+                    <a class="nav-link active" (click)="addToCart(item._id)" aria-current="page">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="25" height="25"
+                        fill="#f89e52">
+                        <path
+                          d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 4 -->
+<section class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-12 col-12">
+        <div class="footer-log text-center">
+          <img src="../../../assets/images/dashboard/logo2.png" alt="">
+          <p>Talk to us</p>
+          <a href="">contact@decentrawood.com</a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4">
+        <div class="list">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="">Blog </a></li>
+            <li><a href="">Events </a></li>
+            <li><a href="">Press</a></li>
+            <li><a href="">Careers</a></li>
+            <li><a href="">Help Center </a></li>
+            <li><a href="">Contact us </a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 ">
+        <div class="list">
+          <h3>Social</h3>
+          <ul>
+            <li><a href="">Facebook</a></li>
+            <li><a href="">Youtube</a></li>
+            <li><a href="">Instagram</a></li>
+            <li><a href="">Linkedin</a></li>
+            <li><a href="">Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4">
+        <div class="list">
+          <h3>Navigate</h3>
+          <ul>
+            <li><a href=""> Sell with us</a></li>
+            <li><a href="">Free 3D Models </a></li>
+            <li><a href="">Premium 3D Models </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<section class="btm-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-12 col-md-12">
+        <div class="footerup text-start my-2">
+          <a href="">© 2023 Copyright: dewood3D.com</a>
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 col-md-12">
+        <div class="footerup text-end">
+          <ul class="my-2">
+            <li><a href="">About</a></li>
+            <li><a href="">Contact</a></li>
+            <li><a href="">Faq</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Policy</a></li>
+            <li><a href="">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+<!-- Model PopUp -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header p-2">
+      <h5 class="modal-title" id="staticBackdropLabel" style="color:rgb(138, 138, 138);">Add to Cart</h5>
+      <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div *ngIf="cartDetail && cartDetail.length >0" class="modal-body">
+      <div class="container">
+        <div class="row my-2">
+          <div class="col-12">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="product-box">
+              <div class="row">
+                <div *ngFor="let item of cartProductImages" class="col-12 col-md-6 col-sm-6">
+                  <div class="card cus-product-card">
+                    <div class="product-img">
+                      <img [src]="item.productUrl" class="img-fluid" alt="no image found">
+                    </div>
+                    <div class="price-box text-center">
+                      <div class="addToCardDesign">
+                        <h5 class="title">{{item.name}}</h5>
+                        <span> ${{item.price}} </span>
+                      </div>
+                      <!-- <span>{{item.description}}</span> -->
+                      <div class="cartbtn">
+                        <button class="btn btn-success">Buy Now</button>
+                        <i class="fa-solid fa-trash" (click)="deleteItem(item._id)"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-prce">
+          <div class="row">
+            <div class="col-6">
+              <div class="footer-prc-box">
+                <p> {{noOfProduct}} Item</p>
+              </div>
+
+            </div>
+            <div class="col-6 text-end">
+              <div class="footer-prc-box">
+                <p>Total <span>${{ getTotalValue() }}</span>USD</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="routerToLogin()" class="btn btn-p">Log in to Purchase</button>
+      </div>
+    </div>
+    <div *ngIf="cartDetail == undefined || cartDetail.length == 0" class="modal-body">
+      <div class="container">
+        <div class="row my-2">
+          <div class="col-12 emptyCartData">
+            <h2 >Your cart is empty!</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

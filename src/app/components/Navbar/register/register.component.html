@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+<div class="main-box">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="log-main-box">
+          <div class="head-box">
+            <h4>Register </h4>
+          </div>
+          <div class="log-box">
+            <form [formGroup]="userForm" (ngSubmit)="signUp(userForm)">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email Address</label>
+                <input type="email" formControlName="email" class="form-control cus-form" id="exampleInputEmail1"
+                  aria-describedby="emailHelp" placeholder="Email">
+
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control cus-form"
+                  id="exampleInputPassword1" placeholder="Password - 8 characters minimum">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label"> Confirm Password</label>
+                <input type="password" formControlName="cnfPassword" class="form-control cus-form"
+                  id="exampleInputPassword1" placeholder="password">
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input " id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">I Accept Term & Conditions</label>
+              </div>
+
+              <div class="text-center">
+                <button class="btn cus-btn">Register</button>
+              </div>
+
+            </form>
+          </div>
+          <div class="row py-3">
+            <div class="col-12  text-center">
+              <span> already have an account ? <a routerLink="/login"> Login Here</a></span>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title mdl-title" id="staticBackdropLabel">Add a Payment </h5><br>
+
+        <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="pay-box">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <div class="card-icon-main">
+                        <label for="" class="form-label">Card Number</label>
+                        <input type="text" class="form-control cus-form-m" id="" placeholder="xxxx xxxx xxxx xxxx">
+                        <div class="card-icon">
+                          <i class="bi bi-credit-card-2-back"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Expiry Date</label>
+                      <input type="text" class="form-control cus-form-m" id="" aria-describedby="emailHelp"
+                        placeholder="xx / xx / xxxx">
+
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">cvc / cvv</label>
+                      <input type="text" class="form-control cus-form-m" id="" aria-describedby="emailHelp"
+                        placeholder="xxx">
+
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Card Holder Name</label>
+                      <input type="email" class="form-control cus-form-m" id="" aria-describedby="emailHelp"
+                        placeholder=" Name">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0">
+        <p>Total $23.0</p>
+        <button type="button" class="btn cus-btn shadow-none">Complete purchase</button>
+      </div>
+    </div>
+  </div>
+</div>
