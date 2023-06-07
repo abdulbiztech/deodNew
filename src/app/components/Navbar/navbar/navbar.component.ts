@@ -30,10 +30,10 @@ export class NavbarComponent implements OnInit {
       const loginInfo = localStorage.getItem('login');
       if (loginInfo) {
         this.isSignedIn = true;
-        this.isLoggedIn = false;
+        this.isLoggedIn = true;
       } else {
         this.isSignedIn = false;
-        this.isLoggedIn = true;
+        this.isLoggedIn = false;
       }
     }
     navigateToCart() {
@@ -57,6 +57,9 @@ export class NavbarComponent implements OnInit {
       (error) => {
         console.log('Error coming');
       });
+    }
+    orderBtn(){
+      this.router.navigate(['order-detail'])
     }
 }
 
