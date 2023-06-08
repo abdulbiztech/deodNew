@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environement';
   styleUrls: ['./landingpage.component.scss'],
 })
 export class LandingpageComponent implements OnInit {
+  isSignedIn: boolean = false;
+  isLoggedIn: boolean = false;
   cardList: any = [];
   newData: any = [];
   image: any = [];
@@ -34,9 +36,19 @@ export class LandingpageComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getCartDetail();
+    this.checkLocalStorageLoginStatus()
   }
 
-
+  checkLocalStorageLoginStatus() {
+    const loginInfo = localStorage.getItem('login');
+    if (loginInfo) {
+      this.isSignedIn = true;
+      this.isLoggedIn = false;
+    } else {
+      this.isSignedIn = false;
+      this.isLoggedIn = true;
+    }
+  }
   getCartDetail() {
     this.landingService.getCardDetails().subscribe((res) => {
       console.log('response coming', res);

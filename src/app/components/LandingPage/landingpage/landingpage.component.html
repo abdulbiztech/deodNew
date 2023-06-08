@@ -247,7 +247,8 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" (click)="routerToLogin()" class="btn btn-p">Log in to Purchase</button>
+        <button *ngIf="isSignedIn" type="button" (click)="routerToLogin()" class="btn btn-p">Buy Now</button>
+        <button *ngIf="isLoggedIn" type="button" (click)="routerToLogin()" class="btn btn-p">Log in to Purchase</button>
       </div>
     </div>
     <div *ngIf="cartDetail == undefined || cartDetail.length == 0" class="modal-body">

@@ -12,6 +12,8 @@ let slideIndex = 1;
 })
 export class ProductDetailComponent implements OnInit {
   image: any;
+  isSignedIn: boolean = false;
+  isLoggedIn: boolean = false;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -40,8 +42,18 @@ export class ProductDetailComponent implements OnInit {
 
       }
     });
+    this.checkLocalStorageLoginStatus()
   }
-
+  checkLocalStorageLoginStatus() {
+    const loginInfo = localStorage.getItem('login');
+    if (loginInfo) {
+      this.isSignedIn = true;
+      this.isLoggedIn = false;
+    } else {
+      this.isSignedIn = false;
+      this.isLoggedIn = true;
+    }
+  }
   currentSlide(n: number): void {
     this.showSlides((slideIndex = n));
   }
