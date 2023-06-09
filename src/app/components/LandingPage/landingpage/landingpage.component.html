@@ -188,8 +188,8 @@
 </section>
 </section>
 <!-- Model PopUp -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
+ >
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header p-2">
@@ -216,7 +216,6 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <h5 class="title">{{item.name}}</h5>
                         <span> ${{item.price}} </span>
                       </div>
-                      <!-- <span>{{item.description}}</span> -->
                       <div class="cartbtn">
                         <button class="btn btn-success">Buy Now</button>
                         <i class="fa-solid fa-trash" (click)="deleteItem(item._id)"></i>
@@ -247,7 +246,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
         </div>
       </div>
       <div class="modal-footer">
-        <button *ngIf="isSignedIn" type="button" (click)="routerToLogin()" class="btn btn-p">Buy Now</button>
+        <button *ngIf="isSignedIn" type="button"  routerLink="buy-product" class="btn btn-p">Buy Now</button>
         <button *ngIf="isLoggedIn" type="button" (click)="routerToLogin()" class="btn btn-p">Log in to Purchase</button>
       </div>
     </div>
@@ -263,3 +262,4 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
   </div>
 </div>
 </div>
+

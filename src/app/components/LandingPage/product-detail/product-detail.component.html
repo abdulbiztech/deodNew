@@ -45,7 +45,7 @@
           $120
         </span>
         <button *ngIf="isSignedIn" class="primary-button"> Buy Now</button>
-        <button *ngIf="isLoggedIn" class="primary-button"> Add to Cart</button>
+        <button *ngIf="isLoggedIn" (click)="AddtoCartBtn()" class="primary-button"> Add to Cart</button>
         <!-- <div  data-controller="cart" data-cart-classic-product-id-value="1027053"
           data-action="click->cart#addToCart">
           Add to Cart

@@ -131,7 +131,9 @@ export class LandingpageComponent implements OnInit {
   routerProduct(){
     this.router.navigate(['/product-detail'])
   }
-
+  navigateToBuyProduct(){
+    this.router.navigate(['/buy-product'])
+  }
   getCard(index: number): void {
     this.http
       .get(`${environment.apiUrl}` + `/getAllImages`)

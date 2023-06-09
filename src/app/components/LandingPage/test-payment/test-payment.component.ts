@@ -13,7 +13,7 @@ export class TestPaymentComponent {
   options = {
     key: 'rzp_test_rctEhk9DkJO7hU',
     amount: '200',
-    currency:'USD',
+    currency:'INR',
     name: 'Testing ',
     description: 'dewood Testing',
     image: '../../../assets/images/dashboard/logo2.png',

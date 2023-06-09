@@ -102,6 +102,16 @@ export class ProductDetailComponent implements OnInit {
       console.log("res pro",res);
 
     })
+  }
+  AddtoCartBtn(){
+    const loginInfo = localStorage.getItem('login');
+    if (loginInfo) {
+      console.log("you can buy");
+
+    } else {
+      this.isSignedIn = false;
+      this.isLoggedIn = true;
+    }
 
   }
 }
