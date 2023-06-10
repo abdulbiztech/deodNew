@@ -65,4 +65,11 @@ export class LandingPageService {
     };
     return this.http.post(apiUrl, body);
   }
+  public TotalAmout() {
+    this.ShowProductDetail();
+    console.log();
+  }
+  public createTransaction(amount: any) {
+    return this.http.get(`${environment.apiUrl}` + `/buyNow/` + amount);
+  }
 }
