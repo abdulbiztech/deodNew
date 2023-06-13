@@ -4,51 +4,31 @@
     <div class="card p-3">
       <div class="row">
         <div class="col-6">
-          <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)">
+          <form [formGroup]="ngForm" (ngSubmit)="placeOrder(ngForm)">
             <div class="mb-3">
-              <label for="firstName" class="form-label">Amount</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                formControlName="firstName"
-              />
-            </div>
-            <!-- <div class="mb-3">
-              <label for="firstName" class="form-label">currency</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                formControlName="firstName"
-              />
+              <label class="form-label">Amount</label>
+              <input type="number" class="form-control" formControlName="amount" />
             </div>
             <div class="mb-3">
-              <label for="firstName" class="form-label">receipt</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                formControlName="firstName"
-              />
+              <label class="form-label">Receipt</label>
+              <input type="text" class="form-control" formControlName="reciept" />
             </div>
             <div class="mb-3">
-              <label for="firstName" class="form-label">notes</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                formControlName="firstName"
-              />
-            </div> -->
+              <label class="form-label">Description</label>
+              <input type="text" class="form-control" formControlName="description" />
+            </div>
+            <button type="submit" class="btn btn-primary">Place Order</button>
           </form>
+          <!-- <button (click)="apiCall(orderForm)">Api Call</button> -->
+
         </div>
-        <div class = "vertical"></div>
+        <div class="vertical"></div>
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
                 <th scope="row">
+
                   <div class=" form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                   </div>
@@ -59,8 +39,8 @@
                 <th scope="col">Review Status</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of images">
-              <tr>
+            <tbody>
+              <tr *ngFor="let item of images;index as i;">
                 <th scope="row">
                   <div class=" form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -85,6 +65,13 @@
                 <td>Unrated</td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <td>Total value:</td>
+                <td>${{ getTotalPrice() }}</td>
+              </tr>
+            </tfoot>
+
           </table>
         </div>
       </div>

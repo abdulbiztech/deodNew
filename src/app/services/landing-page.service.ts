@@ -69,7 +69,11 @@ export class LandingPageService {
     this.ShowProductDetail();
     console.log();
   }
-  public createTransaction(amount: any) {
-    return this.http.get(`${environment.apiUrl}` + `/buyNow/` + amount);
+  public createTransaction(amount: number) {
+    return this.http.post(`${environment.apiUrl}` + `/createOrder/`,amount);
   }
+  public verifyOrder(amount: number) {
+    return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`,amount);
+  }
+
 }

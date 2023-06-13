@@ -13,7 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductDetailComponent } from './components/LandingPage/product-detail/product-detail.component';
-import { TestPaymentComponent } from './components/LandingPage/test-payment/test-payment.component';
 import { BuyProductComponent } from './components/LandingPage/buy-product/buy-product.component';
 import { DatePipe } from '@angular/common'
 @NgModule({
@@ -25,7 +24,6 @@ import { DatePipe } from '@angular/common'
     RegisterComponent,
     FooterComponent,
     ProductDetailComponent,
-    TestPaymentComponent,
     BuyProductComponent
   ],
   imports: [
