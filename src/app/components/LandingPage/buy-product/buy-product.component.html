@@ -39,8 +39,8 @@
                 <th scope="col">Review Status</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let item of images;index as i;">
+            <tbody  *ngFor="let item of pro;index as i;">
+              <tr>
                 <th scope="row">
                   <div class=" form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -50,7 +50,7 @@
                 <td>
                   <div class="d-flex">
                     <div class="flex-shrink-0 tbl-img">
-                      <img [src]="item.imageUrl" alt="...">
+                      <img [src]="item.image" alt="...">
                     </div>
                     <div class="flex-grow-1 ms-3">
                       {{item.name}}
@@ -62,8 +62,9 @@
                 </td>
                 <td class="price-c">${{item.price}}</td>
                 <td>{{productDate}}</td>
-                <td>Unrated</td>
+                <td>{{item.slug}}</td>
               </tr>
+              <button class="btn btn-primary" (click)="buyNow(item.price)">Buy Now</button>
             </tbody>
             <tfoot>
               <tr>
