@@ -4,6 +4,7 @@ import { LandingpageComponent } from './components/LandingPage/landingpage/landi
 import { LoginComponent } from './components/Navbar/login/login.component';
 import { RegisterComponent } from './components/Navbar/register/register.component';
 import { ProductDetailComponent } from './components/LandingPage/product-detail/product-detail.component';
+import { BuyProductComponent } from './components/LandingPage/buy-product/buy-product.component';
 
 const routes: Routes = [
 
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'product-detail',
     component: ProductDetailComponent,
+  },
+  {
+    path: 'buy-product',
+    component: BuyProductComponent,
   },
 
 ];
