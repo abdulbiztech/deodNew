@@ -51,7 +51,7 @@ export class LandingPageService {
 
   public ShowProductDetail() {
     this.getLoginDetail();
-    console.log('thisproduct id', this.productId);
+    // console.log('thisproduct id', this.productId);
     return this.http.get(
       `${environment.apiUrl}` + `/getUserBy/` + `${this.productId}`
     );
@@ -64,5 +64,15 @@ export class LandingPageService {
       cartId: id,
     };
     return this.http.post(apiUrl, body);
+  }
+  public TotalAmout() {
+    this.ShowProductDetail();
+    console.log();
+  }
+  public createTransaction(amount: number) {
+    return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
+  }
+  public verifyOrder(amount: number) {
+    return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`, amount);
   }
 }

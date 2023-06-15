@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-<!-- Landing Page Content -->
 <!-- 1 -->
 <section class="bg-home">
   <div class="container-fluid">
@@ -96,6 +95,7 @@
 
                 <div class="col-6">
                   <div class="dwnl2">
+                    <button class="btn btn-success" (click)="navigateToBuyProduct()">Buy Now</button>
                     <button class="btn cus-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                     (click)="showProduct(item._id)">Show</button>
                     <a class="nav-link active" (click)="addToCart(item._id)" aria-current="page">

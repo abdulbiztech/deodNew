@@ -32,6 +32,7 @@
 }
 button{
   outline: none;
+  border: 0;
 }
 
 .box{
@@ -54,7 +55,14 @@ button{
   padding: 5px 20px;
   border: 0;
 }
-
+hr {
+  margin: 5px;
+  margin-bottom: 0;
+  color: inherit;
+  border: 0;
+  border-top: 1px solid;
+  opacity: .25;
+}
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;

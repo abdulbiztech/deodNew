@@ -1,13 +1,13 @@
-
-<section class="py-2">
-  <div class="container">
-    <div class="card p-3">
-      <div class="row">
-        <div class="col-6">
-          <!-- <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)">
+<app-navbar></app-navbar>
+<section>
+  <div class="container my-5">
+    <div class="row main-box" >
+      <div class="col-md-6 col-12">
+        <div class="main-form-box">
+          <form [formGroup]="ngForm" (ngSubmit)="placeOrder(ngForm)">
             <div class="mb-3">
               <label class="form-label">Amount</label>
-              <input type="text" class="form-control" formControlName="amount" />
+              <input type="number" class="form-control" formControlName="amount" />
             </div>
             <div class="mb-3">
               <label class="form-label">Receipt</label>
@@ -17,35 +17,24 @@
               <label class="form-label">Description</label>
               <input type="text" class="form-control" formControlName="description" />
             </div>
-
-          </form> -->
-          <!-- <button class="btn btn-primary" (click)="initiatePayment(orderForm)">Place Order</button> -->
+            <div class="text-end">
+              <button type="submit" class="btn btn-primary">Place Order</button>
+            </div>
+          </form>
         </div>
-        <div class="vertical"></div>
-        <div class="table-responsive">
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="table-box  table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th scope="row">
-
-                  <div class=" form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  </div>
-                </th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Date</th>
-                <th scope="col">Review Status</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of images">
+            <tbody *ngFor="let item of images;index as i;">
               <tr>
-                <th scope="row">
-                  <div class=" form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-
-                  </div>
-                </th>
                 <td>
                   <div class="d-flex">
                     <div class="flex-shrink-0 tbl-img">
@@ -60,45 +49,25 @@
 
                 </td>
                 <td class="price-c">${{item.price}}</td>
-                <!-- <td>{{productDate}}</td> -->
-                <td>Unrated</td>
+                <td>{{productDate}}</td>
+                <div>
+                  <button type="button" class="btn btn-primary" (click)="Order(item.price)">Buy Now</button>
+                </div>
+
               </tr>
+
             </tbody>
             <tfoot>
               <tr>
-                <th scope="row">Total</th>
-                <td>-</td>
-                <!-- <td>${{getTotalValue()}}</td> -->
+                <td>Total value:</td>
+                <td >${{ getTotalPrice() }}</td>
               </tr>
             </tfoot>
+
           </table>
         </div>
+
       </div>
-
-
     </div>
-
-
-
-
-    <!-- <div class="row py-4">
-      <div class="col-12">
-        <nav aria-label="..." class="">
-          <ul class="pagination">
-            <li class="page-item ">
-              <a class="page-link border-0" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">2 </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link border-0" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div> -->
   </div>
 </section>

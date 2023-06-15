@@ -1,3 +1,4 @@
+import { SuccessPaymentComponent } from './components/LandingPage/success-payment/success-payment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingpageComponent } from './components/LandingPage/landingpage/landingpage.component';
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'buy-product',
     component: BuyProductComponent,
+  },
+  {
+    path: 'success-payment',
+    component: SuccessPaymentComponent,
   },
 
 ];

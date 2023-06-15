@@ -1,68 +1,68 @@
-import { Component,HostListener  } from '@angular/core';
-declare var Razorpay: any;
+import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LandingPageService } from 'src/app/services/landing-page.service';
+import { environment } from 'src/environments/environement';
+
 @Component({
   selector: 'app-test-payment',
   templateUrl: './test-payment.component.html',
-  styleUrls: ['./test-payment.component.scss'],
+  styleUrls: ['./test-payment.component.scss']
 })
 export class TestPaymentComponent {
-  paymentId: any;
-  error: any = '';
-  message:any;
-
-  options = {
-    key: 'rzp_test_rctEhk9DkJO7hU',
-    amount: '200',
-    currency:'INR',
-    name: 'Testing ',
-    description: 'dewood Testing',
-    image: '../../../assets/images/dashboard/logo2.png',
-    order_id: '',
-    handler: function (response: any) {
-      var event = new CustomEvent('payment.success', {
-        detail: response,
-        bubbles: true,
-        cancelable: true,
-      });
-      window.dispatchEvent(event);
-    },
-    prefill: {
-      name: '',
-      email: '',
-      contact: '',
-    },
-    notes: {
-      address: '',
-    },
-    theme: {
-      color: '#3399cc',
-    },
-  };
-
-  paynow() {
-    this.paymentId = '';
-    this.error = '';
-    this.options.amount = '200'; //paise
-    this.options.prefill.name = 'Tester';
-    this.options.prefill.email = 'tester@gmail.com';
-    this.options.prefill.contact = '1234567890';
-    var rzp1 = new Razorpay(this.options);
-    rzp1.open();
-    rzp1.on('payment.failed', function (response: any) {
-      //this.message = "Payment Failed";
-      // Todo - store this information in the server
-      console.log(response.error.code);
-      console.log(response.error.description);
-      console.log(response.error.source);
-      console.log(response.error.step);
-      console.log(response.error.reason);
-      console.log(response.error.metadata.order_id);
-      console.log(response.error.metadata.payment_id);
-      //this.error = response.error.reason;
+  razorpayPayment: any;
+  ngForm!: FormGroup;
+  id: any;
+  productDetail: any;
+  product: any;
+  productImages: any;
+  newImageData: any;
+  productImage: any;
+  image: any = [];
+  images: any = [];
+  newData: any = [];
+  date: any;
+  productDate: any;
+  latest_date: any;
+  total: any = [];
+  products: any[] = [];
+  orderId: any;
+  order: any;
+  orderAmt: any;
+  amount: number = 10;
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private landingService: LandingPageService,
+    public datepipe: DatePipe,
+    private fb: FormBuilder
+  ) {}
+  ngOnInit(): void {
+    this.showProduct(this.id);
+  }
+  showProduct(id: any) {
+    this.landingService.ShowProductDetail().subscribe((res) => {
+      this.product = res;
+      this.productDetail = this.product.data.carts;
+      this.productDate = this.productDetail.updatedAt;
+      this.productDate = new Date().toLocaleDateString();
+      for (let index = 0; index < this.productDetail.length; index++) {
+        const imagesfirst = this.productDetail[index].imageUrls[0];
+        const TotalPrice = this.productDetail[index].price;
+        this.total = TotalPrice;
+        this.products.push(this.total);
+        const allsubData = this.productDetail[index];
+        this.image = `${environment.apiUrl}/image/${imagesfirst}`;
+        this.newData = { ...allsubData, imageUrl: this.image };
+        this.images.push(this.newData);
+      }
     });
   }
-  @HostListener('window:payment.success', ['$event'])
-  onPaymentSuccess(event: any): void {
-    this.message = "Success Payment";
+  checkoutHandler(total:any){
+    console.log("rfdh",this.total);
+
   }
+
 }
