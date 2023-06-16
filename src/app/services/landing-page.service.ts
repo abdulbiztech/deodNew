@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environement';
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +18,7 @@ export class LandingPageService {
     return this.http.get(`${environment.apiUrl}` + `/getAllImages`);
   }
 
-  public getLoginDetail() {
+  public getLoginDetail(){
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
     const getID = JSON.parse(this.dataStore).data;
@@ -36,7 +36,7 @@ export class LandingPageService {
   }
   public cartProduct(id: any) {
     this.getLoginDetail();
-    console.log('this.token', this.onlyToken);
+    // console.log('this.token', this.onlyToken);
 
     const headers = new HttpHeaders()
       .set('Authorization', ` ${this.onlyToken}`)

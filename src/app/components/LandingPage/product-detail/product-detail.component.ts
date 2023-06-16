@@ -17,7 +17,8 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private landingService: LandingPageService
+    private landingService: LandingPageService,
+    private router: Router,
   ) {}
   parentData: any = '';
   card: any;
@@ -113,5 +114,8 @@ export class ProductDetailComponent implements OnInit {
       this.isLoggedIn = true;
     }
 
+  }
+  navigateToBuyProduct(){
+    this.router.navigate(['/buy-product'])
   }
 }

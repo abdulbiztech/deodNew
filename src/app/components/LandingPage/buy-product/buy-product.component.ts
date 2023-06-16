@@ -13,8 +13,8 @@ declare var Razorpay: any;
 })
 export class BuyProductComponent implements OnInit {
   // private rzp: any;
+  ngForm!:FormGroup
   razorpayPayment: any;
-  ngForm!: FormGroup;
   id: any;
   productDetail: any;
   product: any;
@@ -55,11 +55,11 @@ export class BuyProductComponent implements OnInit {
         console.log('rip', this.pro);
       });
 
-    // this.ngForm = this.fb.group({
-    //   amount: [],
-    //   reciept: [''],
-    //   description: [''],
-    // });
+    this.ngForm = this.fb.group({
+      amount: [],
+      reciept: [''],
+      description: [''],
+    });
 
     // this.initializePayment();
     // this.placeOrder(this.id);

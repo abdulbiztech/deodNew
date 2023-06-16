@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
 
@@ -32,7 +33,8 @@ export class LandingpageComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private landingService: LandingPageService
+    private landingService: LandingPageService,
+    private toastr:ToastrService
   ) {}
   ngOnInit(): void {
     this.getCartDetail();
@@ -102,7 +104,6 @@ export class LandingpageComponent implements OnInit {
           this.cartProductImages.push(this.newImageData);
         }
         this.noOfProduct = this.cartProductImages.length;
-        // console.log('this.noOfProduct ', this.noOfProduct);
       },
       (error) => {
         console.log('Error retrieving product details:', error);
