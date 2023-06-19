@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
@@ -35,10 +35,11 @@ export class NavbarComponent implements OnInit {
     private landingService: LandingPageService
   ) {}
   ngOnInit(): void {
-    this.showItem();
     this.getToken();
     this.checkLocalStorageLoginStatus();
   }
+
+
   checkLocalStorageLoginStatus() {
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
@@ -110,4 +111,13 @@ export class NavbarComponent implements OnInit {
       this.ngOnInit();
     });
   }
+  NavigateBuy(){
+    this.router.navigate(['/buy-product']);
+  }
+  ngAfterViewInit() {
+    this.showItem();
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    this.showItem();
+}
 }
