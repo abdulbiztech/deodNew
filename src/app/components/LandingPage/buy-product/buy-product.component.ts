@@ -31,13 +31,15 @@ export class BuyProductComponent implements OnInit {
   products: any[] = [];
   orderId: any;
   order: any;
-  orderAmt: any;
+ orderAmt: number = 0;
   amount: any;
   getProduct: any;
   pro: any;
   res: any;
   amt: any;
   redirect: any;
+  hundred:number=1000
+  proId:any
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -47,22 +49,19 @@ export class BuyProductComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.showProduct(this.id);
-    this.http
-      .get('http://192.168.1.42:3000/api/getproducts')
-      .subscribe((rip) => {
-        this.getProduct = rip;
-        this.pro = this.getProduct.getProducts;
-        console.log('rip', this.pro);
-      });
+    // this.http
+    //   .get('http://192.168.1.42:3000/api/getproducts')
+    //   .subscribe((rip) => {
+    //     this.getProduct = rip;
+    //     this.pro = this.getProduct.getProducts;
+    //     console.log('rip', this.pro);
+    //   });
 
     this.ngForm = this.fb.group({
       amount: [],
-      reciept: [''],
-      description: [''],
+      reciept: [],
+      description: [],
     });
-
-    // this.initializePayment();
-    // this.placeOrder(this.id);
   }
   showProduct(id: any) {
     this.landingService.ShowProductDetail().subscribe((res) => {
@@ -75,6 +74,8 @@ export class BuyProductComponent implements OnInit {
         const TotalPrice = this.productDetail[index].price;
         this.total = TotalPrice;
         this.products.push(this.total);
+        // console.log("this.products",this.products);
+
         const allsubData = this.productDetail[index];
         this.image = `${environment.apiUrl}/image/${imagesfirst}`;
         this.newData = { ...allsubData, imageUrl: this.image };
@@ -82,14 +83,18 @@ export class BuyProductComponent implements OnInit {
       }
     });
   }
+
+
+
   getTotalPrice(): number {
     return this.products.reduce((total, product) => total + product, 0);
   }
 
   // // ..............
-  initializePayment(): void {
+  initializePayment():void {
     const option = {
       key: 'rzp_test_rctEhk9DkJO7hU',
+      // amount: this.getTotalPrice() / 100,
       amount: this.orderAmt * 100,
       currency: 'INR',
       name: 'My Store',
@@ -97,7 +102,6 @@ export class BuyProductComponent implements OnInit {
       image: 'https://avatars.githubusercontent.com/u/25058652?v=4',
       order_id: this.order,
       callback_url: 'http://localhost:5000/verifyOrder',
-      // callback_url: 'http://192.168.1.42:3000/api/paymentVerification',
       prefill: {
         name: 'Gaurav Kumar',
         email: 'gaurav.kumar@example.com',
@@ -126,13 +130,17 @@ export class BuyProductComponent implements OnInit {
   //   this.initializePayment();
   // }
   placeOrder(ngForm: FormGroup) {
-    this.landingService.createTransaction(ngForm.value).subscribe((res) => {
-      this.orderId = res;
-      this.order = this.orderId.order.id;
-      console.log('this.order', this.order);
-      this.orderAmt = this.orderId.order.amount;
-      console.log(' this.order', this.orderAmt);
-    });
+    console.log("data coming",ngForm.value);
+    // this.http
+    // .post('http://localhost:5000/createOrder', { amount: 150000},ngForm.value)
+    // .subscribe((res) => {
+    //   // console.log("reskgdsufg",res);
+    //   this.orderId = res;
+    //   this.order = this.orderId.order.id;
+    //   console.log('this.order', this.order);
+    //   this.orderAmt = this.orderId.order.amount;
+    //   console.log(' this.order', typeof(this.orderAmt));
+    // });
     this.initializePayment();
   }
 
@@ -149,17 +157,33 @@ export class BuyProductComponent implements OnInit {
   //   this.initializePayment();
   // }
   Order(id: any) {
-    this.http
-      .post('http://localhost:5000/createOrder', { amount: id })
-      .subscribe((res) => {
-        console.log("reskgdsufg",res);
+  //   console.log("idd",id);
 
-        this.orderId = res;
-        this.order = this.orderId.order.id;
-        console.log('this.order', this.order);
-        this.orderAmt = this.orderId.order.amount;
-        console.log(' this.order', this.orderAmt);
-      });
-    this.initializePayment();
-  }
+  //   this.http
+  //     .post('http://localhost:5000/createOrder', { amount: id })
+  //     .subscribe((res) => {
+  //       this.orderId = res;
+  //       this.order = this.orderId.order.id;
+  //       console.log('this.order', this.order);
+  //       this.orderAmt = this.orderId.order.amount;
+  //     });
+  //   this.initializePayment();
+  // }
+  this.http
+  .post('http://localhost:5000/createOrder', { amount: id })
+  .subscribe((res) => {
+    console.log("reskgdsufg",res);
+
+    this.orderId = res;
+    this.order = this.orderId.order.id;
+    console.log('this.order', this.order);
+    this.orderAmt = this.orderId.order.amount;
+    console.log(' this.order', this.orderAmt);
+  });
+this.initializePayment();
+}
+temp(){
+  // console.log('ID:', id);
+}
+
 }

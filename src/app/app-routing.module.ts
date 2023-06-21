@@ -6,6 +6,8 @@ import { LoginComponent } from './components/Navbar/login/login.component';
 import { RegisterComponent } from './components/Navbar/register/register.component';
 import { ProductDetailComponent } from './components/LandingPage/product-detail/product-detail.component';
 import { BuyProductComponent } from './components/LandingPage/buy-product/buy-product.component';
+import { OrderHistoryComponent } from './components/Navbar/order-history/order-history.component';
+import { MyComponentComponent } from './components/LandingPage/my-component/my-component.component';
 
 const routes: Routes = [
 
@@ -29,6 +31,14 @@ const routes: Routes = [
   {
     path: 'success-payment',
     component: SuccessPaymentComponent,
+  },
+  {
+    path: 'order-detail',
+    component: OrderHistoryComponent,
+  },
+  {
+    path: 'my-product',
+    component: BuyProductComponent,
   },
 
 ];

@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit {
   Logout() {
     this.landingService.logoutFun().subscribe(
       (response) => {
-        console.log('responses', response);
+        // console.log('responses', response);
         alert('User logout successfully');
         localStorage.removeItem('login');
         this.router.navigate(['/']);
@@ -77,11 +77,13 @@ export class NavbarComponent implements OnInit {
   orderBtn() {
     this.router.navigate(['order-detail']);
   }
-
+  myProduct(){
+    this.router.navigate(['my-product']);
+  }
   showItem() {
     this.landingService.ShowProductDetail().subscribe(
       (resp) => {
-        console.log('resp', resp);
+        // console.log('resp', resp);
         this.idResponse = resp;
         this.cartDetail = this.idResponse.data.carts;
         this.productImage = this.cartDetail;
@@ -106,7 +108,7 @@ export class NavbarComponent implements OnInit {
   }
   deleteItem(id: any) {
     this.landingService.deleteProduct(id).subscribe((res) => {
-      console.log('res delete', res);
+      // console.log('res delete', res);
       alert('Cart Remove successfully');
       this.ngOnInit();
     });

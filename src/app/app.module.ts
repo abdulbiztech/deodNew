@@ -16,6 +16,8 @@ import { DatePipe } from '@angular/common'
 import { ToastrModule } from 'ngx-toastr';
 
 import { SuccessPaymentComponent } from './components/LandingPage/success-payment/success-payment.component';
+import { OrderHistoryComponent } from './components/Navbar/order-history/order-history.component';
+import { MyComponentComponent } from './components/LandingPage/my-component/my-component.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,9 @@ import { SuccessPaymentComponent } from './components/LandingPage/success-paymen
     FooterComponent,
     ProductDetailComponent,
     BuyProductComponent,
-    SuccessPaymentComponent
+    SuccessPaymentComponent,
+    OrderHistoryComponent,
+    MyComponentComponent
   ],
   imports: [
     BrowserModule,

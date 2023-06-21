@@ -2,7 +2,7 @@
 <section>
   <div class="container my-5">
     <div class="row main-box" >
-      <div class="col-md-6 col-12">
+      <!-- <div class="col-md-6 col-12">
         <div class="main-form-box">
           <form [formGroup]="ngForm" (ngSubmit)="placeOrder(ngForm)">
             <div class="mb-3">
@@ -22,18 +22,18 @@
             </div>
           </form>
         </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="table-box  table-responsive">
-          <table class="table">
-            <thead>
+      </div> -->
+      <div class="col-12" >
+        <div class="table-box  table-responsive" >
+          <table class="table" >
+            <thead >
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Date</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of images;index as i;">
+            <tbody *ngFor="let item of images;index as i;" >
               <tr>
                 <td>
                   <div class="d-flex">
@@ -50,22 +50,26 @@
                 </td>
                 <td class="price-c">${{item.price}}</td>
                 <td>{{productDate}}</td>
-                <div>
+                <td><button class="btn btn-danger">Remove</button></td>
+
+                <!-- <div>
                   <button type="button" class="btn btn-primary" (click)="Order(item.price)">Buy Now</button>
-                </div>
+                </div> -->
+
 
               </tr>
-
             </tbody>
-            <tfoot>
-              <tr>
-                <td>Total value:</td>
+            <tfoot >
+              <tr class="TotalAmount">
+                <td >Total value:</td>
                 <td >${{ getTotalPrice() }}</td>
+                <td><button type="button" class="btn btn-primary"  (click)="temp()">Checkout</button></td>
               </tr>
             </tfoot>
 
           </table>
         </div>
+
 
       </div>
     </div>

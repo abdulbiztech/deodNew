@@ -84,6 +84,7 @@ export class LandingpageComponent implements OnInit {
       }
     );
   }
+
   showProduct(id: any) {
     this.landingService.ShowProductDetail().subscribe(
       (resp) => {
