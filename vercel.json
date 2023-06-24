@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "dist/dewood-new/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
