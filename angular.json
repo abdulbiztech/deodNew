@@ -65,10 +65,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "dewoodNew:build:production"
+              "browserTarget": "dewoodNew:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
-              "browserTarget": "dewoodNew:build:development"
+              "browserTarget": "dewoodNew:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +78,8 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dewoodNew:build"
+            "browserTarget": "dewoodNew:build",
+            "proxyConfig": "src/proxy.conf.json"
           }
         },
         "test": {
