@@ -61,13 +61,15 @@ export class LandingpageComponent implements OnInit {
         this.image = `${environment.apiUrl}/image/${imagesfirst}`;
         this.newData = { ...allsubData, imageUrl: this.image };
         this.images.push(this.newData);
+        // console.log(
+        //   "this.images",this.images
+        // );
+
       }
     });
   }
 
   addToCart(id: any) {
-    console.log('id', id);
-
     this.landingService.cartProduct(id).subscribe(
       (res) => {
         console.log('res from addtocart', res);
@@ -75,6 +77,7 @@ export class LandingpageComponent implements OnInit {
         console.log('this.totalItem ', this.totalItem);
 
         alert('product added successfully');
+        this.getCartDetail();
       },
       (error) => {
         if (error.status == 400) {

@@ -94,9 +94,8 @@ export class BuyProductComponent implements OnInit {
   initializePayment():void {
     const option = {
       key: 'rzp_test_rctEhk9DkJO7hU',
-      // amount: this.getTotalPrice() / 100,
       amount: this.orderAmt * 100,
-      currency: 'INR',
+      currency: 'USD',
       name: 'My Store',
       description: 'Payment for your order',
       image: 'https://avatars.githubusercontent.com/u/25058652?v=4',
@@ -182,8 +181,9 @@ export class BuyProductComponent implements OnInit {
   });
 this.initializePayment();
 }
-temp(){
-  // console.log('ID:', id);
+remove(){
+  console.log("remove");
+
 }
 
 }

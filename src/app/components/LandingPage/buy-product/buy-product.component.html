@@ -50,20 +50,21 @@
                 </td>
                 <td class="price-c">${{item.price}}</td>
                 <td>{{productDate}}</td>
-                <td><button class="btn btn-danger">Remove</button></td>
+                <!-- <td><button class="btn btn-danger">Remove</button></td> -->
 
-                <!-- <div>
+                <div>
                   <button type="button" class="btn btn-primary" (click)="Order(item.price)">Buy Now</button>
-                </div> -->
-
+                  <button type="button" class="btn btn-danger mx-2" (click)="remove()">Remove</button>
+                </div>
 
               </tr>
+
             </tbody>
             <tfoot >
               <tr class="TotalAmount">
                 <td >Total value:</td>
                 <td >${{ getTotalPrice() }}</td>
-                <td><button type="button" class="btn btn-primary"  (click)="temp()">Checkout</button></td>
+                <td><button type="button" class="btn btn-primary" >Checkout</button></td>
               </tr>
             </tfoot>
 
