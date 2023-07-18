@@ -15,7 +15,10 @@
 
     <div class="row">
       <div class="column" *ngFor="let item of multipleImages">
-        <img class="demo cursor" [src]="item" style="width:100%" (click)="showImage(item)" alt="The Woods">
+        <div >
+          <img class="demo cursor" [src]="item"  (click)="showImage(item)" alt="The Woods">
+
+        </div>
       </div>
       <div class="column">
         <img class="demo cursorr" alt="">

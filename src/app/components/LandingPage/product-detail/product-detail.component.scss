@@ -150,13 +150,11 @@ svg:not(:root).svg-inline--fa {
 }
 
 .column {
-  display: flex;
-  justify-content: center;
-  width: 15%;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-content: stretch;
-  align-items: center;
+  width: 10%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100ch;
 }
 
 .demo {
