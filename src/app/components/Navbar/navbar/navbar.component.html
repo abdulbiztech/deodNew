@@ -56,9 +56,9 @@
         <button class="btn cus-btn shadow-none" routerLink="/login">LogIn</button>
 
       </form>
-      <ul class="navbar-nav"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <ul class="navbar-nav" (click)="navigateToproduct()" >
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#" >
+          <a class="nav-link active" aria-current="page" >
             <!-- //data-bs-toggle="modal" data-bs-target="#staticBackdrop" -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="25" height="25"
               fill="#f89e52">
@@ -102,7 +102,7 @@
     </div>
   </div>
 </nav>
-<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
+<!-- <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
  >
 <div class="modal-dialog">
   <div class="modal-content">
@@ -154,7 +154,6 @@
             </div>
             <div class="col-6 text-end">
               <div class="footer-prc-box">
-                <!-- <p>Total <span>${{ getTotalValue() }}</span>USD</p> -->
               </div>
 
             </div>
@@ -163,7 +162,6 @@
       </div>
       <div class="modal-footer">
         <button *ngIf="isSignedIn" type="button"  routerLink="buy-product" class="btn btn-p">Buy Now</button>
-        <!-- <button *ngIf="isLoggedIn" type="button" (click)="routerToLogin()" class="btn btn-p">Log in to Purchase</button> -->
       </div>
     </div>
     <div *ngIf="cartDetail == undefined || cartDetail.length == 0" class="modal-body">
@@ -177,4 +175,4 @@
     </div>
   </div>
 </div>
-</div>
+</div> -->

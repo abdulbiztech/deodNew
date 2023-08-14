@@ -122,4 +122,7 @@ export class NavbarComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     this.showItem();
 }
+navigateToproduct(){
+  this.router.navigate(['/my-product'])
+}
 }
