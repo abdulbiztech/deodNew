@@ -18,6 +18,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { SuccessPaymentComponent } from './components/LandingPage/success-payment/success-payment.component';
 import { OrderHistoryComponent } from './components/Navbar/order-history/order-history.component';
 import { MyComponentComponent } from './components/LandingPage/my-component/my-component.component';
+import { ForgetPassComponent } from './components/Navbar/forget-pass/forget-pass.component';
+import { NewPassComponent } from './components/Navbar/new-pass/new-pass.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,9 @@ import { MyComponentComponent } from './components/LandingPage/my-component/my-c
     BuyProductComponent,
     SuccessPaymentComponent,
     OrderHistoryComponent,
-    MyComponentComponent
+    MyComponentComponent,
+    ForgetPassComponent,
+    NewPassComponent
   ],
   imports: [
     BrowserModule,

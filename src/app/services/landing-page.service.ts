@@ -15,14 +15,13 @@ export class LandingPageService {
   constructor(private http: HttpClient, private router: Router) {}
 
   public getCardDetails() {
-    return this.http.get(`${environment.apiUrl}` + `/getAllImages`);
+    return this.http.get(`${environment.apiUrl}` + `/getAll3DModels`);
   }
 
   public getLoginDetail(){
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
-    const getID = JSON.parse(this.dataStore).data;
-    this.productId = getID.checkValidUser._id;
+    this.productId = this.tokey_key._id;
     this.onlyToken = this.tokey_key.token;
   }
   public logoutFun() {
@@ -36,8 +35,6 @@ export class LandingPageService {
   }
   public cartProduct(id: any) {
     this.getLoginDetail();
-    // console.log('this.token', this.onlyToken);
-
     const headers = new HttpHeaders()
       .set('Authorization', ` ${this.onlyToken}`)
       .set('Content-Type', 'application/json');

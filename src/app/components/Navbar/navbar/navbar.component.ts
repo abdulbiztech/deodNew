@@ -35,35 +35,32 @@ export class NavbarComponent implements OnInit {
     private landingService: LandingPageService
   ) {}
   ngOnInit(): void {
+    this.checkLoginStatus();
     this.getToken();
-    this.checkLocalStorageLoginStatus();
+
   }
-
-
-  checkLocalStorageLoginStatus() {
-    const loginInfo = localStorage.getItem('login');
-    if (loginInfo) {
+checkLoginStatus(){
+  const getValue = localStorage.getItem('login');
+    if (getValue) {
       this.isSignedIn = true;
       this.isLoggedIn = true;
-    } else {
+    }
+    else {
       this.isSignedIn = false;
       this.isLoggedIn = false;
     }
-  }
-  navigateToCart() {
-    this.router.navigate(['/login']);
-  }
+}
+
   getToken() {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
-    const getID = JSON.parse(this.dataStore).data;
-    this.productId = getID.checkValidUser._id;
+    const getID = this.tokey_key._id
     this.onlyToken = this.tokey_key.token;
   }
   Logout() {
     this.landingService.logoutFun().subscribe(
       (response) => {
-        // console.log('responses', response);
+        console.log('responses', response);
         alert('User logout successfully');
         localStorage.removeItem('login');
         this.router.navigate(['/']);
@@ -113,9 +110,7 @@ export class NavbarComponent implements OnInit {
       this.ngOnInit();
     });
   }
-  NavigateBuy(){
-    this.router.navigate(['/buy-product']);
-  }
+
   ngAfterViewInit() {
     this.showItem();
   }
@@ -124,5 +119,11 @@ export class NavbarComponent implements OnInit {
 }
 navigateToproduct(){
   this.router.navigate(['/my-product'])
+}
+navigateToCart() {
+  this.router.navigate(['/login']);
+}
+NavigateBuy(){
+  this.router.navigate(['/buy-product']);
 }
 }

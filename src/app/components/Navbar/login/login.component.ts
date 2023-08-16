@@ -14,6 +14,7 @@ export class LoginComponent {
   myForm!: FormGroup;
   userDetail: any;
   tokey_key:any
+  userState:any;
   constructor(
     private http: HttpClient,
     private landgingService:LandingPageService,
@@ -28,15 +29,19 @@ export class LoginComponent {
     });
   }
   login(login:FormGroup) {
-    this.http.post<any>(`${environment.apiUrl}`+`/login`,this.myForm.value).subscribe((res)=> {
-      console.log("response",res);
-      localStorage.setItem("login",JSON.stringify(res))
-      console.log("token getting",res.data);
-       this.tokey_key = res.data
+    this.http.post<any>(`${environment.apiUrl}`+`/loginUser`,this.myForm.value).subscribe((res)=> {
+      this.userState = res;
+      const jsonData = JSON.stringify(this.userState)
+      // console.log("this.userState",jsonData);
+
+      localStorage.setItem('login', jsonData);
+      this.tokey_key = this.userState.data
       this.toaster.success('You are successfully Login');
       this.myForm.reset();
       this.router.navigate(['']);
-      },
+      },(err:any) => {
+        alert('somemthing went wrong');
+      }
 
     );
   }

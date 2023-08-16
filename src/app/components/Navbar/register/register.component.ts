@@ -20,6 +20,7 @@ export class RegisterComponent {
   ) {}
   ngOnInit() {
     this.userForm = this.fb.group({
+      userName:[''],
       email: [''],
       password: [''],
       cnfPassword: [''],
@@ -28,7 +29,7 @@ export class RegisterComponent {
   signUp(userForm:FormGroup) {
     this.userDetail = this.userForm.value.email;
     this.http
-      .post<any>(`${environment.apiUrl}`+`/register`,this.userForm.value)
+      .post<any>(`${environment.apiUrl}`+`/createUser`,this.userForm.value)
       .subscribe(
         (res:any) => {
           console.log(res,"response");

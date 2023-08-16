@@ -1,3 +1,4 @@
+import { CommonApiService } from './../../../services/common-api.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class LandingpageComponent implements OnInit {
   cardList: any = [];
   newData: any = [];
   image: any = [];
-  images: any = [];
+  imagess: any = [];
   newImageData: any;
   productImages: any = [];
   cartProductImages: any = [];
@@ -34,11 +35,12 @@ export class LandingpageComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private landingService: LandingPageService,
-    private toastr:ToastrService
+    private toastr: ToastrService,
+    private commonapi: CommonApiService
   ) {}
   ngOnInit(): void {
     this.getCartDetail();
-    this.checkLocalStorageLoginStatus()
+    this.checkLocalStorageLoginStatus();
   }
 
   checkLocalStorageLoginStatus() {
@@ -53,18 +55,15 @@ export class LandingpageComponent implements OnInit {
   }
   getCartDetail() {
     this.landingService.getCardDetails().subscribe((res) => {
-      console.log('response coming', res);
       this.cardList = res;
+      // console.log('cardList', this.cardList.data[0].images[0]);
       for (let index = 0; index < this.cardList.data.length; index++) {
-        const imagesfirst = this.cardList.data[index].imageUrls[0];
+        const imagesfirst = this.cardList.data[index].images[0];
         const allsubData = this.cardList.data[index];
         this.image = `${environment.apiUrl}/image/${imagesfirst}`;
+        // console.log('image', this.image);
         this.newData = { ...allsubData, imageUrl: this.image };
-        this.images.push(this.newData);
-        // console.log(
-        //   "this.images",this.images
-        // );
-
+        this.imagess.push(this.newData);
       }
     });
   }
@@ -125,27 +124,29 @@ export class LandingpageComponent implements OnInit {
     this.landingService.deleteProduct(id).subscribe((res) => {
       console.log('res delete', res);
       alert('Cart Remove successfully');
-      this.showProduct(id)
+      this.showProduct(id);
     });
-
-
   }
   routerToLogin() {
     this.router.navigate(['/login']);
   }
-  routerProduct(){
-    this.router.navigate(['/product-detail'])
+  routerProduct() {
+    this.router.navigate(['/product-detail']);
   }
-  navigateToBuyProduct(){
-    this.router.navigate(['/buy-product'])
+  navigateToBuyProduct() {
+    this.router.navigate(['/buy-product']);
   }
   getCard(index: number): void {
     this.http
-      .get(`${environment.apiUrl}` + `/getAllImages`)
+      .get(`${environment.apiUrl}` + `/getAll3DModels`)
       .subscribe((response) => {
         this.card = response;
+        console.log("this.card",this.card);
+
         const filterDetail = this.card.data[index];
-        this.parentData = filterDetail.imageUrls;
+        this.parentData = filterDetail.images;
+        console.log("this.parentData ",this.parentData );
+
         const dataToSend = this.parentData;
         this.router.navigate(['/product-detail'], {
           queryParams: { data: dataToSend },
