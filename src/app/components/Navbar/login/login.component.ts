@@ -32,8 +32,6 @@ export class LoginComponent {
     this.http.post<any>(`${environment.apiUrl}`+`/loginUser`,this.myForm.value).subscribe((res)=> {
       this.userState = res;
       const jsonData = JSON.stringify(this.userState)
-      // console.log("this.userState",jsonData);
-
       localStorage.setItem('login', jsonData);
       this.tokey_key = this.userState.data
       this.toaster.success('You are successfully Login');

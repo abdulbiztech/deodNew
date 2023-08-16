@@ -22,7 +22,7 @@ export class LandingpageComponent implements OnInit {
   productImages: any = [];
   cartProductImages: any = [];
   imageUrls: any;
-  totalItem: any;
+  cartData: any;
   idResponse: any;
   userId: any;
   cartDetail: any;
@@ -71,12 +71,11 @@ export class LandingpageComponent implements OnInit {
   addToCart(id: any) {
     this.landingService.cartProduct(id).subscribe(
       (res) => {
-        console.log('res from addtocart', res);
-        this.totalItem = res;
-        console.log('this.totalItem ', this.totalItem);
-
+        // console.log('res from addtocart', res);
+        this.cartData = res;
+        console.log('this.cartData ', this.cartData);
         alert('product added successfully');
-        this.getCartDetail();
+        // this.getCartDetail();
       },
       (error) => {
         if (error.status == 400) {
@@ -141,11 +140,11 @@ export class LandingpageComponent implements OnInit {
       .get(`${environment.apiUrl}` + `/getAll3DModels`)
       .subscribe((response) => {
         this.card = response;
-        console.log("this.card",this.card);
+        // console.log("this.card",this.card);
 
         const filterDetail = this.card.data[index];
         this.parentData = filterDetail.images;
-        console.log("this.parentData ",this.parentData );
+        // console.log("this.parentData ",this.parentData );
 
         const dataToSend = this.parentData;
         this.router.navigate(['/product-detail'], {

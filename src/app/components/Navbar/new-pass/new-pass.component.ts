@@ -11,18 +11,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NewPassComponent {
 
-  myForm!: FormGroup;
-constructor(private http: HttpClient,private router: Router,private fb: FormBuilder,private toaster: ToastrService){}
-ngOnInit() {
-  this.myForm = this.fb.group({
-    password: [''],
-    cnfPassword: [''],
-  });
-}
-  newset(reset:FormGroup){
-    this.http.post<any>(`${environment.apiUrl}`+`/forgetPassword`,this.myForm.value).subscribe((res)=>{
-      console.log("reset", res);
-      this.toaster.success('Password reset email sent!', 'Success');
-    })
-  }
+//   myForm!: FormGroup;
+// constructor(private http: HttpClient,private router: Router,private fb: FormBuilder,private toaster: ToastrService){}
+// ngOnInit() {
+//   this.myForm = this.fb.group({
+//     password: [''],
+//     cnfPassword: [''],
+//   });
+// }
+//   newset(reset:FormGroup){
+//     this.http.post<any>(`${environment.apiUrl}`+`/forgetPassword`,this.myForm.value).subscribe((res)=>{
+//       console.log("reset", res);
+//       this.toaster.success('Password reset email sent!', 'Success');
+//     })
+//   }
 }

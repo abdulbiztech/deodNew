@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
@@ -29,17 +29,19 @@ export class NavbarComponent implements OnInit {
   cartProductID: any;
   noOfProduct: any;
   apiCall: any;
+  isAuthenticated = false;
   constructor(
     private router: Router,
     private http: HttpClient,
     private landingService: LandingPageService
   ) {}
   ngOnInit(): void {
-    this.checkLoginStatus();
     this.getToken();
-
+    this.checkLoginStatus();
   }
+
 checkLoginStatus(){
+
   const getValue = localStorage.getItem('login');
     if (getValue) {
       this.isSignedIn = true;

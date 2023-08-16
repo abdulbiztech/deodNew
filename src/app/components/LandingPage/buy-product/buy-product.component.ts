@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
+import { Product } from './buy-product.model';
 declare var Razorpay: any;
 @Component({
   selector: 'app-buy-product',
@@ -12,6 +13,7 @@ declare var Razorpay: any;
   styleUrls: ['./buy-product.component.scss'],
 })
 export class BuyProductComponent implements OnInit {
+  mainProduct:Product=new Product();
   // private rzp: any;
   ngForm!:FormGroup
   razorpayPayment: any;
@@ -40,6 +42,7 @@ export class BuyProductComponent implements OnInit {
   redirect: any;
   hundred:number=1000
   proId:any
+  totalPrice:any
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -48,7 +51,10 @@ export class BuyProductComponent implements OnInit {
     private fb: FormBuilder
   ) {}
   ngOnInit(): void {
-    this.showProduct(this.id);
+    this.getProductByUserId();
+    // this.showProduct(this.id);
+
+
     // this.http
     //   .get('http://192.168.1.42:3000/api/getproducts')
     //   .subscribe((rip) => {
@@ -63,32 +69,58 @@ export class BuyProductComponent implements OnInit {
       description: [],
     });
   }
-  showProduct(id: any) {
-    this.landingService.ShowProductDetail().subscribe((res) => {
-      this.product = res;
-      this.productDetail = this.product.data.carts;
-      this.productDate = this.productDetail.updatedAt;
-      this.productDate = new Date().toLocaleDateString();
-      for (let index = 0; index < this.productDetail.length; index++) {
-        const imagesfirst = this.productDetail[index].imageUrls[0];
-        const TotalPrice = this.productDetail[index].price;
-        this.total = TotalPrice;
-        this.products.push(this.total);
-        // console.log("this.products",this.products);
 
-        const allsubData = this.productDetail[index];
+  getProductByUserId(){
+    this.landingService.getCartByUserId().subscribe((res)=>{
+      // console.log("coming product",res);
+      this.mainProduct.response = res
+      this.mainProduct.data = this.mainProduct.response.data;
+      this.mainProduct.cartId = this.mainProduct.data;
+      this.totalPrice = this.mainProduct.cartId.totalPrice
+      this.mainProduct.items = this.mainProduct.cartId.items
+      for (let index = 0; index < this.mainProduct.items.length; index++) {
+        const element = this.mainProduct.items[index];
+        const imagesfirst = this.mainProduct.items[index].images[0];
         this.image = `${environment.apiUrl}/image/${imagesfirst}`;
+        const allsubData = this.mainProduct.items[index];
         this.newData = { ...allsubData, imageUrl: this.image };
         this.images.push(this.newData);
+        console.log("images",this.images);
       }
+
+      // console.log("this.totalPrice",this.totalPrice);
+
+
+
+
     });
   }
+  // showProduct(id: any) {
+  //   this.landingService.ShowProductDetail().subscribe((res) => {
+  //     this.product = res;
+  //     this.productDetail = this.product.data.carts;
+  //     this.productDate = this.productDetail.updatedAt;
+  //     this.productDate = new Date().toLocaleDateString();
+  //     for (let index = 0; index < this.productDetail.length; index++) {
+  //       const imagesfirst = this.productDetail[index].imageUrls[0];
+  //       const TotalPrice = this.productDetail[index].price;
+  //       this.total = TotalPrice;
+  //       this.products.push(this.total);
+  //       // console.log("this.products",this.products);
+
+  //       const allsubData = this.productDetail[index];
+  //       this.image = `${environment.apiUrl}/image/${imagesfirst}`;
+  //       this.newData = { ...allsubData, imageUrl: this.image };
+  //       this.images.push(this.newData);
+  //     }
+  //   });
+  // }
 
 
 
-  getTotalPrice(): number {
-    return this.products.reduce((total, product) => total + product, 0);
-  }
+  // getTotalPrice(): number {
+  //   return this.products.reduce((total, product) => total + product, 0);
+  // }
 
   // // ..............
   initializePayment():void {
@@ -181,9 +213,17 @@ export class BuyProductComponent implements OnInit {
   });
 this.initializePayment();
 }
-remove(){
-  console.log("remove");
+
+removeItem(item:any){
+  console.log("item",item);
+
+  this.landingService.removeCartItem(item.modelId).subscribe((res:any)=>{
+      alert("item deleted successfully!")
+      this.images.next()
+
+  })
+}
+emptyCart(){
 
 }
-
 }

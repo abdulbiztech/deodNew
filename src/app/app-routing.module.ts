@@ -46,7 +46,7 @@ const routes: Routes = [
     path: 'forget-pass',
     component: ForgetPassComponent,
   },
-  { path: 'http://localhost:5000/reset-password/64dcbb57caa79e71f8123af0/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGRjYmI1N2NhYTc5ZTcxZjgxMjNhZjAiLCJpYXQiOjE2OTIxODc1MjQsImV4cCI6MTY5MjE4NzgyNH0.BMd8MwMmOviqJ-eyhDDKbY2W7zt2fj9zpvch54Uhf9M', component: NewPassComponent }
+  { path: 'reset-password/:_id/:token', component: NewPassComponent }
 
 ];
 
@@ -54,4 +54,14 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule  {
+  data:any;
+  ngOnInit(){
+    this.data = localStorage.getItem('login')
+    console.log("data",this.data);
+  }
+  // getLocalData(){
+
+
+  // }
+}

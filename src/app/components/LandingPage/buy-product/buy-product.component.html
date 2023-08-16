@@ -1,78 +1,79 @@
-<!-- <app-navbar></app-navbar> -->
-<section>
+<ng-container *ngIf="images.length !==0">
   <div class="container my-5">
-    <div class="row main-box" >
-      <!-- <div class="col-md-6 col-12">
-        <div class="main-form-box">
-          <form [formGroup]="ngForm" (ngSubmit)="placeOrder(ngForm)">
-            <div class="mb-3">
-              <label class="form-label">Amount</label>
-              <input type="number" class="form-control" formControlName="amount" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Receipt</label>
-              <input type="text" class="form-control" formControlName="reciept" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Description</label>
-              <input type="text" class="form-control" formControlName="description" />
-            </div>
-            <div class="text-end">
-              <button type="submit" class="btn btn-primary">Place Order</button>
-            </div>
-          </form>
-        </div>
-      </div> -->
-      <div class="col-12" >
-        <div class="table-box  table-responsive" >
-          <table class="table" >
-            <thead >
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let item of images;index as i;" >
-              <tr>
-                <td>
-                  <div class="d-flex">
-                    <div class="flex-shrink-0 tbl-img">
-                      <img [src]="item.imageUrl" alt="...">
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      {{item.name}}
-                      <p>{{item.collectionType}}</p>
-                    </div>
+    <div class="card-table">
+      <div class="cart-product">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th>Sr No</th>
+              <th>Product Name</th>
+              <th>Product Image</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of images; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.modelName }}</td>
+              <td>
+                <div class="d-flex">
+                  <div class="flex-shrink-0 tbl-img">
+                    <img [src]="item.imageUrl" alt="..." />
                   </div>
-
-
-                </td>
-                <td class="price-c">${{item.price}}</td>
-                <td>{{productDate}}</td>
-                <!-- <td><button class="btn btn-danger">Remove</button></td> -->
-
-                <div>
-                  <button type="button" class="btn btn-primary" (click)="Order(item.price)">Buy Now</button>
-                  <button type="button" class="btn btn-danger mx-2" (click)="remove()">Remove</button>
                 </div>
-
-              </tr>
-
-            </tbody>
-            <tfoot >
+              </td>
+              <td>{{ item.description }}</td>
+              <td class="price-c">${{ item.price }}</td>
+              <td>
+                <button (click)="removeItem(item)"  class="btn btn-danger">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            <tr >
+              <td>
+                <button (click)="emptyCart()" class="btn btn-danger">
+                  Empty Cart
+                </button>
+              </td>
+              <td>
+                <button routerLink="/products" class="btn btn-primary">
+                  Shop More
+                </button>
+              </td>
+              <td><button class="btn btn-success">Checkout</button></td>
+              <td >
+                <strong>Grand Total : ${{ totalPrice }}</strong>
+              </td>
+            </tr>
+          </tbody>
+          <!-- <tfoot >
               <tr class="TotalAmount">
                 <td >Total value:</td>
-                <td >${{ getTotalPrice() }}</td>
+                <td >${{ totalPrice }}</td>
                 <td><button type="button" class="btn btn-primary" >Checkout</button></td>
               </tr>
-            </tfoot>
-
-          </table>
-        </div>
-
-
+            </tfoot> -->
+        </table>
       </div>
     </div>
   </div>
-</section>
+</ng-container>
+<ng-container *ngIf="images.length ==0">
+  <div class="container">
+    <div class="card">
+      <h5 class="card-title">My Cart</h5>
+    </div>
+    <div class="center">
+      <img
+        src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+        alt=""
+      />
+      <h4>Your cart is empty!</h4>
+      <h6>Add item to it now</h6>
+      <button routerLink="" class="btn btn-primary">Show Now</button>
+    </div>
+  </div>
+</ng-container>
