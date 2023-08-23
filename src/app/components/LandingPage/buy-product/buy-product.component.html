@@ -32,30 +32,22 @@
                 </button>
               </td>
             </tr>
-            <tr >
-              <td>
-                <button (click)="emptyCart()" class="btn btn-danger">
-                  Empty Cart
-                </button>
-              </td>
-              <td>
-                <button routerLink="/products" class="btn btn-primary">
+            <tr colspan="2" >
+
+              <td >
+                <button routerLink="" class="btn btn-primary">
                   Shop More
                 </button>
               </td>
-              <td><button class="btn btn-success">Checkout</button></td>
               <td >
-                <strong>Grand Total : ${{ totalPrice }}</strong>
+                <button class="btn btn-success" (click)="Order()">Checkout</button>
+              </td>
+              <td></td>
+              <td  >
+                <strong >Grand Total : ${{ totalPrice }}</strong>
               </td>
             </tr>
           </tbody>
-          <!-- <tfoot >
-              <tr class="TotalAmount">
-                <td >Total value:</td>
-                <td >${{ totalPrice }}</td>
-                <td><button type="button" class="btn btn-primary" >Checkout</button></td>
-              </tr>
-            </tfoot> -->
         </table>
       </div>
     </div>

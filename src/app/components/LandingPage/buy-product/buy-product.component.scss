@@ -175,14 +175,17 @@ padding: 12px 72px;
 border-radius: 3px !important;
 }
 
-
+.checkout-btn{
+  display: flex;
+  justify-content: end;
+}
 @media only screen and (max-width: 600px) {
-  .serach-f{
-      width: 100%;
-      background: #fff;
-      border-color:#fff;
-      padding: 6px 30px;
-  }
+  // .serach-f{
+  //     width: 100%;
+  //     background: #fff;
+  //     border-color:#fff;
+  //     padding: 6px 30px;
+  // }
 }
 
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
 
@@ -12,6 +13,9 @@ import { environment } from 'src/environments/environement';
   styleUrls: ['./landingpage.component.scss'],
 })
 export class LandingpageComponent implements OnInit {
+  mySubject='';
+  subjectData=''
+  totalProduct:any
   isSignedIn: boolean = false;
   isLoggedIn: boolean = false;
   cardList: any = [];
@@ -38,6 +42,8 @@ export class LandingpageComponent implements OnInit {
     private toastr: ToastrService,
     private commonapi: CommonApiService
   ) {}
+
+
   ngOnInit(): void {
     this.getCartDetail();
     this.checkLocalStorageLoginStatus();
@@ -70,48 +76,46 @@ export class LandingpageComponent implements OnInit {
 
   addToCart(id: any) {
     this.landingService.cartProduct(id).subscribe(
-      (res) => {
-        // console.log('res from addtocart', res);
+      (res:any) => {
         this.cartData = res;
-        console.log('this.cartData ', this.cartData);
         alert('product added successfully');
-        // this.getCartDetail();
+        this.router.navigate(['/buy-product'])
       },
-      (error) => {
-        if (error.status == 400) {
-          alert(error.error.message);
-          // console.log('Error:', error.error.message);
+      (err) => {
+        if (err.status == 400) {
+          alert("Product is already in the cart");
+          this.router.navigate(['/buy-product'])
         }
       }
     );
   }
 
-  showProduct(id: any) {
-    this.landingService.ShowProductDetail().subscribe(
-      (resp) => {
-        console.log('resp', resp);
-        this.idResponse = resp;
-        this.cartDetail = this.idResponse.data.carts;
-        this.productImage = this.cartDetail;
-        this.userId = this.idResponse.data._id;
-        // console.log('userId', this.userId);
-        for (let index = 0; index < this.productImage.length; index++) {
-          const imagesfirst = this.productImage[index].imageUrls[0];
-          this.productImages = `${environment.apiUrl}/image/${imagesfirst}`;
-          this.newImageData = {
-            productUrl: this.productImages,
-            ...this.productImage[index],
-          };
-          this.cartProductID = this.productImage[index]._id;
-          this.cartProductImages.push(this.newImageData);
-        }
-        this.noOfProduct = this.cartProductImages.length;
-      },
-      (error) => {
-        console.log('Error retrieving product details:', error);
-      }
-    );
-  }
+  // showProduct(id: any) {
+  //   this.landingService.ShowProductDetail().subscribe(
+  //     (resp) => {
+  //       console.log('resp', resp);
+  //       this.idResponse = resp;
+  //       this.cartDetail = this.idResponse.data.carts;
+  //       this.productImage = this.cartDetail;
+  //       this.userId = this.idResponse.data._id;
+  //       // console.log('userId', this.userId);
+  //       for (let index = 0; index < this.productImage.length; index++) {
+  //         const imagesfirst = this.productImage[index].imageUrls[0];
+  //         this.productImages = `${environment.apiUrl}/image/${imagesfirst}`;
+  //         this.newImageData = {
+  //           productUrl: this.productImages,
+  //           ...this.productImage[index],
+  //         };
+  //         this.cartProductID = this.productImage[index]._id;
+  //         this.cartProductImages.push(this.newImageData);
+  //       }
+  //       this.noOfProduct = this.cartProductImages.length;
+  //     },
+  //     (error) => {
+  //       console.log('Error retrieving product details:', error);
+  //     }
+  //   );
+  // }
   getTotalValue(): number {
     let total = 0;
     for (const item of this.cartProductImages) {
@@ -119,13 +123,13 @@ export class LandingpageComponent implements OnInit {
     }
     return total;
   }
-  deleteItem(id: any) {
-    this.landingService.deleteProduct(id).subscribe((res) => {
-      console.log('res delete', res);
-      alert('Cart Remove successfully');
-      this.showProduct(id);
-    });
-  }
+  // deleteItem(id: any) {
+  //   this.landingService.deleteProduct(id).subscribe((res) => {
+  //     console.log('res delete', res);
+  //     alert('Cart Remove successfully');
+  //     this.showProduct(id);
+  //   });
+  // }
   routerToLogin() {
     this.router.navigate(['/login']);
   }
