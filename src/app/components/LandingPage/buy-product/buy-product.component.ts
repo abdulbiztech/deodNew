@@ -48,6 +48,7 @@ export class BuyProductComponent implements OnInit {
   checkOutData:any
   checkoutDetail:any
   orderCurrency:any
+  paymentId:any;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -272,9 +273,7 @@ checkoutOrder(){
       handler: (response: any) => {
         // Handle payment response here
         console.log('Payment response:', response);
-
-        // You don't have direct access to razorpay_signature and razorpay_order_id here
-        // You will need to send the response to the server for further verification
+        this.paymentId = response.razorpay_payment_id;
         this.sendPaymentResponseToServer(response);
       },
     };
@@ -284,6 +283,13 @@ checkoutOrder(){
   }
 
   sendPaymentResponseToServer(response: any): void {
+    // console.log("avinash");
+    if (this.paymentId) {
+      this.router.navigate(['/success-payment']);
+    }
+    else{
+      alert("Payment Failed..")
+    }
     // Make a request to your server to verify the signature using the entire payment response
     // You should perform this step on the backend for security reasons
   }
