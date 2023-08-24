@@ -71,10 +71,10 @@ export class LandingPageService {
       `${environment.apiUrl}` + `/removeCartItem/` + `${this.userIdd}/` + id
     );
   }
-  public createTransaction(amount: number) {
+  public createTransaction(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
   }
-  public verifyOrder(amount: number) {
+  public verifyOrder(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`, amount);
   }
   // public TotalAmout() {
