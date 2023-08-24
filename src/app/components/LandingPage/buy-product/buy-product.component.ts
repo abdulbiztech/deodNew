@@ -268,6 +268,7 @@ checkoutOrder(){
       theme: {
         color: '#121212',
       },
+
       handler: (response: any) => {
         // Handle payment response here
         console.log('Payment response:', response);
