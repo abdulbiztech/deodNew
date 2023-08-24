@@ -14,7 +14,7 @@ export class LandingPageService {
   userIdd: any;
   // private loggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {
-    this.getLoginDetail();
+    // this.getLoginDetail();
   }
 
   // get isLoggedIn() {
