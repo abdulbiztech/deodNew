@@ -74,8 +74,8 @@ export class LandingPageService {
   public createTransaction(amount: number) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
   }
-  public verifyOrder(amount: number) {
-    return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`, amount);
+  public verifyOrder(res:any) {
+    return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`, res);
   }
   // public TotalAmout() {
   //   this.ShowProductDetail();

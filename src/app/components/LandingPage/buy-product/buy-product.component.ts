@@ -49,6 +49,7 @@ export class BuyProductComponent implements OnInit {
   checkoutDetail:any
   orderCurrency:any
   paymentId:any;
+  signature:any;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -271,10 +272,30 @@ checkoutOrder(){
       },
 
       handler: (response: any) => {
-        // Handle payment response here
         console.log('Payment response:', response);
         this.paymentId = response.razorpay_payment_id;
-        this.sendPaymentResponseToServer(response);
+        console.log("this.paymentId",this.paymentId);
+        
+        this.orderId = response.razorpay_order_id;
+        this.signature = response.razorpay_signature;
+        // this.sendPaymentResponseToServer(response);
+        // this.router.navigate(['/success-payment'], { queryParams: { reference: this.paymentId } });
+        this.landingService.verifyOrder(response).subscribe(
+          (verificationResponse: any) => {
+            if (verificationResponse.success) {
+              console.log("Order verification successful:", verificationResponse);
+              // Navigate to success page
+              this.router.navigate(['/success-payment'], { queryParams: { reference: this.paymentId } });
+            } else {
+              console.log("Order verification failed:", verificationResponse);
+              // Handle verification failure, possibly show an error message
+            }
+          },
+          (error) => {
+            console.error("Error verifying order:", error);
+            // Handle error, show an error message
+          }
+        );
       },
     };
 
@@ -283,29 +304,36 @@ checkoutOrder(){
   }
 
   sendPaymentResponseToServer(response: any): void {
-    // console.log("avinash");
-    if (this.paymentId) {
-      this.router.navigate(['/success-payment']);
-    }
-    else{
-      alert("Payment Failed..")
-    }
-    // Make a request to your server to verify the signature using the entire payment response
-    // You should perform this step on the backend for security reasons
   }
+  // Order() {
+  //   this.http
+  //     .post('http://localhost:8080/createOrder', this.checkOutData)
+  //     .subscribe((res) => {
+  //       console.log("reskgdsufg",res);
 
+  //       this.orderId = res;
+  //       this.order = this.orderId.order.id;
+  //       console.log('this.order', this.order);
+  //       this.orderAmt = this.orderId.order.amount;
+  //       console.log(' this.order', this.orderAmt);
+  //     });
+  //   this.initializePayment(this.order);
+  // }
   Order() {
     this.http
-      .post('http://localhost:5000/createOrder', this.checkOutData)
+      .post('http://localhost:8080/createOrder', this.checkOutData)
       .subscribe((res) => {
-        console.log("reskgdsufg",res);
-
+        console.log("reskgdsufg", res);
+  
         this.orderId = res;
         this.order = this.orderId.order.id;
         console.log('this.order', this.order);
         this.orderAmt = this.orderId.order.amount;
-        console.log(' this.order', this.orderAmt);
+        console.log('this.order', this.orderAmt);
+  
+        this.initializePayment(this.order);
       });
-    this.initializePayment(this.order);
   }
+  
+  
 }
