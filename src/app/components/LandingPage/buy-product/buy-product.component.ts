@@ -64,7 +64,6 @@ export class BuyProductComponent implements OnInit {
       reciept: [],
       description: [],
     });
-    // this.initializePayment();
   }
 
   getProductByUserId(){
@@ -91,45 +90,7 @@ export class BuyProductComponent implements OnInit {
 
     });
   }
-  // showProduct(id: any) {
-  //   this.landingService.ShowProductDetail().subscribe((res) => {
-  //     this.product = res;
-  //     this.productDetail = this.product.data.carts;
-  //     this.productDate = this.productDetail.updatedAt;
-  //     this.productDate = new Date().toLocaleDateString();
-  //     for (let index = 0; index < this.productDetail.length; index++) {
-  //       const imagesfirst = this.productDetail[index].imageUrls[0];
-  //       const TotalPrice = this.productDetail[index].price;
-  //       this.total = TotalPrice;
-  //       this.products.push(this.total);
-  //       // console.log("this.products",this.products);
 
-  //       const allsubData = this.productDetail[index];
-  //       this.image = `${environment.apiUrl}/image/${imagesfirst}`;
-  //       this.newData = { ...allsubData, imageUrl: this.image };
-  //       this.images.push(this.newData);
-  //     }
-  //   });
-  // }
-
-
-
-  // getTotalPrice(): number {
-  //   return this.products.reduce((total, product) => total + product, 0);
-  // }
-
-
-
-  // placeOrder(ngForm: FormGroup) {
-  //   this.landingService.createTransaction(ngForm.value).subscribe((res) => {
-  //     this.orderId = res;
-  //     this.order = this.orderId.order.id;
-  //     console.log('this.order', this.order);
-  //     this.orderAmt = this.orderId.order.amount;
-  //     console.log(' this.order', this.orderAmt);
-  //   });
-  //   this.initializePayment();
-  // }
   placeOrder(ngForm: FormGroup) {
     console.log("data coming",ngForm.value);
     // this.http
@@ -145,44 +106,7 @@ export class BuyProductComponent implements OnInit {
     // this.initializePayment();
   }
 
-  // buyNow(id: any) {
-  //   this.http
-  //     .post('http://192.168.1.42:3000/api/checkout', { amount: id })
-  //     .subscribe((res) => {
-  //       console.log('checkout', res);
-  //       this.res = res;
-  //       this.amt = this.res.order.amount;
-  //       this.id = this.res.order.id;
-  //       console.log('this.amt ', this.amt);
-  //     });
-  //   this.initializePayment();
-  // }
-  // Order(id: any) {
-  //   console.log("idd",id);
 
-  //   this.http
-  //     .post('http://localhost:5000/createOrder', { amount: id })
-  //     .subscribe((res) => {
-  //       this.orderId = res;
-  //       this.order = this.orderId.order.id;
-  //       console.log('this.order', this.order);
-  //       this.orderAmt = this.orderId.order.amount;
-  //     });
-  //   this.initializePayment();
-  // }
-//   this.http
-//   .post('http://localhost:5000/createOrder', { amount: id })
-//   .subscribe((res) => {
-//     console.log("reskgdsufg",res);
-
-//     this.orderId = res;
-//     this.order = this.orderId.order.id;
-//     console.log('this.order', this.order);
-//     this.orderAmt = this.orderId.order.amount;
-//     console.log(' this.order', this.orderAmt);
-//   });
-// this.initializePayment();
-// }
 
 removeItem(item:any){
   console.log("item",item);
@@ -201,7 +125,6 @@ checkoutOrder(){
       console.log("order_id",this.orderId);
       this.orderAmt = this.checkoutDetail.order.amount;
       this.orderCurrency = this.checkoutDetail.order.currency
-      // this.initializePayment();
   },(error)=>{
       console.log(error);
 
@@ -209,47 +132,7 @@ checkoutOrder(){
 
 
 }
-  // // ..............
-  // initializePayment() {
-  //   const option = {
 
-  //     key: 'rzp_test_TJzTN2WSRPKOf1',
-  //     amount: this.totalPrice * 100,
-  //     currency: 'INR',
-  //     order_id: this.orderId,
-  //     name: 'My Store',
-  //     description: 'Payment for your order',
-  //     image: 'https://avatars.githubusercontent.com/u/25058652?v=4',
-  //     handler:(response:any)=>{
-  //       if(response! = null && response.razorpay_payment_id !=null){
-  //         this.processRes(response);
-  //       }else{
-  //         alert("Payment Failed..")
-  //       }
-  //     },
-
-  //     callback_url: 'http://localhost:5000/verifyOrder',
-  //     prefill: {
-  //       name: 'Gaurav Kumar',
-  //       email: 'gaurav.kumar@example.com',
-  //       contact: '9999999999',
-  //     },
-  //     notes: {
-  //       address: 'Razorpay Corporate Office',
-  //     },
-  //     theme: {
-  //       color: '#121212',
-  //     },
-  //   };
-
-  //   var razorPayObject = new Razorpay(option);
-  //   razorPayObject.open();
-  // }
-
-  // processRes(res:any){
-  //   console.log("res",res);
-
-  // }
   initializePayment(orderId: string): void {
     const options = {
       key: 'rzp_test_xLCW1I4G9opoDk',
@@ -275,20 +158,15 @@ checkoutOrder(){
         console.log('Payment response:', response);
         this.paymentId = response.razorpay_payment_id;
         console.log("this.paymentId",this.paymentId);
-        
         this.orderId = response.razorpay_order_id;
         this.signature = response.razorpay_signature;
-        // this.sendPaymentResponseToServer(response);
-        // this.router.navigate(['/success-payment'], { queryParams: { reference: this.paymentId } });
         this.landingService.verifyOrder(response).subscribe(
           (verificationResponse: any) => {
             if (verificationResponse.success) {
               console.log("Order verification successful:", verificationResponse);
-              // Navigate to success page
               this.router.navigate(['/success-payment'], { queryParams: { reference: this.paymentId } });
             } else {
               console.log("Order verification failed:", verificationResponse);
-              // Handle verification failure, possibly show an error message
             }
           },
           (error) => {
