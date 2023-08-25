@@ -14,7 +14,7 @@ export class LandingPageService {
   userIdd: any;
   // private loggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {
-    this.getLoginDetail();
+    // this.getLoginDetail();
   }
 
   // get isLoggedIn() {
@@ -48,12 +48,16 @@ export class LandingPageService {
     });
   }
   public cartProduct(id: any) {
+    this.getLoginDetail();
     const headers = new HttpHeaders()
       .set('Authorization', ` ${this.userIdd}`)
       .set('Content-Type', 'application/json');
     const requestBody = {
       modelId: id,
     };
+    console.log('User ID:', this.userIdd);
+    console.log("model id", requestBody.modelId);
+    
     return this.http.post(
       `${environment.apiUrl}` + `/addToCart/` + `${this.userIdd}`,
       requestBody
@@ -61,6 +65,7 @@ export class LandingPageService {
   }
 
   public getCartByUserId() {
+    this.getLoginDetail();
     return this.http.get(
       `${environment.apiUrl}` + `/getCart/` + `${this.userIdd}`
     );
@@ -71,12 +76,12 @@ export class LandingPageService {
       `${environment.apiUrl}` + `/removeCartItem/` + `${this.userIdd}/` + id
     );
   }
-  public createTransaction(amount: number) {
+  public createTransaction(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
   }
   public verifyOrder(res:any) {
     return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`, res);
-  }
+
   // public TotalAmout() {
   //   this.ShowProductDetail();
   //   console.log();
@@ -90,4 +95,5 @@ export class LandingPageService {
   //   };
   //   return this.http.post(apiUrl, body);
   // }
+}
 }

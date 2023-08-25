@@ -76,7 +76,6 @@ export class BuyProductComponent implements OnInit {
         amount: this.totalPrice,
       };
       console.log("this.checkOutData",this.checkOutData);
-      // this.amount=`"amount:"${this.totalPrice}`
       this.mainProduct.items = this.mainProduct.cartId.items
       for (let index = 0; index < this.mainProduct.items.length; index++) {
         const element = this.mainProduct.items[index];
@@ -85,36 +84,22 @@ export class BuyProductComponent implements OnInit {
         const allsubData = this.mainProduct.items[index];
         this.newData = { ...allsubData, imageUrl: this.image };
         this.images.push(this.newData);
-        // console.log("images",this.images);
       }
 
     });
   }
 
-  placeOrder(ngForm: FormGroup) {
-    console.log("data coming",ngForm.value);
-    // this.http
-    // .post('http://localhost:5000/createOrder', { amount: 150000},ngForm.value)
-    // .subscribe((res) => {
-    //   // console.log("reskgdsufg",res);
-    //   this.orderId = res;
-    //   this.order = this.orderId.order.id;
-    //   console.log('this.order', this.order);
-    //   this.orderAmt = this.orderId.order.amount;
-    //   console.log(' this.order', typeof(this.orderAmt));
-    // });
-    // this.initializePayment();
-  }
+  // placeOrder(ngForm: FormGroup) {
+  //   console.log("data coming",ngForm.value);
+  // }
 
 
 
 removeItem(item:any){
   console.log("item",item);
-
   this.landingService.removeCartItem(item.modelId).subscribe((res:any)=>{
       alert("item deleted successfully!")
       this.images.next()
-
   })
 }
 checkoutOrder(){
@@ -127,10 +112,7 @@ checkoutOrder(){
       this.orderCurrency = this.checkoutDetail.order.currency
   },(error)=>{
       console.log(error);
-
   });
-
-
 }
 
   initializePayment(orderId: string): void {
@@ -181,34 +163,19 @@ checkoutOrder(){
     razorPayObject.open();
   }
 
-  sendPaymentResponseToServer(response: any): void {
-  }
-  // Order() {
-  //   this.http
-  //     .post('http://localhost:8080/createOrder', this.checkOutData)
-  //     .subscribe((res) => {
-  //       console.log("reskgdsufg",res);
-
-  //       this.orderId = res;
-  //       this.order = this.orderId.order.id;
-  //       console.log('this.order', this.order);
-  //       this.orderAmt = this.orderId.order.amount;
-  //       console.log(' this.order', this.orderAmt);
-  //     });
-  //   this.initializePayment(this.order);
+  // sendPaymentResponseToServer(response: any): void {
   // }
+
   Order() {
     this.http
       .post('http://localhost:8080/createOrder', this.checkOutData)
       .subscribe((res) => {
         console.log("reskgdsufg", res);
-  
         this.orderId = res;
         this.order = this.orderId.order.id;
         console.log('this.order', this.order);
         this.orderAmt = this.orderId.order.amount;
         console.log('this.order', this.orderAmt);
-  
         this.initializePayment(this.order);
       });
   }
