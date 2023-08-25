@@ -12,6 +12,7 @@ export class LandingPageService {
   tokey_key: any;
   productId: any;
   userIdd: any;
+  useId:any;
   // private loggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {
     // this.getLoginDetail();
@@ -48,15 +49,19 @@ export class LandingPageService {
     });
   }
   public cartProduct(id: any) {
-    this.getLoginDetail();
+    this.dataStore = localStorage.getItem('login');
+    this.tokey_key = JSON.parse(this.dataStore).data;
+    this.productId = this.tokey_key._id;
+    this.onlyToken = this.tokey_key.token;
+    this.userIdd = this.tokey_key.userId;
     const headers = new HttpHeaders()
       .set('Authorization', ` ${this.userIdd}`)
       .set('Content-Type', 'application/json');
     const requestBody = {
       modelId: id,
     };
-    console.log('User ID:', this.userIdd);
-    console.log("model id", requestBody.modelId);
+    // console.log('User ID:', this.userIdd);
+    // console.log("model id", requestBody.modelId);
     
     return this.http.post(
       `${environment.apiUrl}` + `/addToCart/` + `${this.userIdd}`,
@@ -65,15 +70,31 @@ export class LandingPageService {
   }
 
   public getCartByUserId() {
-    this.getLoginDetail();
+    try {
+      const loginData = localStorage.getItem('login');
+      
+      if (loginData !== null) {
+        this.dataStore = JSON.parse(loginData);
+        this.useId = this.dataStore.data.userId 
+        // console.log("this.dataStore",this.dataStore);
+        // console.log("this.useId",this.useId);
+        
+        
+      } else {
+        alert("Please Login first");
+      }
+    } catch (error) {
+      console.error('Error parsing JSON data:', error);
+      this.dataStore = {};
+    }
     return this.http.get(
-      `${environment.apiUrl}` + `/getCart/` + `${this.userIdd}`
+      `${environment.apiUrl}` + `/getCart/` + `${this.useId}`
     );
   }
 
   public removeCartItem(id: any) {
     return this.http.delete(
-      `${environment.apiUrl}` + `/removeCartItem/` + `${this.userIdd}/` + id
+      `${environment.apiUrl}` + `/removeCartItem/` + `${this.useId}/` + id
     );
   }
   public createTransaction(amount: any) {

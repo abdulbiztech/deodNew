@@ -20,6 +20,11 @@ import { OrderHistoryComponent } from './components/Navbar/order-history/order-h
 import { MyComponentComponent } from './components/LandingPage/my-component/my-component.component';
 import { ForgetPassComponent } from './components/Navbar/forget-pass/forget-pass.component';
 import { NewPassComponent } from './components/Navbar/new-pass/new-pass.component';
+import { AccountDetailComponent } from './components/Navbar/account-detail/account-detail.component';
+import { SellModelComponent } from './components/Navbar/sell-model/sell-model.component';
+import { NewArtistComponent } from './components/Navbar/new-artist/new-artist.component';
+import { SupportComponent } from './components/Navbar/support/support.component';
+import { DownloadsComponent } from './components/Navbar/downloads/downloads.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +39,12 @@ import { NewPassComponent } from './components/Navbar/new-pass/new-pass.componen
     OrderHistoryComponent,
     MyComponentComponent,
     ForgetPassComponent,
-    NewPassComponent
+    NewPassComponent,
+    AccountDetailComponent,
+    SellModelComponent,
+    NewArtistComponent,
+    SupportComponent,
+    DownloadsComponent
   ],
   imports: [
     BrowserModule,

@@ -59,39 +59,35 @@ export class BuyProductComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getProductByUserId();
-    this.ngForm = this.fb.group({
-      amount: [],
-      reciept: [],
-      description: [],
-    });
   }
 
   getProductByUserId(){
     this.landingService.getCartByUserId().subscribe((res)=>{
+      console.log("Product by user",res);
+      
       this.mainProduct.response = res
       this.mainProduct.data = this.mainProduct.response.data;
-      this.mainProduct.cartId = this.mainProduct.data;
-      this.totalPrice = this.mainProduct.cartId.totalPrice
+      this.mainProduct.cartId = this.mainProduct.data.cartId;
+      this.mainProduct.items =this.mainProduct.data.items
+      this.totalPrice = this.mainProduct.data.totalPrice;
+      
       this.checkOutData = {
         amount: this.totalPrice,
       };
-      console.log("this.checkOutData",this.checkOutData);
-      this.mainProduct.items = this.mainProduct.cartId.items
+
+      
       for (let index = 0; index < this.mainProduct.items.length; index++) {
         const element = this.mainProduct.items[index];
+        
         const imagesfirst = this.mainProduct.items[index].images[0];
         this.image = `${environment.apiUrl}/image/${imagesfirst}`;
         const allsubData = this.mainProduct.items[index];
         this.newData = { ...allsubData, imageUrl: this.image };
         this.images.push(this.newData);
+        console.log("images",this.images);
       }
-
     });
   }
-
-  // placeOrder(ngForm: FormGroup) {
-  //   console.log("data coming",ngForm.value);
-  // }
 
 
 
@@ -99,7 +95,6 @@ removeItem(item:any){
   console.log("item",item);
   this.landingService.removeCartItem(item.modelId).subscribe((res:any)=>{
       alert("item deleted successfully!")
-      this.images.next()
   })
 }
 checkoutOrder(){
@@ -163,8 +158,7 @@ checkoutOrder(){
     razorPayObject.open();
   }
 
-  // sendPaymentResponseToServer(response: any): void {
-  // }
+
 
   Order() {
     this.http

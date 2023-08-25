@@ -10,6 +10,11 @@ import { OrderHistoryComponent } from './components/Navbar/order-history/order-h
 import { MyComponentComponent } from './components/LandingPage/my-component/my-component.component';
 import { ForgetPassComponent } from './components/Navbar/forget-pass/forget-pass.component';
 import { NewPassComponent } from './components/Navbar/new-pass/new-pass.component';
+import { AccountDetailComponent } from './components/Navbar/account-detail/account-detail.component';
+import { SellModelComponent } from './components/Navbar/sell-model/sell-model.component';
+import { NewArtistComponent } from './components/Navbar/new-artist/new-artist.component';
+import { SupportComponent } from './components/Navbar/support/support.component';
+import { DownloadsComponent } from './components/Navbar/downloads/downloads.component';
 
 const routes: Routes = [
 
@@ -45,6 +50,26 @@ const routes: Routes = [
     {
     path: 'forget-pass',
     component: ForgetPassComponent,
+  },
+  {
+    path: 'account-detail',
+    component: AccountDetailComponent,
+  },
+  {
+    path: 'sell-model',
+    component: SellModelComponent,
+  },
+  {
+    path: 'new-artist',
+    component: NewArtistComponent,
+  },
+  {
+    path: 'support',
+    component: SupportComponent,
+  },
+  {
+    path: 'downloads',
+    component: DownloadsComponent,
   },
   { path: 'reset-password/:_id/:token', component: NewPassComponent }
 
