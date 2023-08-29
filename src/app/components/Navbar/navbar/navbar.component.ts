@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environement';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  isSignedIn: boolean = false;
+  isSignedIn: boolean | undefined ;
   isLoggedIn: boolean = false;
   showDropDown: boolean = false;
   tokey_key: any = [];
@@ -34,24 +34,26 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private landingService: LandingPageService
-  ) {}
+  ) {
+    this.landingService.loggedIn.subscribe((res=>{
+      console.log("response true or false",res);
+      const getValue = localStorage.getItem('login');
+      if (getValue) {
+        this.isSignedIn = res;
+        this.isLoggedIn = res;
+      }
+      else {
+        this.isSignedIn = res;
+        this.isLoggedIn = res;
+      }
+      this.isSignedIn = res
+
+    }))
+  }
   ngOnInit(): void {
     this.getToken();
-    this.checkLoginStatus();
   }
 
-checkLoginStatus(){
-
-  const getValue = localStorage.getItem('login');
-    if (getValue) {
-      this.isSignedIn = true;
-      this.isLoggedIn = true;
-    }
-    else {
-      this.isSignedIn = false;
-      this.isLoggedIn = false;
-    }
-}
 
   getToken() {
     this.dataStore = localStorage.getItem('login');
@@ -64,6 +66,7 @@ checkLoginStatus(){
       (response) => {
         console.log('responses', response);
         alert('User logout successfully');
+        this.landingService.loggedIn.next(false);
         localStorage.removeItem('login');
         this.router.navigate(['/']);
         console.log('logout');

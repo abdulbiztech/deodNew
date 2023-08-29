@@ -37,6 +37,7 @@ export class LoginComponent {
       this.toaster.success('You are successfully Login');
       this.myForm.reset();
       this.router.navigate(['']);
+      this.landgingService.loggedIn.next(true);
       },(err:any) => {
         alert('somemthing went wrong');
       }

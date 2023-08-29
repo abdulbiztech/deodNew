@@ -1,0 +1,78 @@
+.page-item:last-child .page-link {
+  border-radius: 0!important;
+}
+.page-item:first-child .page-link {
+  border-radius: 0!important;
+}
+.footer{
+  background-color: #f9f9f9;
+  padding: 50px 0px;
+}
+ul li{
+  list-style: none;
+  padding-left: 0;
+}
+ol, ul {
+  padding-left: 0;
+}
+
+.list ul li a{
+  color: black;
+  text-decoration: none;
+  font-size:17px;
+  line-height: 30px;
+  word-spacing: 2px;
+
+}
+.list ul li a:hover{
+  color:#dda53f;
+
+
+}
+.list
+{
+  margin:10px;
+}
+.footer-log a{
+color:#f4ab20;
+}
+.list h3{
+  color: #f4ab20;
+  font-size: 20px;
+}
+button:focus{
+  outline: none;
+}
+
+.footerup ul li {
+  display: inline-block;
+  margin-right: 10px;
+  text-decoration: none;
+
+}
+.footerup ul li a{
+  text-decoration: none;
+  color: #adadad;;
+  /* margin: 10px; */
+}
+.footerup a{
+  color: #adadad;
+  text-decoration: none;
+}
+.footerup a:hover{
+  color: #dee2e6;
+}
+.footerup ul li a:hover{
+  color: #dee2e6;
+}
+
+.btm-footer{
+  background:#252532;
+  color:#adadad;
+}
+
+
+select option :hover{
+  background-color: rgb(255, 255, 255) !important;
+  color: rgb(128, 128, 128) !important;
+}

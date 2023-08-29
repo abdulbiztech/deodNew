@@ -7,27 +7,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LandingPageService {
+
   onlyToken: any;
   dataStore: any;
   tokey_key: any;
   productId: any;
   userIdd: any;
   useId:any;
-  // private loggedIn = new BehaviorSubject<boolean>(false);
+ loggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {
-    // this.getLoginDetail();
+  }
+  get loggedIn$(): Observable<boolean> {
+    return this.loggedIn.asObservable();
   }
 
-  // get isLoggedIn() {
-  //   return this.loggedIn.asObservable();
-  // }
-  // login(){
-  //     this.loggedIn.next(true);
-  // }
-
-  // logout() {
-  //   this.loggedIn.next(false);
-  // }
   public getCardDetails() {
     return this.http.get(`${environment.apiUrl}` + `/getAll3DModels`);
   }
@@ -38,7 +31,7 @@ export class LandingPageService {
     this.productId = this.tokey_key._id;
     this.onlyToken = this.tokey_key.token;
     this.userIdd = this.tokey_key.userId;
-    // console.log("user id",this.userIdd);
+    console.log("user id",this.userIdd);
   }
   public logoutFun() {
     const headers = new HttpHeaders({
@@ -62,7 +55,7 @@ export class LandingPageService {
     };
     // console.log('User ID:', this.userIdd);
     // console.log("model id", requestBody.modelId);
-    
+
     return this.http.post(
       `${environment.apiUrl}` + `/addToCart/` + `${this.userIdd}`,
       requestBody
@@ -72,14 +65,14 @@ export class LandingPageService {
   public getCartByUserId() {
     try {
       const loginData = localStorage.getItem('login');
-      
+
       if (loginData !== null) {
         this.dataStore = JSON.parse(loginData);
-        this.useId = this.dataStore.data.userId 
+        this.useId = this.dataStore.data.userId
         // console.log("this.dataStore",this.dataStore);
         // console.log("this.useId",this.useId);
-        
-        
+
+
       } else {
         alert("Please Login first");
       }
