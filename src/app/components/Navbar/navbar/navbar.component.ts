@@ -82,44 +82,10 @@ export class NavbarComponent implements OnInit {
   myProduct(){
     this.router.navigate(['my-product']);
   }
-  // showItem() {
-  //   this.landingService.ShowProductDetail().subscribe(
-  //     (resp) => {
-  //       // console.log('resp', resp);
-  //       this.idResponse = resp;
-  //       this.cartDetail = this.idResponse.data.carts;
-  //       this.productImage = this.cartDetail;
-  //       this.userId = this.idResponse.data._id;
-  //       // console.log('userId', this.userId);
-  //       for (let index = 0; index < this.productImage.length; index++) {
-  //         const imagesfirst = this.productImage[index].imageUrls[0];
-  //         this.productImages = `${environment.apiUrl}/image/${imagesfirst}`;
-  //         this.newImageData = {
-  //           productUrl: this.productImages,
-  //           ...this.productImage[index],
-  //         };
-  //         this.cartProductID = this.productImage[index]._id;
-  //         this.cartProductImages.push(this.newImageData);
-  //       }
-  //       this.noOfProduct = this.cartProductImages.length;
-  //     },
-  //     (error) => {
-  //       console.log('Error retrieving product details:', error);
-  //     }
-  //   );
-  // }
-
 navigateToCart() {
   this.router.navigate(['/login']);
 }
 NavigateBuy(){
   this.router.navigate(['/buy-product']);
 }
-
-// deleteItem(id: any) {
-//   this.landingService.deleteProduct(id).subscribe((res) => {
-//     alert('Cart Remove successfully');
-//     this.ngOnInit();
-//   });
-// }
 }

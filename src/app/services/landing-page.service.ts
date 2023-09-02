@@ -2,25 +2,23 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environement';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class LandingPageService {
-
   onlyToken: any;
   dataStore: any;
   tokey_key: any;
   productId: any;
   userIdd: any;
-  useId:any;
- loggedIn = new BehaviorSubject<boolean>(false);
-  constructor(private http: HttpClient, private router: Router) {
-  }
+  useId: any;
+  loggedIn = new BehaviorSubject<boolean>(false);
+  delete = new Subject<any>();
+  constructor(private http: HttpClient, private router: Router) {}
   get loggedIn$(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
-
   public getCardDetails() {
     return this.http.get(`${environment.apiUrl}` + `/getAll3DModels`);
   }
@@ -31,7 +29,7 @@ export class LandingPageService {
     this.productId = this.tokey_key._id;
     this.onlyToken = this.tokey_key.token;
     this.userIdd = this.tokey_key.userId;
-    console.log("user id",this.userIdd);
+    console.log('user id', this.userIdd);
   }
   public logoutFun() {
     const headers = new HttpHeaders({
@@ -53,8 +51,6 @@ export class LandingPageService {
     const requestBody = {
       modelId: id,
     };
-    // console.log('User ID:', this.userIdd);
-    // console.log("model id", requestBody.modelId);
 
     return this.http.post(
       `${environment.apiUrl}` + `/addToCart/` + `${this.userIdd}`,
@@ -68,13 +64,9 @@ export class LandingPageService {
 
       if (loginData !== null) {
         this.dataStore = JSON.parse(loginData);
-        this.useId = this.dataStore.data.userId
-        // console.log("this.dataStore",this.dataStore);
-        // console.log("this.useId",this.useId);
-
-
+        this.useId = this.dataStore.data.userId;
       } else {
-        alert("Please Login first");
+        // alert('Please Login first');
       }
     } catch (error) {
       console.error('Error parsing JSON data:', error);
@@ -85,7 +77,7 @@ export class LandingPageService {
     );
   }
 
-  public removeCartItem(id: any) {
+  public removeCartItem(id: any): Observable<any> {
     return this.http.delete(
       `${environment.apiUrl}` + `/removeCartItem/` + `${this.useId}/` + id
     );
@@ -93,21 +85,10 @@ export class LandingPageService {
   public createTransaction(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
   }
-  public verifyOrder(res:any) {
+  public verifyOrder(res: any) {
     return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`, res);
-
-  // public TotalAmout() {
-  //   this.ShowProductDetail();
-  //   console.log();
-  // }
-  // public deleteProduct(id: any) {
-  //   const apiUrl =
-  //     `${environment.apiUrl}` + `/deleteCart/` + `${this.productId}`;
-  //   this.getLoginDetail();
-  //   const body = {
-  //     cartId: id,
-  //   };
-  //   return this.http.post(apiUrl, body);
-  // }
-}
+  }
+  emptyCart() {
+    console.log('cart is empty');
+  }
 }

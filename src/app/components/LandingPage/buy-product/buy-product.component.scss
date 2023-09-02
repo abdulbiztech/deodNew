@@ -179,6 +179,15 @@ border-radius: 3px !important;
   display: flex;
   justify-content: end;
 }
+////empty card
+
+.empty-card {
+  padding: 80px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
 @media only screen and (max-width: 600px) {
   // .serach-f{
   //     width: 100%;

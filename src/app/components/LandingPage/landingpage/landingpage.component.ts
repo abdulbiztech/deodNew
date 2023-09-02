@@ -75,21 +75,28 @@ export class LandingpageComponent implements OnInit {
   }
 
   addToCart(id: any) {
-    console.log("id coming",id);
-    
-    this.landingService.cartProduct(id).subscribe(
-      (res:any) => {
-        this.cartData = res;
-        alert('product added successfully');
-        this.router.navigate(['/buy-product'])
-      },
-      (err) => {
-        if (err.status == 400) {
-          alert("Product is already in the cart");
+    const loginInfo = localStorage.getItem('login');
+    if(loginInfo){
+      console.log("id coming",id);
+
+      this.landingService.cartProduct(id).subscribe(
+        (res:any) => {
+          this.cartData = res;
+          alert('product added successfully');
           this.router.navigate(['/buy-product'])
+        },
+        (err) => {
+          if (err.status == 400) {
+            alert("Product is already in the cart");
+            this.router.navigate(['/buy-product'])
+          }
         }
-      }
-    );
+      );
+
+    }else{
+      alert("please Login to buy a product")
+    }
+
   }
   routerToLogin() {
     this.router.navigate(['/login']);
