@@ -29,6 +29,7 @@ export class ProductDetailComponent implements OnInit {
   productImage:any
   visibleImages: any[] = [];
   ngOnInit() {
+    window.scrollTo(1,1);
     this.currentSlide(1);
     this.route.queryParams.subscribe((params) => {
       const receivedData = params['data'];

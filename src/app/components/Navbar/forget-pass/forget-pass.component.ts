@@ -20,7 +20,8 @@ ngOnInit() {
   reset(reset:FormGroup){
     this.http.post<any>(`${environment.apiUrl}`+`/forgetPassword`,this.myForm.value).subscribe((res)=>{
       console.log("reset", res);
-      this.toaster.success('Password reset email sent!', 'Success');
+      this.toaster.success('Password reset email sent successfully!', 'Success');
+      this.router.navigate(['/login'])
     })
   }
 }

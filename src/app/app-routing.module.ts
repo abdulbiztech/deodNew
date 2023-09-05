@@ -85,8 +85,4 @@ export class AppRoutingModule  {
     this.data = localStorage.getItem('login')
     console.log("data",this.data);
   }
-  // getLocalData(){
-
-
-  // }
 }

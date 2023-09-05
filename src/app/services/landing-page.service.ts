@@ -13,7 +13,7 @@ export class LandingPageService {
   productId: any;
   userIdd: any;
   useId: any;
-  loggedIn = new BehaviorSubject<boolean>(false);
+  loggedIn = new Subject<boolean>();
   delete = new Subject<any>();
   constructor(private http: HttpClient, private router: Router) {}
   get loggedIn$(): Observable<boolean> {

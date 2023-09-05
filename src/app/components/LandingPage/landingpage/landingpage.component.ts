@@ -116,6 +116,7 @@ export class LandingpageComponent implements OnInit {
         this.parentData = filterDetail.images;
         const dataToSend = this.parentData;
         this.router.navigate(['/product-detail'], {
+
           queryParams: { data: dataToSend },
         });
       });

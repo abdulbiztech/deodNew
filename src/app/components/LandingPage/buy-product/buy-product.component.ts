@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
 import { Product } from './buy-product.model';
+import { ToastrService } from 'ngx-toastr';
 declare var Razorpay: any;
 
 @Component({
@@ -50,16 +51,15 @@ export class BuyProductComponent implements OnInit {
   orderCurrency: any;
   paymentId: any;
   signature: any;
-  loginCheck:any
+  loginCheck: any;
   constructor(
     private http: HttpClient,
     private router: Router,
     private landingService: LandingPageService,
     public datepipe: DatePipe,
-    private fb: FormBuilder
-  ) {
-
-  }
+    private fb: FormBuilder,
+    private toaster:ToastrService
+  ) {}
   ngOnInit(): void {
     this.getProductByUserId();
     this.isLoggedIn();
@@ -95,13 +95,12 @@ export class BuyProductComponent implements OnInit {
   removeItem(item: any) {
     console.log('item', item);
     this.landingService.removeCartItem(item.modelId).subscribe((res: any) => {
-      console.log("item res",res);
-      const productList = res
-      console.log("productList",productList.data.items);
-
-
-      alert('item deleted successfully!');
-      // this.landingService.delete.next(this.getProductByUserId);
+      console.log('item res', res);
+      const productList = res;
+      console.log('productList', productList.data.items);
+      this.landingService.delete.next(this.getProductByUserId);
+      // alert('item deleted successfully!');
+      this.toaster.error('Item Deleted successfully');
 
     });
   }
