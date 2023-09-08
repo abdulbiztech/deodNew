@@ -76,6 +76,8 @@ export class LandingpageComponent implements OnInit {
   }
 
   addToCart(id: any) {
+    console.log("id coming right now",id);
+
     const loginInfo = localStorage.getItem('login');
     if(loginInfo){
       console.log("id coming",id);

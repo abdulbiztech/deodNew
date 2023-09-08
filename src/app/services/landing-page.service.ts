@@ -13,12 +13,16 @@ export class LandingPageService {
   productId: any;
   userIdd: any;
   useId: any;
-  loggedIn = new Subject<boolean>();
+  public loggedIn = new BehaviorSubject<any>(false);
+  // loggedIn = new BehaviorSubject<boolean>(false);
   delete = new Subject<any>();
-  constructor(private http: HttpClient, private router: Router) {}
-  get loggedIn$(): Observable<boolean> {
-    return this.loggedIn.asObservable();
+  constructor(private http: HttpClient, private router: Router) {
+    const userLoggedIn = localStorage.getItem('login');
+    this.loggedIn.next(userLoggedIn);
   }
+  // get loggedIn$(): Observable<boolean> {
+  //   return this.loggedIn.asObservable();
+  // }
   public getCardDetails() {
     return this.http.get(`${environment.apiUrl}` + `/getAll3DModels`);
   }
@@ -41,7 +45,11 @@ export class LandingPageService {
   }
   public cartProduct(id: any) {
     this.dataStore = localStorage.getItem('login');
+    console.log("this.dataStore",this.dataStore);
+
     this.tokey_key = JSON.parse(this.dataStore).data;
+    console.log("this.tokey_key",this.tokey_key);
+
     this.productId = this.tokey_key._id;
     this.onlyToken = this.tokey_key.token;
     this.userIdd = this.tokey_key.userId;
@@ -90,5 +98,8 @@ export class LandingPageService {
   }
   emptyCart() {
     console.log('cart is empty');
+  }
+  isLoggedIn() {
+    return this.loggedIn.asObservable();
   }
 }

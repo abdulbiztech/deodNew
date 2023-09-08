@@ -1,17 +1,16 @@
 .main-box{
-  position: absolute;
-  background-color:#20213d;
+  background-color: #20213d;
   width: 100%;
-  min-height:92vh;
-  // background-size: cover;
-
+  min-height: 92vh;
+  background-size: cover;
+  position: relative;
 }
 .log-main-box{
   padding: 20px;
   width: 600px;
   height: auto;
   position: relative;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

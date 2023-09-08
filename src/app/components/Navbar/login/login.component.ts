@@ -32,14 +32,14 @@ export class LoginComponent {
     this.http.post<any>(`${environment.apiUrl}`+`/loginUser`,this.myForm.value).subscribe((res)=> {
       this.userState = res;
       const jsonData = JSON.stringify(this.userState)
-      localStorage.setItem('login', jsonData);
+      console.log("jsonData",jsonData);
       this.tokey_key = this.userState.data
       this.toaster.success('You are successfully Login');
       this.myForm.reset();
       this.router.navigate(['']);
       this.landgingService.loggedIn.next(true);
-      },(err:any) => {
-        alert('somemthing went wrong');
+      localStorage.setItem('login', jsonData);
+      // localStorage.setItem('login', 'true');
       }
 
     );
