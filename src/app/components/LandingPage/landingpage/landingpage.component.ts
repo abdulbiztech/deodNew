@@ -47,6 +47,7 @@ export class LandingpageComponent implements OnInit {
   ngOnInit(): void {
     this.getCartDetail();
     this.checkLocalStorageLoginStatus();
+
   }
 
   checkLocalStorageLoginStatus() {
