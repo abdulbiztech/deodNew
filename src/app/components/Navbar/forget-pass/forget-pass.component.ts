@@ -7,21 +7,36 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-forget-pass',
   templateUrl: './forget-pass.component.html',
-  styleUrls: ['./forget-pass.component.scss']
+  styleUrls: ['./forget-pass.component.scss'],
 })
 export class ForgetPassComponent {
   myForm!: FormGroup;
-constructor(private http: HttpClient,private router: Router,private fb: FormBuilder,private toaster: ToastrService){}
-ngOnInit() {
-  this.myForm = this.fb.group({
-    email: [''],
-  });
-}
-  reset(reset:FormGroup){
-    this.http.post<any>(`${environment.apiUrl}`+`/forgetPassword`,this.myForm.value).subscribe((res)=>{
-      console.log("reset", res);
-      this.toaster.success('Password reset email sent successfully!', 'Success');
-      this.router.navigate(['/login'])
-    })
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private fb: FormBuilder,
+    private toaster: ToastrService
+  ) {}
+  ngOnInit() {
+    this.myForm = this.fb.group({
+      email: [''],
+    });
+  }
+  reset(reset: FormGroup) {
+    this.http
+      .post<any>(`${environment.apiUrl}` + `/forgetPassword`, this.myForm.value)
+      .subscribe((res) => {
+        console.log('reset', res);
+        this.toaster.success(
+          'We have e-mailed your password reset link!',
+          'Success'
+        );
+        this.router.navigate(['/login']);
+      },
+      (err)=>{
+        console.log("err",err);
+
+        this.toaster.error("Email not found!", "Error");
+      });
   }
 }

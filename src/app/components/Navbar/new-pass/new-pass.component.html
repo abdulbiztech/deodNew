@@ -1,7 +1,6 @@
-<h2>Hello</h2>
+<!-- <h2>Hello</h2> -->
 
-
-<!-- <div class="main-box">
+<div class="main-box">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -13,31 +12,28 @@
             </h6>
           </div>
           <div class="log-box">
-            <form [formGroup]="myForm" (ngSubmit)="newset(myForm)">
-              <div class="mb-3">
+            <form [formGroup]="myForm" >
+
+              <div class="form-group">
                 <label for="exampleInputEmail1" class="form-label">Password</label>
-                <input
-                  type="text"
-                  placeholder="Enter Password"
-                  formControlName="password"
-                  class="form-control cus-form"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                />
-              </div>
+                <div class="input-field" [class.error]="
+                    myForm.controls['password'].dirty &&
+                    myForm.hasError('required', 'password')
+                  ">
+                  <input type="text" placeholder="Enter Password" formControlName="password"
+                    class="form-control cus-form"  />
+                </div></div>
+
+                <small *ngIf="
+                    myForm.controls['password'].dirty &&
+                    myForm.hasError('required', 'password')">*Password is require*</small>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
-                <input
-                  type="text"
-                  placeholder="Enter Confirm Password"
-                  formControlName="cnfPassword"
-                  class="form-control cus-form"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                />
+                <input type="text" placeholder="Enter Confirm Password" formControlName="confirmPassword"
+                  class="form-control cus-form" id="exampleInputEmail1" aria-describedby="emailHelp" />
               </div>
               <div class="text-center">
-                <button type="submit" class="btn cus-btn">
+                <button type="submit" (click)="reset()" class="btn cus-btn">
                   Reset Password
                 </button>
               </div>
@@ -55,4 +51,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

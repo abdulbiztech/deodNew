@@ -71,7 +71,7 @@ const routes: Routes = [
     path: 'downloads',
     component: DownloadsComponent,
   },
-  { path: 'reset-password/:_id/:token', component: NewPassComponent }
+  { path: 'reset-password/:userId/:token', component: NewPassComponent }
 
 ];
 
@@ -80,9 +80,9 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule  {
-  data:any;
-  ngOnInit(){
-    this.data = localStorage.getItem('login')
-    console.log("data",this.data);
-  }
+  // data:any;
+  // ngOnInit(){
+  //   this.data = localStorage.getItem('login')
+  //   console.log("data",this.data);
+  // }
 }

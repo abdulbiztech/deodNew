@@ -35,20 +35,6 @@ export class NavbarComponent implements OnInit {
     private http: HttpClient,
     private landingService: LandingPageService
   ) {
-    // this.landingService.loggedIn.subscribe((res=>{
-    //   console.log("response true or false",res);
-    //   const getValue = localStorage.getItem('login');
-    //   if (getValue) {
-    //     this.isSignedIn = res;
-    //     this.isLoggedIn = res;
-    //   }
-    //   else {
-    //     this.isSignedIn = res;
-    //     this.isLoggedIn = res;
-    //   }
-    //   this.isSignedIn = res
-
-    // }))
   }
   ngOnInit(): void {
     this.landingService.isLoggedIn().subscribe((loggedIn) => {
