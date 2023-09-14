@@ -12,7 +12,7 @@
             </h6>
           </div>
           <div class="log-box">
-            <form [formGroup]="myForm" >
+            <!-- <form [formGroup]="myForm" (ngSubmit)="reset()" >
 
               <div class="form-group">
                 <label for="exampleInputEmail1" class="form-label">Password</label>
@@ -32,12 +32,25 @@
                 <input type="text" placeholder="Enter Confirm Password" formControlName="confirmPassword"
                   class="form-control cus-form" id="exampleInputEmail1" aria-describedby="emailHelp" />
               </div>
-              <div class="text-center">
-                <button type="submit" (click)="reset()" class="btn cus-btn">
-                  Reset Password
-                </button>
+              <button type="submit" class="btn cus-btn">Reset Password</button>
+            </form> -->
+            <form [formGroup]="myForm" (ngSubmit)="reset()">
+
+              <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-field" [class.error]="myForm.controls['password'].dirty && myForm.get('password')?.hasError('required')">
+                  <input type="password" placeholder="Enter Password" formControlName="password" class="form-control cus-form" id="password" />
+                </div>
+                <small class="text-danger" *ngIf="myForm.controls['password'].dirty && myForm.get('password')?.hasError('required')">* Password is required *</small>
               </div>
+
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" placeholder="Enter Confirm Password" formControlName="confirmPassword" class="form-control cus-form" id="confirmPassword" />
+              </div>
+              <button type="submit" class="btn cus-btn">Reset Password</button>
             </form>
+
           </div>
           <div class="row py-3">
             <div class="col-6">

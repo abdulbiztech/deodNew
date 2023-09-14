@@ -149,16 +149,16 @@ export class BuyProductComponent implements OnInit {
         this.signature = response.razorpay_signature;
         this.landingService.verifyOrder(response).subscribe(
           (verificationResponse: any) => {
+            console.log("verificationResponse.success",verificationResponse.success);
+
             if (verificationResponse.success) {
-              console.log(
-                'Order verification successful:',
-                verificationResponse
-              );
+              console.log('Order verification successful:', verificationResponse);
               this.router.navigate(['/success-payment'], {
                 queryParams: { reference: this.paymentId },
               });
             } else {
               console.log('Order verification failed:', verificationResponse);
+              console.error('Verification Response:', verificationResponse);
             }
           },
           (error) => {

@@ -93,8 +93,13 @@ export class LandingPageService {
   public createTransaction(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
   }
-  public verifyOrder(res: any) {
-    return this.http.post(`${environment.apiUrl}` + `/verifyOrder/`, res);
+  public verifyOrder(res: any){
+    this.dataStore = localStorage.getItem('login');
+    console.log("this.dataStore",this.dataStore);
+
+    this.tokey_key = JSON.parse(this.dataStore).data;
+    this.userIdd = this.tokey_key.userId;
+    return this.http.post(`${environment.apiUrl}` + `/verifyOrder/${this.userIdd}`, res);
   }
   emptyCart() {
     console.log('cart is empty');

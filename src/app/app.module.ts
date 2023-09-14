@@ -53,7 +53,7 @@ import { DownloadsComponent } from './components/Navbar/downloads/downloads.comp
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({timeOut : 1000}),
+    ToastrModule.forRoot({timeOut : 1500}),
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

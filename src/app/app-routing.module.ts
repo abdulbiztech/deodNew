@@ -80,9 +80,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule  {
-  // data:any;
-  // ngOnInit(){
-  //   this.data = localStorage.getItem('login')
-  //   console.log("data",this.data);
-  // }
+
 }
