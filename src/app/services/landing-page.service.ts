@@ -107,4 +107,14 @@ export class LandingPageService {
   isLoggedIn() {
     return this.loggedIn.asObservable();
   }
+
+
+  public getProduct() {
+    this.dataStore = localStorage.getItem('login');
+    // console.log("this.dataStore",this.dataStore);
+
+    this.tokey_key = JSON.parse(this.dataStore).data;
+    this.userIdd = this.tokey_key.userId;
+    return this.http.get(`${environment.apiUrl}` + `/getPyamentBy/${this.userIdd}`);
+  }
 }

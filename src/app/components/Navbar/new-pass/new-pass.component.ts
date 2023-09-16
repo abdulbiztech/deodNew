@@ -127,7 +127,6 @@ reset() {
           this.router.navigate(['/login']);
         } else {
           console.log("Something went wrong");
-          // Handle other error cases or display an appropriate message
         }
       },
       (error) => {

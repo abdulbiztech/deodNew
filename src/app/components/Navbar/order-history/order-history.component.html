@@ -1,8 +1,4 @@
-<!-- <app-navbar></app-navbar> -->
-<!-- <section>
-    <h1 class="main-item">There are no previous orders available to view.</h1>
-</section> -->
-<div class="container">
+<div class="container" *ngIf="false">
   <div class="row">
     <div class="col-12">
       <div class="header">
@@ -37,101 +33,138 @@
     </div>
   </div>
 </div>
-              <!--  -->
-              <div class="shopping-cart">
-                <!-- Title -->
-                <div class="title">
-                  Shopping Bag
-                </div>
 
-                <!-- Product #1 -->
-                <div class="item">
-                  <div class="buttons">
-                    <span class="delete-btn"></span>
-                    <span class="like-btn"></span>
-                  </div>
+<section class="section products-page">
+  <div class="container">
+    <div class="row g-3">
+      <div  *ngFor="let item of allProduct;let i = index" class="col-12">
+        <div class="card shadow-sm">
+          <div class="row g-3">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="image">
+                <img [src]="item.image" alt="eg" />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="order-info">
+                <h4>Order #{{item.modelId}}</h4>
+                <p class="mb-1"><b>Purchased:</b> {{createdAt | date}}</p>
 
-                  <div class="image">
-                    <img src="https://designmodo.com/demo/shopping-cart/item-1.png" alt="" />
-                  </div>
+                <p><b>Total Items:</b> {{item.quantity}}</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="order-info info-text">
+                <h4>${{item.price}}</h4>
+                <p>include $0.0 tax</p>
+                <p>
+                  <a href="#"
+                    ><i class="far fa-file-alt me-2"></i> View Order
+                    Confirmation</a
+                  >
+                </p>
+                <p>
+                  <a href="#"
+                    ><i class="far fa-pencil-alt me-2"></i> Create
+                    Invoice</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="order-info">
+                <a href="#" class="button">Support Tickets</a>
+                <a href="#" class="button">Request Refund</a>
+                <a (click)="redirect()" class="button download-btn">Show Downloads</a>
+                <!-- <div class="dropdown">
+                  <a
+                    class="btn btn-secondary dropdown-toggle w-100"
+                    href="#"
+                    role="button"
+                    routerLink="downloads"
+                    aria-expanded="false"
+                  >
+                    Show Downloads
+                  </a>
 
-                  <div class="description">
-                    <span>Common Projects</span>
-                    <span>Bball High</span>
-                    <span>White</span>
-                  </div>
+                  <ul class="dropdown-menu shadow">
+                    <li><a class="dropdown-item" href="#">Product 1</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Product 2</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Product 3</a>
+                    </li>
+                  </ul>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="row g-3">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="image">
+                <img src="/assets/images/products/car.jpg" alt="" />
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="order-info">
+                <h4>Order #5217011</h4>
+                <p class="mb-1"><b>Purchased:</b> 15/21/2023</p>
+                <p><b>Total Items:</b> 1</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="order-info info-text">
+                <h4>$500.70</h4>
+                <p>include $1.80 tax</p>
+                <p>
+                  <a href="#"
+                    ><i class="far fa-file-alt me-2"></i> View Order
+                    Confirmation</a
+                  >
+                </p>
+                <p>
+                  <a href="#"
+                    ><i class="far fa-pencil-alt me-2"></i> Create
+                    Invoice</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="order-info">
+                <a href="#" class="button">Support Tickets</a>
+                <a href="#" class="button">Request Refund</a>
+                <div class="dropdown">
+                  <a
+                    class="btn btn-secondary dropdown-toggle w-100"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Show Downloads
+                  </a>
 
-                  <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-                      <img src="https://designmodo.com/demo/shopping-cart/plus.svg" alt="" />
-                    </button>
-                    <input type="text" name="name" value="1">
-                    <button class="minus-btn" type="button" name="button">
-                      <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" />
-                    </button>
-                  </div>
-
-                  <div class="total-price">$549</div>
-                </div>
-
-                <!-- Product #2 -->
-                <div class="item">
-                  <div class="buttons">
-                    <span class="delete-btn"></span>
-                    <span class="like-btn"></span>
-                  </div>
-
-                  <div class="image">
-                    <img src="https://designmodo.com/demo/shopping-cart/item-2.png" alt=""/>
-                  </div>
-
-                  <div class="description">
-                    <span>Maison Margiela</span>
-                    <span>Future Sneakers</span>
-                    <span>White</span>
-                  </div>
-
-                  <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-                      <img src="https://designmodo.com/demo/shopping-cart/plus.svg" alt="" />
-                    </button>
-                    <input type="text" name="name" value="1">
-                    <button class="minus-btn" type="button" name="button">
-                      <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" />
-                    </button>
-                  </div>
-
-                  <div class="total-price">$870</div>
-                </div>
-
-                <!-- Product #3 -->
-                <div class="item">
-                  <div class="buttons">
-                    <span class="delete-btn"></span>
-                    <span class="like-btn"></span>
-                  </div>
-
-                  <div class="image">
-                    <img src="https://designmodo.com/demo/shopping-cart/item-3.png" alt="" />
-                  </div>
-
-                  <div class="description">
-                    <span>Our Legacy</span>
-                    <span>Brushed Scarf</span>
-                    <span>Brown</span>
-                  </div>
-
-                  <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-                      <img src="https://designmodo.com/demo/shopping-cart/plus.svg" alt="" />
-                    </button>
-                    <input type="text" name="name" value="1">
-                    <button class="minus-btn" type="button" name="button">
-                      <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" />
-                    </button>
-                  </div>
-
-                  <div class="total-price">$349</div>
+                  <ul class="dropdown-menu shadow">
+                    <li><a class="dropdown-item" href="#">Product 1</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Product 2</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Product 3</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <!--  -->
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>

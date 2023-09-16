@@ -1,38 +1,252 @@
-/* Reset some default styles */
-body, h1, p {
-    margin: 0;
-    padding: 0;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sawarabi+Gothic&display=swap");
+
+$sans-serif: "Noto Sans", sans-serif;
+$sans-serif-alt: "Sawarabi Gothic", sans-serif;
+
+$primary: #00026e;
+$light: #fff;
+$light-alt: #f8f9fd;
+$dark: #202024;
+$dark-alt: #5f5f69;
+
+
+
+*::selection {
+  background: $primary;
+  color: $light;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: $dark;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: $light;
+  font-family: $sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  background: $light;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+b,
+i,
+u,
+ul,
+ol,
+li,
+span {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  line-height: 100%;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+img,
+video {
+  width: 100%;
+}
+
+p {
+  font-size: 15px;
+  font-weight: 400;
+  color: $dark-alt;
+  line-height: 160%;
+}
+
+p a {
+  color: $dark-alt;
+  transition: 0.5s ease all;
+}
+
+p a:hover {
+  color: $primary;
+}
+
+/* Background */
+.bg-primary {
+  background: $primary !important;
+}
+
+.bg-light {
+  background: $light !important;
+}
+.bg-light-alt {
+  background: $light-alt !important;
+}
+.bg-dark {
+  background: $dark !important;
+}
+.bg-dark-alt {
+  background: $dark-alt !important;
+}
+
+/* Color */
+.text-primary {
+  color: $primary !important;
+}
+
+
+.text-light {
+  color: $light !important;
+}
+.text-light-alt {
+  color: $light-alt !important;
+}
+.text-dark {
+  color: $dark !important;
+}
+.text-dark-alt {
+  color: $dark-alt !important;
+}
+
+/* Section */
+.section {
+  width: 100%;
+  padding: 50px 0;
+  position: relative;
+}
+
+@media (min-width: 1400px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1360px;
   }
-  
-  /* Page styles */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .coming-soon-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 400px;
-  }
-  
-  .coming-soon-card h1 {
-    color: #007bff;
-    margin-bottom: 10px;
-  }
-  
-  .coming-soon-card p {
-    color: #333;
-  }
-  
-  /* Add additional styling as needed */
-  
+}
+
+.button:hover {
+
+  color: $light;
+}
+
+
+.download-page .main-table {
+  /* border: ; */
+  padding: 0;
+  border-radius: 0;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.download-page .table-icon .icon-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.download-page .table-icon .icon-info img {
+  width: 25px;
+}
+
+.download-page .table-icon .icon-info p {
+  font-size: 15px;
+}
+
+.download-page .text-table .button {
+  border: 0;
+  background: $primary;
+  border-radius: 4px;
+  color: $light;
+  padding: 5px 15px;
+  font-size: 14px;
+}
+
+.download-page .table-content thead th {
+  font-size: 14px;
+  color: $dark;
+  font-weight: bold;
+  /* border: 1px solid #9e9e9e79; */
+}
+
+.download-page .table-content thead th:nth-child(1) {
+  width: 8%;
+}
+.download-page .table-content thead th:nth-child(2) {
+  width: 47%;
+}
+.download-page .table-content thead th:nth-child(3) {
+  width: 10%;
+}
+.download-page .table-content thead th:nth-child(4) {
+  width: 15%;
+}
+.download-page .table-content thead th:nth-child(5) {
+  width: 15%;
+}
+
+.download-page .table-content tr td h5 {
+  font-size: 16px;
+  font-weight: 600;
+  color: $dark;
+  margin-bottom: 10px;
+}
+
+.download-page .table-content tr td {
+  background: $light-alt;
+}
+
+.download-page .text-table tr td {
+  background: $light-alt;
+}
+
+.download-page .table thead th {
+  background: #f2f2f2;
+}
+
+.download-page .table-content tr td p {
+  font-size: 14px;
+}
+
+.download-page .table {
+  margin-bottom: 0;
+}
+
+.download-page .table .star-icon {
+  color: $dark-alt;
+}
+
+.download-page .form-check-input:checked {
+  background-color: #00026e;
+  border-color: #00026e;
+}
+
+.download-page .form-check-input:focus {
+  box-shadow: 0 0 0 3px rgb(0 2 110 / 6%);
+}
+
+.download-page .table thead th .form-check .form-check-input {
+  // margin-left:  0 !important;
+  text-align: center;
+  margin: 5px;
+  padding: 6px;
+}

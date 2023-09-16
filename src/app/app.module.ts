@@ -25,6 +25,7 @@ import { SellModelComponent } from './components/Navbar/sell-model/sell-model.co
 import { NewArtistComponent } from './components/Navbar/new-artist/new-artist.component';
 import { SupportComponent } from './components/Navbar/support/support.component';
 import { DownloadsComponent } from './components/Navbar/downloads/downloads.component';
+import { InvoiceComponent } from './components/Navbar/invoice/invoice.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { DownloadsComponent } from './components/Navbar/downloads/downloads.comp
     SellModelComponent,
     NewArtistComponent,
     SupportComponent,
-    DownloadsComponent
+    DownloadsComponent,
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,
