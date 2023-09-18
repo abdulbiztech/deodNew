@@ -19,6 +19,7 @@ export class OrderHistoryComponent {
   createdAt: string = "2023-09-14T11:36:14.707Z"; // Your date string
   formattedDate: any;
   currentDate = new Date();
+  orderID:any;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -38,6 +39,10 @@ export class OrderHistoryComponent {
       const data = this.products.data;
       for (let index = 0; index < data.length; index++) {
         const element = data[index];
+        // console.log("element",element);
+        this.orderID = element.orderId
+        // console.log("orderID",this.orderID);
+
         this.createdAt = element.createdAt;
         const items = element.items;
         for (let index = 0; index < items.length; index++) {
@@ -49,7 +54,15 @@ export class OrderHistoryComponent {
       }
     });
   }
-  redirect(){
+  redirect(item:any){
+    this.landingService.getDownload(this.orderID,item.modelId).subscribe((res:any)=>{
+      console.log("res",res);
+      this.landingService.setData(res)
     this.router.navigate(['downloads'])
+    })
+
+  }
+  navigate(){
+    this.router.navigate(['/invoice'])
   }
 }

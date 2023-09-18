@@ -64,7 +64,7 @@
                   >
                 </p>
                 <p>
-                  <a href="#"
+                  <a (click)="navigate()"
                     ><i class="far fa-pencil-alt me-2"></i> Create
                     Invoice</a
                   >
@@ -75,7 +75,7 @@
               <div class="order-info">
                 <a href="#" class="button">Support Tickets</a>
                 <a href="#" class="button">Request Refund</a>
-                <a (click)="redirect()" class="button download-btn">Show Downloads</a>
+                <a (click)="redirect(item)" class="button download-btn">Show Downloads</a>
                 <!-- <div class="dropdown">
                   <a
                     class="btn btn-secondary dropdown-toggle w-100"

@@ -74,7 +74,7 @@ const routes: Routes = [
   },
   { path: 'reset-password/:userId/:token', component: NewPassComponent },
   { path: 'order-history', component: OrderHistoryComponent },
-  { path: 'invoice', component: InvoiceComponent },
+  { path: 'order-detail/invoice', component: InvoiceComponent },
 
 ];
 
