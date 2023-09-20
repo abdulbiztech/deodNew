@@ -14,7 +14,6 @@ import { ProductDetailComponent } from './components/LandingPage/product-detail/
 import { BuyProductComponent } from './components/LandingPage/buy-product/buy-product.component';
 import { DatePipe } from '@angular/common'
 import { ToastrModule } from 'ngx-toastr';
-
 import { SuccessPaymentComponent } from './components/LandingPage/success-payment/success-payment.component';
 import { OrderHistoryComponent } from './components/Navbar/order-history/order-history.component';
 import { MyComponentComponent } from './components/LandingPage/my-component/my-component.component';

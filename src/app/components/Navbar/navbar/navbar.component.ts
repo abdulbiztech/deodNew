@@ -41,14 +41,14 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = loggedIn;
       this.isSignedIn! = loggedIn;
     });
-    this.getToken();
+    // this.getToken();
   }
 
 
   getToken() {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
-    const getID = this.tokey_key._id
+    // const getID = this.tokey_key._id
     this.onlyToken = this.tokey_key.token;
   }
   Logout() {

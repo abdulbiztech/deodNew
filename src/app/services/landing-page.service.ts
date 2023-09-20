@@ -112,17 +112,13 @@ export class LandingPageService {
 
   public getProduct() {
     this.dataStore = localStorage.getItem('login');
-    // console.log("this.dataStore",this.dataStore);
-
     this.tokey_key = JSON.parse(this.dataStore).data;
     this.userIdd = this.tokey_key.userId;
     return this.http.get(`${environment.apiUrl}` + `/getPyamentBy/${this.userIdd}`);
   }
 
   public getDownload(orderId: string, modelId: string){
-    // console.log("item",orderId,modelId);
-
-    return this.http.get(`${environment.apiUrl}` + `/downloadOrder/${this.userIdd}/${orderId}/`+modelId);
+    return this.http.post(`${environment.apiUrl}` + `/downloadOrder/${this.userIdd}/${orderId}/${modelId}`,'');
   }
   private dataSubject = new Subject<any>();
   data$ = this.dataSubject.asObservable();

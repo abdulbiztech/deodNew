@@ -7,19 +7,20 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.scss']
+  styleUrls: ['./order-history.component.scss'],
 })
 export class OrderHistoryComponent {
-  show: boolean = false;
+  show: any;
   date: Date;
   products: any;
-  allProduct:any[] = [];
-  images:any;
-  image:any;
-  createdAt: string = "2023-09-14T11:36:14.707Z"; // Your date string
+  allProduct: any[] = [];
+  images: any;
+  image: any;
+  createdAt: string = '2023-09-14T11:36:14.707Z'; // Your date string
   formattedDate: any;
   currentDate = new Date();
-  orderID:any;
+  orderID: any;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -30,7 +31,6 @@ export class OrderHistoryComponent {
   }
   ngOnInit(): void {
     this.getProductDetail();
-
   }
 
   getProductDetail() {
@@ -39,10 +39,8 @@ export class OrderHistoryComponent {
       const data = this.products.data;
       for (let index = 0; index < data.length; index++) {
         const element = data[index];
-        // console.log("element",element);
-        this.orderID = element.orderId
-        // console.log("orderID",this.orderID);
-
+        console.log('element', element);
+        this.orderID = element.orderId;
         this.createdAt = element.createdAt;
         const items = element.items;
         for (let index = 0; index < items.length; index++) {
@@ -54,15 +52,19 @@ export class OrderHistoryComponent {
       }
     });
   }
-  redirect(item:any){
-    this.landingService.getDownload(this.orderID,item.modelId).subscribe((res:any)=>{
-      console.log("res",res);
-      this.landingService.setData(res)
-    this.router.navigate(['downloads'])
-    })
+  redirect(item: any) {
+    this.landingService
+      .getDownload(this.orderID, item.modelId)
+      .subscribe((res: any) => {
+        console.log('res', res);
+        this.landingService.setData(res);
+        this.router.navigate(['downloads']);
+      },(err)=>{
+        console.log("error coming",err);
 
+      });
   }
-  navigate(){
-    this.router.navigate(['/invoice'])
+  navigate() {
+    this.router.navigate(['/invoice']);
   }
 }

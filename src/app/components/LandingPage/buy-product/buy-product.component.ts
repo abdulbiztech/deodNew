@@ -124,7 +124,7 @@ export class BuyProductComponent implements OnInit {
     const options = {
       key: 'rzp_test_xLCW1I4G9opoDk',
       amount: this.totalPrice * 100,
-      currency: 'INR',
+      currency: 'USD',
       name: 'My Store',
       description: 'Payment for your order',
       image: 'https://avatars.githubusercontent.com/u/25058652?v=4',
