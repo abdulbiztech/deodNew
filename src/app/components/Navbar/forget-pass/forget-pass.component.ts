@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environement';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-forget-pass',
@@ -19,10 +19,11 @@ export class ForgetPassComponent {
   ) {}
   ngOnInit() {
     this.myForm = this.fb.group({
-      email: [''],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
   reset(reset: FormGroup) {
+    if (this.myForm.valid) {
     this.http
       .post<any>(`${environment.apiUrl}` + `/forgetPassword`, this.myForm.value)
       .subscribe((res) => {
@@ -39,4 +40,5 @@ export class ForgetPassComponent {
         this.toaster.error("Email not found!", "Error");
       });
   }
+}
 }

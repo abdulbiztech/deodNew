@@ -25,6 +25,7 @@ import { NewArtistComponent } from './components/Navbar/new-artist/new-artist.co
 import { SupportComponent } from './components/Navbar/support/support.component';
 import { DownloadsComponent } from './components/Navbar/downloads/downloads.component';
 import { InvoiceComponent } from './components/Navbar/invoice/invoice.component';
+import { SearchFilterPipe } from './components/LandingPage/landingpage/search-filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { InvoiceComponent } from './components/Navbar/invoice/invoice.component'
     NewArtistComponent,
     SupportComponent,
     DownloadsComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,

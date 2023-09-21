@@ -36,10 +36,11 @@ export class OrderHistoryComponent {
   getProductDetail() {
     this.landingService.getProduct().subscribe((res: any) => {
       this.products = res;
+      // console.log('this.products ', this.products);
       const data = this.products.data;
       for (let index = 0; index < data.length; index++) {
         const element = data[index];
-        console.log('element', element);
+        // console.log('element', element);
         this.orderID = element.orderId;
         this.createdAt = element.createdAt;
         const items = element.items;
@@ -52,17 +53,17 @@ export class OrderHistoryComponent {
       }
     });
   }
-  redirect(item: any) {
-    this.landingService
-      .getDownload(this.orderID, item.modelId)
-      .subscribe((res: any) => {
+  downloadProduct(item: any) {
+    this.landingService.getDownload(this.orderID, item.modelId).subscribe(
+      (res: any) => {
         console.log('res', res);
         this.landingService.setData(res);
         this.router.navigate(['downloads']);
-      },(err)=>{
-        console.log("error coming",err);
-
-      });
+      },
+      (err) => {
+        console.log('error coming', err);
+      }
+    );
   }
   navigate() {
     this.router.navigate(['/invoice']);

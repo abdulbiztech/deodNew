@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
 
@@ -13,9 +12,9 @@ import { environment } from 'src/environments/environement';
   styleUrls: ['./landingpage.component.scss'],
 })
 export class LandingpageComponent implements OnInit {
-  mySubject='';
-  subjectData=''
-  totalProduct:any
+  mySubject = '';
+  subjectData = '';
+  totalProduct: any;
   isSignedIn: boolean = false;
   isLoggedIn: boolean = false;
   cardList: any = [];
@@ -35,6 +34,9 @@ export class LandingpageComponent implements OnInit {
   noOfProduct: any;
   card: any;
   parentData: any = '';
+  searchResults: any[] = [];
+  filteredImagess: any[] = [];
+  searchText: string = '';
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -43,11 +45,9 @@ export class LandingpageComponent implements OnInit {
     private commonapi: CommonApiService
   ) {}
 
-
   ngOnInit(): void {
     this.getCartDetail();
     this.checkLocalStorageLoginStatus();
-
   }
 
   checkLocalStorageLoginStatus() {
@@ -60,46 +60,55 @@ export class LandingpageComponent implements OnInit {
       this.isLoggedIn = true;
     }
   }
-  getCartDetail() {
-    this.landingService.getCardDetails().subscribe((res) => {
+  // getCartDetail() {
+  //   this.landingService.getCardDetails().subscribe((res) => {
+  //     this.cardList = res;
+  //     for (let index = 0; index < this.cardList.data.length; index++) {
+  //       const imagesfirst = this.cardList.data[index].images[0];
+  //       const allsubData = this.cardList.data[index];
+  //       this.image = `${environment.apiUrl}/image/${imagesfirst}`;
+  //       this.newData = { ...allsubData, imageUrl: this.image };
+  //       this.imagess.push(this.newData);
+  //     }
+  //   });
+  // }
+  getCartDetail(searchCriteria?: any) {
+    this.landingService.getCardDetails(searchCriteria).subscribe((res) => {
       this.cardList = res;
-      // console.log('cardList', this.cardList.data[0].images[0]);
+      this.filteredImagess = []; // Clear the existing filteredImagess array
       for (let index = 0; index < this.cardList.data.length; index++) {
         const imagesfirst = this.cardList.data[index].images[0];
         const allsubData = this.cardList.data[index];
         this.image = `${environment.apiUrl}/image/${imagesfirst}`;
-        // console.log('image', this.image);
         this.newData = { ...allsubData, imageUrl: this.image };
-        this.imagess.push(this.newData);
+        this.filteredImagess.push(this.newData);
       }
     });
   }
 
   addToCart(id: any) {
-    console.log("id coming right now",id);
+    console.log('id coming right now', id);
 
     const loginInfo = localStorage.getItem('login');
-    if(loginInfo){
-      console.log("id coming",id);
+    if (loginInfo) {
+      console.log('id coming', id);
 
       this.landingService.cartProduct(id).subscribe(
-        (res:any) => {
+        (res: any) => {
           this.cartData = res;
           alert('product added successfully');
-          this.router.navigate(['/buy-product'])
+          this.router.navigate(['/buy-product']);
         },
         (err) => {
           if (err.status == 400) {
-            alert("Product is already in the cart");
-            this.router.navigate(['/buy-product'])
+            alert('Product is already in the cart');
+            this.router.navigate(['/buy-product']);
           }
         }
       );
-
-    }else{
-      alert("please Login to buy a product")
+    } else {
+      alert('please Login to buy a product');
     }
-
   }
   routerToLogin() {
     this.router.navigate(['/login']);
@@ -119,9 +128,27 @@ export class LandingpageComponent implements OnInit {
         this.parentData = filterDetail.images;
         const dataToSend = this.parentData;
         this.router.navigate(['/product-detail'], {
-
           queryParams: { data: dataToSend },
         });
       });
+  }
+
+  onSubmit(formValue: any) {
+    this.landingService.searchProducts(formValue).subscribe(
+      (data) => {
+        if (data.status) {
+          this.searchResults = data.data;
+          this.filteredImagess = this.imagess.filter((item: any) =>
+          this.searchResults.some((result) => result.modelName === item.modelName)
+        );
+
+        } else {
+          console.error(data.message);
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 }

@@ -15,15 +15,26 @@
                 <label for="exampleInputEmail1" class="form-label">Email</label>
                 <input
                   type="email"
-                  placeholder="Enter Email Address..."
                   formControlName="email"
                   class="form-control cus-form"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
+                  id="email"
                 />
+                <div
+                  *ngIf="
+                    myForm.get('email')?.invalid &&
+                    (myForm.get('email')?.dirty || myForm.get('email')?.touched)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="myForm.get('email')?.hasError('required')"
+                  >
+                    Email is required.
+                  </div>
+                </div>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn cus-btn">
+                <button type="submit" [disabled]="myForm.invalid" class="btn cus-btn">
                   Reset Password
                 </button>
               </div>

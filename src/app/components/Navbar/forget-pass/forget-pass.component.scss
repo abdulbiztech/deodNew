@@ -79,6 +79,20 @@
   border-color: #818a93;
 }
 
+
+/* Define a CSS class for the error message container */
+.error-message {
+  color: #f00;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Optionally, you can style the error message for better visibility */
+.error-message::before {
+  margin-right: 5px;
+  font-size: 16px;
+}
+
 @media screen and (max-width: 680px) {
 .log-main-box{
    width: 100%;

@@ -55,8 +55,8 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
               <div class="order-info info-text">
-                <h4>${{item.price}}</h4>
-                <p>include $0.0 tax</p>
+                <h4>₹{{item.price}}</h4>
+                <p>include ₹0.0 tax</p>
                 <p>
                   <a href="#"
                     ><i class="far fa-file-alt me-2"></i> View Order
@@ -75,96 +75,12 @@
               <div class="order-info">
                 <a href="#" class="button">Support Tickets</a>
                 <a href="#" class="button">Request Refund</a>
-                <a (click)="redirect(item)" class="button download-btn">Show Downloads</a>
-                <!-- <div class="dropdown">
-                  <a
-                    class="btn btn-secondary dropdown-toggle w-100"
-                    href="#"
-                    role="button"
-                    routerLink="downloads"
-                    aria-expanded="false"
-                  >
-                    Show Downloads
-                  </a>
-
-                  <ul class="dropdown-menu shadow">
-                    <li><a class="dropdown-item" href="#">Product 1</a></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Product 2</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">Product 3</a>
-                    </li>
-                  </ul>
-                </div> -->
+                <a (click)="downloadProduct(item)" class="button download-btn">Show Downloads</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="col-12">
-        <div class="card shadow-sm">
-          <div class="row g-3">
-            <div class="col-lg-3 col-md-6 col-sm-12">
-              <div class="image">
-                <img src="/assets/images/products/car.jpg" alt="" />
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-              <div class="order-info">
-                <h4>Order #5217011</h4>
-                <p class="mb-1"><b>Purchased:</b> 15/21/2023</p>
-                <p><b>Total Items:</b> 1</p>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-              <div class="order-info info-text">
-                <h4>$500.70</h4>
-                <p>include $1.80 tax</p>
-                <p>
-                  <a href="#"
-                    ><i class="far fa-file-alt me-2"></i> View Order
-                    Confirmation</a
-                  >
-                </p>
-                <p>
-                  <a href="#"
-                    ><i class="far fa-pencil-alt me-2"></i> Create
-                    Invoice</a
-                  >
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-              <div class="order-info">
-                <a href="#" class="button">Support Tickets</a>
-                <a href="#" class="button">Request Refund</a>
-                <div class="dropdown">
-                  <a
-                    class="btn btn-secondary dropdown-toggle w-100"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Show Downloads
-                  </a>
-
-                  <ul class="dropdown-menu shadow">
-                    <li><a class="dropdown-item" href="#">Product 1</a></li>
-                    <li>
-                      <a class="dropdown-item" href="#">Product 2</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">Product 3</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </section>

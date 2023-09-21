@@ -16,60 +16,6 @@
                 </td>
               </tr>
             </table>
-            <table class="table table-responsive table-bordered table-icon">
-              <tr>
-                <td>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="icon-info">
-                        <img src="/assets/images/icons/upload.png" alt="" />
-                        <p>upload files</p>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="icon-info">
-                        <img src="/assets/images/icons/folder.png" alt="" />
-                        <p>add folder</p>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="icon-info">
-                    <img src="/assets/images/icons/publish.png" alt="" />
-                    <p>publish product</p>
-                  </div>
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="icon-info">
-                        <img src="/assets/images/icons/move.png" alt="" />
-                        <p>move</p>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="icon-info">
-                        <img src="/assets/images/icons/copy.png" alt="" />
-                        <p>copy</p>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="icon-info">
-                        <img src="/assets/images/icons/rename.png" alt="" />
-                        <p>rename</p>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="icon-info">
-                    <img src="/assets/images/icons/remove.png" alt="" />
-                    <p>remove</p>
-                  </div>
-                </td>
-              </tr>
-            </table>
             <table class="table table-responsive table-bordered table-content">
               <thead>
                 <th>
@@ -88,7 +34,7 @@
                 <th>Review Status</th>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let item of products; let i = index">
                   <td>
                     <div class="form-check star-icon">
                       <input
@@ -103,88 +49,22 @@
                     <div class="name-info">
                       <div class="row">
                         <div class="col-3">
-                          <img src="/assets/images/products/car.jpg" alt="" />
+                          <img [src]="item.image" alt="" />
                         </div>
                         <div class="col-9">
-                          <h5>Red Luxury Sedan</h5>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                          <p>
-                            <a href="#">Luxury Sedan Lorem ipsum dolor sit.</a>
+                          <h5>{{ item.modelName }}</h5>
+                          <!-- You can iterate over item properties here -->
+                          <p *ngFor="let property of item.properties">
+                            <a href="#">{{ property }}</a>
                           </p>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td>$800</td>
-                  <td>Sep 09, 2023</td>
-                  <td>Unrated</td>
+                  <td>${{ item.price }}</td>
+                  <td>{{ item.dateAdded }}</td>
+                  <td>{{ item.reviewStatus }}</td>
                 </tr>
-                <!-- <tr>
-                  <td>
-                    <div class="form-check star-icon">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckDefault"
-                      />
-                      <i class="far fa-star"></i>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="name-info">
-                      <div class="row">
-                        <div class="col-3">
-                          <img src="/assets/images/products/car.jpg" alt="" />
-                        </div>
-                        <div class="col-9">
-                          <h5>Red Luxury Sedan</h5>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                          <p>
-                            <a href="#">Luxury Sedan Lorem ipsum dolor sit.</a>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>$800</td>
-                  <td>Sep 09, 2023</td>
-                  <td>Unrated</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="form-check star-icon">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckDefault"
-                      />
-                      <i class="far fa-star"></i>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="name-info">
-                      <div class="row">
-                        <div class="col-3">
-                          <img src="/assets/images/products/car.jpg" alt="" />
-                        </div>
-                        <div class="col-9">
-                          <h5>Red Luxury Sedan</h5>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                          <p><a href="#">Luxury Sedan Lorem, ipsum.</a></p>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>$800</td>
-                  <td>Sep 09, 2023</td>
-                  <td>Unrated</td>
-                </tr> -->
               </tbody>
             </table>
           </div>

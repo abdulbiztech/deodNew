@@ -28,7 +28,7 @@
                   </div>
                 </td>
                 <td>{{ item.description }}</td>
-                <td class="price-c">${{ item.price }}</td>
+                <td class="price-c">₹{{ item.price }}</td>
                 <td>
                   <button (click)="removeItem(item)"  class="btn btn-danger">
                     <i class="fas fa-trash-alt"></i>
@@ -47,7 +47,7 @@
                 </td>
                 <td></td>
                 <td  >
-                  <strong >Grand Total : ${{ totalPrice }}</strong>
+                  <strong >Grand Total : ₹{{ totalPrice }}</strong>
                 </td>
               </tr>
             </tbody>

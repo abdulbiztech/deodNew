@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environement';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 @Injectable({
@@ -24,8 +24,12 @@ export class LandingPageService {
   // get loggedIn$(): Observable<boolean> {
   //   return this.loggedIn.asObservable();
   // }
-  public getCardDetails() {
-    return this.http.get(`${environment.apiUrl}` + `/getAll3DModels`);
+  // public getCardDetails(item:any) {
+  //   return this.http.get(`${environment.apiUrl}` + `/getAll3DModels`);
+  // }
+  public getCardDetails(queryParams?: any): Observable<any> {
+    const params = new HttpParams({ fromObject: queryParams });
+    return this.http.get(`${environment.apiUrl}/getAll3DModels`, { params });
   }
 
   public getLoginDetail() {
@@ -49,7 +53,7 @@ export class LandingPageService {
     // console.log("this.dataStore",this.dataStore);
 
     this.tokey_key = JSON.parse(this.dataStore).data;
-    console.log("this.tokey_key",this.tokey_key);
+    console.log('this.tokey_key', this.tokey_key);
 
     this.productId = this.tokey_key._id;
     this.onlyToken = this.tokey_key.token;
@@ -94,13 +98,16 @@ export class LandingPageService {
   public createTransaction(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
   }
-  public verifyOrder(res: any){
+  public verifyOrder(res: any) {
     this.dataStore = localStorage.getItem('login');
     // console.log("this.dataStore",this.dataStore);
 
     this.tokey_key = JSON.parse(this.dataStore).data;
     this.userIdd = this.tokey_key.userId;
-    return this.http.post(`${environment.apiUrl}` + `/verifyOrder/${this.userIdd}`, res);
+    return this.http.post(
+      `${environment.apiUrl}` + `/verifyOrder/${this.userIdd}`,
+      res
+    );
   }
   emptyCart() {
     console.log('cart is empty');
@@ -109,20 +116,30 @@ export class LandingPageService {
     return this.loggedIn.asObservable();
   }
 
-
   public getProduct() {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
     this.userIdd = this.tokey_key.userId;
-    return this.http.get(`${environment.apiUrl}` + `/getPyamentBy/${this.userIdd}`);
+    return this.http.get(
+      `${environment.apiUrl}` + `/getPyamentBy/${this.userIdd}`
+    );
   }
-
-  public getDownload(orderId: string, modelId: string){
-    return this.http.post(`${environment.apiUrl}` + `/downloadOrder/${this.userIdd}/${orderId}/${modelId}`,'');
+  public getDownload(orderId: string, modelId: string) {
+    const url = `${environment.apiUrl}/downloadOrder/${this.userIdd}/${orderId}/${modelId}`;
+    return this.http.post(url, null); // Pass null if no request body is needed
   }
   private dataSubject = new Subject<any>();
   data$ = this.dataSubject.asObservable();
   setData(data: any) {
     this.dataSubject.next(data);
+  }
+  public donwnloadApi(item: any) {
+    const url = `${environment.apiUrl}/getAllUserDownload/${item}`;
+    return this.http.get(url);
+  }
+
+  searchProducts(queryParams: any): Observable<any> {
+    const params = new HttpParams({ fromObject: queryParams });
+    return this.http.get(`${environment.apiUrl}/searchFilter?${params}`);
   }
 }
