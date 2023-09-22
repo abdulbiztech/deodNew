@@ -31,7 +31,7 @@
 
     </div>
     <div  class="second-div">
-      <div class="caption-container p-1">
+      <div class="caption-container p-1" >
         <div class="caption-box">
           <p class="">Archmodels vol. 165 by <span class="caption-text">evermotion</span></p>
         </div>
@@ -44,15 +44,12 @@
             </path>
           </svg>
 
-          ₹120
+          ₹{{modelPrice}}
         </span>
-        <button *ngIf="isSignedIn" class="primary-button" (click)="navigateToBuyProduct()"> Buy Now</button>
-        <!-- <button *ngIf="isLoggedIn" (click)="AddtoCartBtn()" class="primary-button"> Add to Cart</button> -->
-        <!-- <div  data-controller="cart" data-cart-classic-product-id-value="1027053"
-          data-action="click->cart#addToCart">
-          Add to Cart
-        </div> -->
+        <!-- <button *ngIf="isSignedIn" class="primary-button" (click)="navigateToBuyProduct()"> Buy Now</button> -->
+        <button *ngIf="isSignedIn" class="primary-button" (click)="AddtoCartBtn()"> Buy Now</button>
 
+        <button *ngIf="isLoggedIn" (click)="AddtoCartBtn()" class="primary-button"> Add to Cart</button>
       </div>
     </div>
 

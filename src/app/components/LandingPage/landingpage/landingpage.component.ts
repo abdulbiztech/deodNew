@@ -37,6 +37,7 @@ export class LandingpageComponent implements OnInit {
   searchResults: any[] = [];
   filteredImagess: any[] = [];
   searchText: string = '';
+  cardDetail:any;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -87,7 +88,7 @@ export class LandingpageComponent implements OnInit {
   }
 
   addToCart(id: any) {
-    console.log('id coming right now', id);
+    // console.log('id coming right now', id);
 
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
@@ -150,5 +151,12 @@ export class LandingpageComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+  getProduct(modelId:any){
+    this.landingService.get3DModelByModelId(modelId).subscribe((res:any)=>{
+      console.log("res",res);
+      this.cardDetail = res
+      this.landingService.updateCardDetails(this.cardDetail);
+    })
   }
 }

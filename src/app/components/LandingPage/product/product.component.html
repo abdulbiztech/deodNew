@@ -1,0 +1,15 @@
+<div class="product-detail">
+  <div class="main-image">
+    <img [src]="mainImageSrc" alt="Main Product Image" />
+  </div>
+  <div class="image-slider">
+    <ngx-slick-carousel
+      class="carousel"
+      [config]="slickCarouselConfig"
+    >
+      <div ngxSlickItem *ngFor="let image of productImages">
+        <img [src]="image" alt="Product Image" />
+      </div>
+    </ngx-slick-carousel>
+  </div>
+</div>

@@ -26,6 +26,8 @@ import { SupportComponent } from './components/Navbar/support/support.component'
 import { DownloadsComponent } from './components/Navbar/downloads/downloads.component';
 import { InvoiceComponent } from './components/Navbar/invoice/invoice.component';
 import { SearchFilterPipe } from './components/LandingPage/landingpage/search-filter.pipe';
+import { ProductComponent } from './components/LandingPage/product/product.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +49,8 @@ import { SearchFilterPipe } from './components/LandingPage/landingpage/search-fi
     SupportComponent,
     DownloadsComponent,
     InvoiceComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { SearchFilterPipe } from './components/LandingPage/landingpage/search-fi
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    SlickCarouselModule,
     ToastrModule.forRoot({timeOut : 1500}),
   ],
   providers: [DatePipe],

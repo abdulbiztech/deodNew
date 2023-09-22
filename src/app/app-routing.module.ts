@@ -16,6 +16,7 @@ import { NewArtistComponent } from './components/Navbar/new-artist/new-artist.co
 import { SupportComponent } from './components/Navbar/support/support.component';
 import { DownloadsComponent } from './components/Navbar/downloads/downloads.component';
 import { InvoiceComponent } from './components/Navbar/invoice/invoice.component';
+import { ProductComponent } from './components/LandingPage/product/product.component';
 
 const routes: Routes = [
 
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'product-detail',
     component: ProductDetailComponent,
+  },
+  {
+    path: 'product',
+    component: ProductComponent,
   },
   {
     path: 'buy-product',

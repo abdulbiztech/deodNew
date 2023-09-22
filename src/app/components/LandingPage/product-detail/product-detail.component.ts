@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
 let slideIndex = 1;
@@ -14,12 +15,42 @@ export class ProductDetailComponent implements OnInit {
   image: any;
   isSignedIn: boolean = false;
   isLoggedIn: boolean = false;
+  cardDetails: any;
+  modelPrice:any;
+  userIdd:any
+  private subscription!: Subscription;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private landingService: LandingPageService,
     private router: Router,
-  ) {}
+  ) {
+    this.subscription = this.landingService.cardDetails$.subscribe((result)=>{
+      this.cardDetails= result
+      const data = this.cardDetails.data
+      const storedDataString = localStorage.getItem('cardDetails');
+      if (storedDataString) {
+        const storedData = JSON.parse(storedDataString);
+
+        // Access the "price" property
+        const price = storedData.data.price;
+        const id = storedData.data.price;
+
+        // Now "price" contains the value of the "price" property
+        console.log('Price:', price);
+      } else {
+        console.log('Data not found in local storage');
+      }
+
+      this.modelPrice= data.price
+      // console.log("this.modelPrice",this.modelPrice);
+
+      // console.log("cardDetails",this.cardDetails);
+    })
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
   parentData: any = '';
   card: any;
   mainImage: any;
@@ -28,20 +59,19 @@ export class ProductDetailComponent implements OnInit {
   clickMessage: any;
   productImage:any
   visibleImages: any[] = [];
+  cartData:any;
   ngOnInit() {
     window.scrollTo(1,1);
     this.currentSlide(1);
     this.route.queryParams.subscribe((params) => {
+      // console.log("params",params);
       const receivedData = params['data'];
       this.firstImage = `${environment.apiUrl}/image/${receivedData[0]}`;
-      // console.log("firstImage",this.firstImage);
-
       for (let index = 0; index < receivedData.length; index++) {
         const element = receivedData[index];
         this.image = `${environment.apiUrl}/image/${element}`;
         this.multipleImages.push(this.image);
         this.productImage=this.multipleImages[0]
-
       }
     });
     this.checkLocalStorageLoginStatus()
@@ -85,7 +115,6 @@ export class ProductDetailComponent implements OnInit {
 
   showImage(image: any) {
     this.productImage = image;
-    // console.log('this.productImage', this.productImage);
   }
   showPreviousImage() {
     const currentIndex = this.multipleImages.indexOf(this.productImage);
@@ -99,21 +128,47 @@ export class ProductDetailComponent implements OnInit {
     const nextIndex = (currentIndex + 1) % this.multipleImages.length;
     this.productImage = this.multipleImages[nextIndex];
   }
-  productAdd(id:any){
-    this.landingService.getCardDetails().subscribe((res)=>{
-      console.log("res pro",res);
+  // productAdd(id:any){
+  //   this.landingService.getCardDetails().subscribe((res)=>{
+  //     console.log("res pro",res);
 
-    })
-  }
+  //   })
+  // }
   AddtoCartBtn(){
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
-      console.log("you can buy");
+      // console.log('id coming', id);
+      const userData = JSON.parse(loginInfo);
+      const userId = userData.modelId;
+      console.log("const userId", userId);
 
+      this.userIdd = userId
+      console.log("this.userIdd",this.userIdd);
+
+      this.landingService.cartProduct(this.userIdd).subscribe(
+        (res: any) => {
+          this.cartData = res;
+          alert('product added successfully');
+          this.router.navigate(['/buy-product']);
+        },
+        (err) => {
+          if (err.status == 400) {
+            alert('Product is already in the cart');
+            this.router.navigate(['/buy-product']);
+          }
+        }
+      );
     } else {
-      this.isSignedIn = false;
-      this.isLoggedIn = true;
+      alert('please Login to buy a product');
     }
+    // const loginInfo = localStorage.getItem('login');
+    // if (loginInfo) {
+    //   console.log("you can buy");
+
+    // } else {
+    //   this.isSignedIn = false;
+    //   this.isLoggedIn = true;
+    // }
 
   }
   navigateToBuyProduct(){

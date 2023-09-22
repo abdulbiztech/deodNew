@@ -142,4 +142,19 @@ export class LandingPageService {
     const params = new HttpParams({ fromObject: queryParams });
     return this.http.get(`${environment.apiUrl}/searchFilter?${params}`);
   }
+  //GetCard Detail by Model Id Api
+  public get3DModelByModelId(item:any){
+    const url = `${environment.apiUrl}/get3DModel/${item}`;
+    return this.http.get(url);
+  }
+  private cardDetailsSubject = new BehaviorSubject<any>(this.getStoredCardDetails());
+  cardDetails$ = this.cardDetailsSubject.asObservable();
+  private getStoredCardDetails(): any {
+    const storedData = localStorage.getItem('cardDetails');
+    return storedData ? JSON.parse(storedData) : null;
+  }
+  updateCardDetails(details: any) {
+    this.cardDetailsSubject.next(details);
+    localStorage.setItem('cardDetails', JSON.stringify(details));
+  }
 }
