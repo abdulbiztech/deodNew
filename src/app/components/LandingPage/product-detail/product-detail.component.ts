@@ -9,44 +9,42 @@ let slideIndex = 1;
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
   image: any;
   isSignedIn: boolean = false;
   isLoggedIn: boolean = false;
   cardDetails: any;
-  modelPrice:any;
-  userIdd:any
+  modelPrice: any;
+  userIdd: any;
   private subscription!: Subscription;
+  dataStore: any;
+  productId:any;
+  tokey_key:any;
+  onlyToken:any;
+  userId:any;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private landingService: LandingPageService,
-    private router: Router,
+    private router: Router
   ) {
-    this.subscription = this.landingService.cardDetails$.subscribe((result)=>{
-      this.cardDetails= result
-      const data = this.cardDetails.data
+    this.subscription = this.landingService.cardDetails$.subscribe((result) => {
+      this.cardDetails = result;
+      const data = this.cardDetails.data;
       const storedDataString = localStorage.getItem('cardDetails');
       if (storedDataString) {
         const storedData = JSON.parse(storedDataString);
-
-        // Access the "price" property
         const price = storedData.data.price;
         const id = storedData.data.price;
-
-        // Now "price" contains the value of the "price" property
         console.log('Price:', price);
       } else {
         console.log('Data not found in local storage');
       }
 
-      this.modelPrice= data.price
-      // console.log("this.modelPrice",this.modelPrice);
-
-      // console.log("cardDetails",this.cardDetails);
-    })
+      this.modelPrice = data.price;
+    });
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -57,24 +55,23 @@ export class ProductDetailComponent implements OnInit {
   multipleImages: any = [];
   firstImage: any;
   clickMessage: any;
-  productImage:any
+  productImage: any;
   visibleImages: any[] = [];
-  cartData:any;
+  cartData: any;
   ngOnInit() {
-    window.scrollTo(1,1);
+    window.scrollTo(1, 1);
     this.currentSlide(1);
     this.route.queryParams.subscribe((params) => {
-      // console.log("params",params);
       const receivedData = params['data'];
       this.firstImage = `${environment.apiUrl}/image/${receivedData[0]}`;
       for (let index = 0; index < receivedData.length; index++) {
         const element = receivedData[index];
         this.image = `${environment.apiUrl}/image/${element}`;
         this.multipleImages.push(this.image);
-        this.productImage=this.multipleImages[0]
+        this.productImage = this.multipleImages[0];
       }
     });
-    this.checkLocalStorageLoginStatus()
+    this.checkLocalStorageLoginStatus();
   }
   checkLocalStorageLoginStatus() {
     const loginInfo = localStorage.getItem('login');
@@ -128,23 +125,16 @@ export class ProductDetailComponent implements OnInit {
     const nextIndex = (currentIndex + 1) % this.multipleImages.length;
     this.productImage = this.multipleImages[nextIndex];
   }
-  // productAdd(id:any){
-  //   this.landingService.getCardDetails().subscribe((res)=>{
-  //     console.log("res pro",res);
-
-  //   })
-  // }
-  AddtoCartBtn(){
+  AddtoCartBtn() {
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
-      // console.log('id coming', id);
-      const userData = JSON.parse(loginInfo);
-      const userId = userData.modelId;
-      console.log("const userId", userId);
-
-      this.userIdd = userId
-      console.log("this.userIdd",this.userIdd);
-
+      // this.dataStore = localStorage.getItem('login');
+      this.tokey_key = JSON.parse(loginInfo).data;
+      console.log('this.tokey_key', this.tokey_key);
+      this.productId = this.tokey_key._id;
+      this.onlyToken = this.tokey_key.token;
+      this.userIdd = this.tokey_key.userId;
+      console.log('this.userIdd', this.userIdd);
       this.landingService.cartProduct(this.userIdd).subscribe(
         (res: any) => {
           this.cartData = res;
@@ -160,6 +150,7 @@ export class ProductDetailComponent implements OnInit {
       );
     } else {
       alert('please Login to buy a product');
+      this.router.navigate(['/login']);
     }
     // const loginInfo = localStorage.getItem('login');
     // if (loginInfo) {
@@ -169,9 +160,8 @@ export class ProductDetailComponent implements OnInit {
     //   this.isSignedIn = false;
     //   this.isLoggedIn = true;
     // }
-
   }
-  navigateToBuyProduct(){
-    this.router.navigate(['/buy-product'])
+  navigateToBuyProduct() {
+    this.router.navigate(['/buy-product']);
   }
 }

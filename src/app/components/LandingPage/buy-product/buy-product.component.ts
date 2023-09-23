@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -8,6 +8,7 @@ import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
 import { Product } from './buy-product.model';
 import { ToastrService } from 'ngx-toastr';
+import { ChangeDetectorRef } from '@angular/core';
 declare var Razorpay: any;
 
 @Component({
@@ -17,7 +18,6 @@ declare var Razorpay: any;
 })
 export class BuyProductComponent implements OnInit {
   mainProduct: Product = new Product();
-  // private rzp: any;
   ngForm!: FormGroup;
   razorpayPayment: any;
   id: any;
@@ -52,26 +52,38 @@ export class BuyProductComponent implements OnInit {
   paymentId: any;
   signature: any;
   loginCheck: any;
+  cartItems: any[] = [];
+  deleteSubscription!: Subscription;
   constructor(
     private http: HttpClient,
     private router: Router,
     private landingService: LandingPageService,
     public datepipe: DatePipe,
     private fb: FormBuilder,
-    private toaster:ToastrService
+    private toaster: ToastrService,
+    private cdr: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
+    this.deleteSubscription = this.landingService.delete.subscribe((deletedItemId: any) => {
+      this.cartItems = this.cartItems.filter(item => item.id !== deletedItemId);
+      console.log("this.cartItems ",this.cartItems );
+
+      this.cdr.detectChanges();
+    });
+
     this.getProductByUserId();
     this.isLoggedIn();
   }
   isLoggedIn(): boolean {
-    // Check if the "isLoggedIn" flag exists in localStorage and is set to true
     return localStorage.getItem('login') !== null;
   }
   getProductByUserId() {
     this.landingService.getCartByUserId().subscribe((res) => {
       console.log('Product by user', res);
       this.mainProduct.response = res;
+      this.cartItems = this.mainProduct.response.items;
+      console.log("this.cartItems ",this.cartItems) ;
+
       this.mainProduct.data = this.mainProduct.response.data;
       this.mainProduct.cartId = this.mainProduct.data.cartId;
       this.mainProduct.items = this.mainProduct.data.items;
@@ -79,7 +91,6 @@ export class BuyProductComponent implements OnInit {
       this.checkOutData = {
         amount: this.totalPrice,
       };
-
       for (let index = 0; index < this.mainProduct.items.length; index++) {
         const element = this.mainProduct.items[index];
         const imagesfirst = this.mainProduct.items[index].images[0];
@@ -87,30 +98,43 @@ export class BuyProductComponent implements OnInit {
         const allsubData = this.mainProduct.items[index];
         this.newData = { ...allsubData, imageUrl: this.image };
         this.images.push(this.newData);
-        // console.log('images', this.images);
       }
     });
   }
 
-  removeItem(item: any) {
-    console.log('item', item);
-    this.landingService.removeCartItem(item.modelId).subscribe((res: any) => {
+  // removeItem(id: any) {
+  //   console.log('item', id);
+  //   this.landingService.removeCartItem(id).subscribe((res: any) => {
+  //     console.log('item res', res);
+  //     const productList = res;
+  //     console.log("productListfw",productList);
+  //     console.log('productList', productList.data.items);
+  //     this.toaster.error('Item Deleted successfully');
+  //   });
+  // }
+  removeItem(id: any) {
+    console.log('item', id);
+    this.landingService.removeCartItem(id).subscribe((res: any) => {
       console.log('item res', res);
+      // Assuming res.data.items contains the updated cart items
       const productList = res;
-      console.log('productList', productList.data.items);
-      this.landingService.delete.next(this.getProductByUserId);
-      // alert('item deleted successfully!');
-      this.toaster.error('Item Deleted successfully');
+      console.log("productListfw", productList);
 
+      console.log('productList', productList.data.items);
+
+      // Update the cartItems array with the updated data from the server
+      this.cartItems = productList.data.items;
+
+      this.toaster.error('Item Deleted successfully');
     });
   }
+
   checkoutOrder() {
     this.landingService.createTransaction(this.checkOutData).subscribe(
       (res) => {
         console.log('checkout res', res);
         this.checkoutDetail = res;
         this.orderId = this.checkoutDetail.order.id;
-        // console.log('order_id', this.orderId);
         this.orderAmt = this.checkoutDetail.order.amount;
         this.orderCurrency = this.checkoutDetail.order.currency;
       },
@@ -144,15 +168,20 @@ export class BuyProductComponent implements OnInit {
       handler: (response: any) => {
         console.log('Payment response:', response);
         this.paymentId = response.razorpay_payment_id;
-        // console.log("this.paymentId",this.paymentId);
         this.orderId = response.razorpay_order_id;
         this.signature = response.razorpay_signature;
         this.landingService.verifyOrder(response).subscribe(
           (verificationResponse: any) => {
-            console.log("verificationResponse.success",verificationResponse.success);
+            console.log(
+              'verificationResponse.success',
+              verificationResponse.success
+            );
 
             if (verificationResponse.success) {
-              console.log('Order verification successful:', verificationResponse);
+              console.log(
+                'Order verification successful:',
+                verificationResponse
+              );
               this.router.navigate(['/success-payment'], {
                 queryParams: { reference: this.paymentId },
               });
@@ -163,7 +192,6 @@ export class BuyProductComponent implements OnInit {
           },
           (error) => {
             console.error('Error verifying order:', error);
-            // Handle error, show an error message
           }
         );
       },
@@ -183,5 +211,8 @@ export class BuyProductComponent implements OnInit {
         this.orderAmt = this.orderId.order.amount;
         this.initializePayment(this.order);
       });
+  }
+  ngOnDestroy() {
+    this.deleteSubscription.unsubscribe();
   }
 }

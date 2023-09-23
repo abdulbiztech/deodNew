@@ -15,23 +15,14 @@ export class LandingPageService {
   useId: any;
 
   public loggedIn = new BehaviorSubject<any>(false);
-  // loggedIn = new BehaviorSubject<boolean>(false);
-  delete = new Subject<any>();
   constructor(private http: HttpClient, private router: Router) {
     const userLoggedIn = localStorage.getItem('login');
     this.loggedIn.next(userLoggedIn);
   }
-  // get loggedIn$(): Observable<boolean> {
-  //   return this.loggedIn.asObservable();
-  // }
-  // public getCardDetails(item:any) {
-  //   return this.http.get(`${environment.apiUrl}` + `/getAll3DModels`);
-  // }
   public getCardDetails(queryParams?: any): Observable<any> {
     const params = new HttpParams({ fromObject: queryParams });
     return this.http.get(`${environment.apiUrl}/getAll3DModels`, { params });
   }
-
   public getLoginDetail() {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
@@ -50,11 +41,8 @@ export class LandingPageService {
   }
   public cartProduct(id: any) {
     this.dataStore = localStorage.getItem('login');
-    // console.log("this.dataStore",this.dataStore);
-
     this.tokey_key = JSON.parse(this.dataStore).data;
-    console.log('this.tokey_key', this.tokey_key);
-
+    // console.log('this.tokey_key', this.tokey_key);
     this.productId = this.tokey_key._id;
     this.onlyToken = this.tokey_key.token;
     this.userIdd = this.tokey_key.userId;
@@ -89,11 +77,13 @@ export class LandingPageService {
       `${environment.apiUrl}` + `/getCart/` + `${this.useId}`
     );
   }
+  delete = new Subject<any>();
+  public removeCartItem(id: any) {
+    // Assuming this.useId is defined somewhere in your service
+    const url = `${environment.apiUrl}/removeCartItem/${this.useId}/${id}`;
 
-  public removeCartItem(id: any): Observable<any> {
-    return this.http.delete(
-      `${environment.apiUrl}` + `/removeCartItem/` + `${this.useId}/` + id
-    );
+    // Make the HTTP delete request to remove the item
+    return this.http.delete(url);
   }
   public createTransaction(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);

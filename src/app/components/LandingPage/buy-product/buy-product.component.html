@@ -30,7 +30,7 @@
                 <td>{{ item.description }}</td>
                 <td class="price-c">₹{{ item.price }}</td>
                 <td>
-                  <button (click)="removeItem(item)"  class="btn btn-danger">
+                  <button (click)="removeItem(item.modelId)"  class="btn btn-danger">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </td>
