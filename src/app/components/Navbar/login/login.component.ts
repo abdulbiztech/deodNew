@@ -46,11 +46,8 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['']);
               this.landgingService.loggedIn.next(true);
               localStorage.setItem('login', jsonData);
-              // localStorage.setItem('login', 'true');
             } else {
               alert('something went');
-              // Invalid login, show alert message
-              // this.errorMessage = res.message;
             }
           },
           (err) => {
@@ -67,6 +64,5 @@ export class LoginComponent implements OnInit {
 
   getToken(): string | null {
     return localStorage.getItem(this.tokey_key);
-    // console.log("token getting ehere");
   }
 }

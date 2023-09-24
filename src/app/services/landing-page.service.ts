@@ -79,10 +79,7 @@ export class LandingPageService {
   }
   delete = new Subject<any>();
   public removeCartItem(id: any) {
-    // Assuming this.useId is defined somewhere in your service
     const url = `${environment.apiUrl}/removeCartItem/${this.useId}/${id}`;
-
-    // Make the HTTP delete request to remove the item
     return this.http.delete(url);
   }
   public createTransaction(amount: any) {

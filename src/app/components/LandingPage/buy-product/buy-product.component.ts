@@ -101,34 +101,39 @@ export class BuyProductComponent implements OnInit {
       }
     });
   }
-
   // removeItem(id: any) {
   //   console.log('item', id);
   //   this.landingService.removeCartItem(id).subscribe((res: any) => {
   //     console.log('item res', res);
   //     const productList = res;
-  //     console.log("productListfw",productList);
+  //     console.log("productListfw", productList);
   //     console.log('productList', productList.data.items);
+  //     this.cartItems = productList.data.items;
   //     this.toaster.error('Item Deleted successfully');
   //   });
   // }
+
+
   removeItem(id: any) {
     console.log('item', id);
     this.landingService.removeCartItem(id).subscribe((res: any) => {
       console.log('item res', res);
-      // Assuming res.data.items contains the updated cart items
       const productList = res;
       console.log("productListfw", productList);
-
       console.log('productList', productList.data.items);
-
-      // Update the cartItems array with the updated data from the server
       this.cartItems = productList.data.items;
-
       this.toaster.error('Item Deleted successfully');
+  
+      // Update the images array based on the updated cartItems
+      this.images = this.cartItems.map(item => {
+        const imagesfirst = item.images[0];
+        const image = `${environment.apiUrl}/image/${imagesfirst}`;
+        return { ...item, imageUrl: image };
+      });
     });
+    this.cdr.detectChanges();
   }
-
+  
   checkoutOrder() {
     this.landingService.createTransaction(this.checkOutData).subscribe(
       (res) => {
