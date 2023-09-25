@@ -13,8 +13,7 @@ export class DownloadsComponent implements OnInit {
   products: any = [];
   receivedData: any;
   images:any;
-  // firstImage:any
-  ////------------////
+  checkData:any;
   dataStore:any;
   tokey_key:any;
   userIdd:string | undefined;
@@ -34,6 +33,7 @@ export class DownloadsComponent implements OnInit {
       console.log("donwload item come here",result);
       this.receivedData = result
       const data = this.receivedData.data;
+      this.checkData = data
       for (let index = 0; index < data.length; index++) {
         const element = data[index];
         const items = element.items
@@ -50,26 +50,6 @@ export class DownloadsComponent implements OnInit {
       }
 
     })
-    // this.landingService.data$.subscribe((data) => {
-    //   console.log("data", data);
-    // });
-    // this.landingService.data$.subscribe((data)=>{
-    //   console.log("data",data);
-
-    //   this.receivedData = data;
-    //   const downloadProduct = this.receivedData.data;
-    //   const items = downloadProduct.items;
-    //   for (let index = 0; index < items.length; index++) {
-    //     const element1 = items[index];
-    //     this.images = element1.images[0];
-    //     element1.image = `${environment.apiUrl}/image/${this.images}`;
-    //     this.products.push(element1);
-    //     console.log("this.products",this.products);
-
-    //   }
-
-    // }
-    // )
   }
 
 }

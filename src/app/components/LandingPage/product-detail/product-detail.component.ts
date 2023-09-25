@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
@@ -18,17 +19,19 @@ export class ProductDetailComponent implements OnInit {
   cardDetails: any;
   modelPrice: any;
   userIdd: any;
+  modelId:any;
   private subscription!: Subscription;
   dataStore: any;
-  productId:any;
-  tokey_key:any;
-  onlyToken:any;
-  userId:any;
+  productId: any;
+  tokey_key: any;
+  onlyToken: any;
+  userId: any;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private landingService: LandingPageService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.subscription = this.landingService.cardDetails$.subscribe((result) => {
       this.cardDetails = result;
@@ -38,10 +41,12 @@ export class ProductDetailComponent implements OnInit {
         const storedData = JSON.parse(storedDataString);
         const price = storedData.data.price;
         const id = storedData.data.price;
-        console.log('Price:', price);
+        // console.log('Price:', price);
       } else {
         console.log('Data not found in local storage');
       }
+      this.modelId = data.modelId
+      console.log("this.modelId",this.modelId);
 
       this.modelPrice = data.price;
     });
@@ -86,7 +91,6 @@ export class ProductDetailComponent implements OnInit {
   currentSlide(n: number): void {
     this.showSlides((slideIndex = n));
   }
-
   showSlides(n: number): void {
     let i: number;
     let slides = document.getElementsByClassName('mySlides');
@@ -109,7 +113,6 @@ export class ProductDetailComponent implements OnInit {
     (slides[slideIndex - 1] as HTMLElement).style.display = 'block';
     (dots[slideIndex - 1] as HTMLElement).className += ' active';
   }
-
   showImage(image: any) {
     this.productImage = image;
   }
@@ -128,20 +131,25 @@ export class ProductDetailComponent implements OnInit {
   AddtoCartBtn() {
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
-      // this.dataStore = localStorage.getItem('login');
       this.tokey_key = JSON.parse(loginInfo).data;
-      console.log('this.tokey_key', this.tokey_key);
+      // console.log('this.tokey_key', this.tokey_key);
       this.productId = this.tokey_key._id;
+      console.log("this.productId",this.productId);
       this.onlyToken = this.tokey_key.token;
+      console.log("this.onlyToken",this.onlyToken);
       this.userIdd = this.tokey_key.userId;
       console.log('this.userIdd', this.userIdd);
-      this.landingService.cartProduct(this.userIdd).subscribe(
+      this.landingService.cartProduct(this.modelId).subscribe(
         (res: any) => {
           this.cartData = res;
+          console.log("cartData",this.cartData);
+
           alert('product added successfully');
           this.router.navigate(['/buy-product']);
         },
         (err) => {
+          console.log("err",err);
+
           if (err.status == 400) {
             alert('Product is already in the cart');
             this.router.navigate(['/buy-product']);
@@ -149,18 +157,33 @@ export class ProductDetailComponent implements OnInit {
         }
       );
     } else {
-      alert('please Login to buy a product');
+      this.toastr.warning('please Login to buy a product', 'Info', {
+        timeOut: 3000,
+      });
       this.router.navigate(['/login']);
     }
-    // const loginInfo = localStorage.getItem('login');
-    // if (loginInfo) {
-    //   console.log("you can buy");
-
-    // } else {
-    //   this.isSignedIn = false;
-    //   this.isLoggedIn = true;
-    // }
   }
+  // addToCart(id: any) {
+  //   const loginInfo = localStorage.getItem('login');
+  //   if (loginInfo) {
+  //     // console.log('id coming', id);
+  //     this.landingService.cartProduct(this.modelId).subscribe(
+  //       (res: any) => {
+  //         this.cartData = res;
+  //         alert('product added successfully');
+  //         this.router.navigate(['/buy-product']);
+  //       },
+  //       (err) => {
+  //         if (err.status == 400) {
+  //           alert('Product is already in the cart');
+  //           this.router.navigate(['/buy-product']);
+  //         }
+  //       }
+  //     );
+  //   } else {
+  //     alert('please Login to buy a product');
+  //   }
+  // }
   navigateToBuyProduct() {
     this.router.navigate(['/buy-product']);
   }

@@ -1,4 +1,4 @@
-    <section class="section download-page">
+    <section *ngIf="allProduct.length > 0" class="section download-page">
       <div class="container">
         <div class="row g-3">
           <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
@@ -67,6 +67,17 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section  *ngIf="allProduct.length == 0">
+      <div >
+        <div class="row">
+          <div class="col-12">
+            <div class="order-history-box">
+              <p>There are no previous donwloads available to view.</p>
+            </div>
           </div>
         </div>
       </div>

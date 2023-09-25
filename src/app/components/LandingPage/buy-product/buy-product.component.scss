@@ -115,31 +115,13 @@ top: 0;
 th,td{
 white-space: nowrap;
 }
-// .table-responsive{
-//   float: right;
-//   width: 50%;
-// }
-// .vertical {
-//   border-left: 1px solid black;
-//   height: 300px;
-//   position:absolute;
-//   left: 50%;
-// }
 
-
-/////adition added
-.card{
-  height: 60vh;
-  margin: 25px;
-  padding: 25px;
+.card-d{
+ padding:20px;
 }
 
 .center{
-position: absolute;
-top: 40%;
-left: 50%;
-transform: translate(-50%,-50%);
-text-align: center;
+  text-align: center;
 }
 
 .center img{
@@ -207,12 +189,6 @@ border-radius: 3px !important;
     align-items: center;
 }
 @media only screen and (max-width: 600px) {
-  // .serach-f{
-  //     width: 100%;
-  //     background: #fff;
-  //     border-color:#fff;
-  //     padding: 6px 30px;
-  // }
 }
 
 
@@ -224,5 +200,4 @@ border-radius: 3px !important;
   font-size: 1rem;
   font-weight:500;
 }
-//
 

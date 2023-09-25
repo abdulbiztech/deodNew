@@ -15,8 +15,9 @@ img {
   position: relative;
 }
 
-.mySlides {
-  display: none;
+.mySlides img{
+  // width: 100%;
+  // height: 400px;
 }
 
 .cursor {
@@ -139,6 +140,8 @@ svg:not(:root).svg-inline--fa {
   transform: translate(-33%);
   right: 0%;
   position: absolute;
+  border: 0;
+
 }
 
 .row:after {
@@ -228,3 +231,39 @@ img {
 //   background-color: rgb(32, 30, 30);
 //   opacity: 1 !important;
 // }
+
+
+
+// height: 55px;
+//     width: 55px !important;
+//     border-radius: 32px;
+//     padding: 10px;
+//     object-fit: cover;
+
+
+.img-box{
+  text-align: center;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  img.demo.cursor {
+    height: 55px;
+    width: 55px !important;
+    border-radius: 32px;
+    padding: 10px;
+    object-fit: cover;
+  }
+  .images {
+    width: 100%;
+     object-fit: cover;
+}
+
+.caption-box {
+  position: absolute;
+  bottom: -5px;
+  left: 15px;
+  font-size: 12px;
+}
+}

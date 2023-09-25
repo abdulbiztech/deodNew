@@ -41,24 +41,21 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = loggedIn;
       this.isSignedIn! = loggedIn;
     });
-    // this.getToken();
   }
 
 
   getToken() {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
-    // const getID = this.tokey_key._id
     this.onlyToken = this.tokey_key.token;
   }
   Logout() {
     this.landingService.logoutFun().subscribe(
       (response) => {
-        console.log('responses', response);
         alert('User logout successfully');
+        this.router.navigate(['/']);
         this.landingService.loggedIn.next(false);
         localStorage.removeItem('login');
-        this.router.navigate(['/']);
       },
       (error) => {
         console.log('Error coming');
@@ -66,6 +63,7 @@ export class NavbarComponent implements OnInit {
     );
   }
   orderBtn() {
+    this.showDropDown =true;
     this.router.navigate(['order-detail']);
   }
   myProduct(){

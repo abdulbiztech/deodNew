@@ -4,8 +4,8 @@
   <ng-container *ngIf="images.length !==0">
     <div class="container my-5">
       <div class="card-table">
-        <div class="cart-product">
-          <table class="table table-responsive">
+        <div class="cart-product table-responsive">
+          <table class="table">
             <thead>
               <tr>
                 <th>Sr No</th>
@@ -58,28 +58,21 @@
   </ng-container>
   <ng-container *ngIf="images.length ==0">
     <div class="container">
-      <div class="card">
-        <h5 class="card-title">My Cart</h5>
+      <div class="card card-d">
+        <div class="card-header">
+          <h5 class="card-title">My Cart</h5>
+        </div>
+
+        <div class="center">
+          <img
+            src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+          />
+          <h4>Your cart is empty!</h4>
+          <h6>Add item to it now</h6>
+          <button routerLink="" class="btn btn-primary">Show Now</button>
+        </div>
       </div>
-      <div class="center">
-        <img
-          src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
-        />
-        <h4>Your cart is empty!</h4>
-        <h6>Add item to it now</h6>
-        <button routerLink="" class="btn btn-primary">Show Now</button>
-      </div>
+
     </div>
   </ng-container>
 </div>
-
-<!-- Template for the empty card -->
-<!-- <ng-template #emptyCard>
-  <div class="icon-box text-center">
-    <i class="fa-solid fa-cart-plus my-2"></i>
-     <h2> Your cart is currently empty</h2>
-     <div class="my-3">
-      <button class="btn cus-btn mx-auto">Return to Dashboard</button>
-     </div>
-  </div>
-</ng-template> -->

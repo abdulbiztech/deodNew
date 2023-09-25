@@ -69,7 +69,7 @@
 <section class="py-4">
   <div class="container">
     <div class="row">
-      <div  *ngFor="let item of filteredImagess | searchFilter: searchText; let i = index" class="col-lg-3 col-md-6 col-md-3">
+      <div class="col-lg-3 col-md-6 col-12" *ngFor="let item of filteredImagess | searchFilter: searchText; let i = index">
         <div  class="card cus-product-cart" (click)="getProduct(item.modelId)">
           <div class="card-img-main" (click)="getCard(i)">
             <div class="card-img">
@@ -131,7 +131,7 @@
           <a href="">contact@decentrawood.com</a>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4">
+      <div class="col-lg-3 col-md-4 col-6">
         <div class="list">
           <h3>Company</h3>
           <ul>
@@ -144,7 +144,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 ">
+      <div class="col-lg-3 col-md-4 col-6">
         <div class="list">
           <h3>Social</h3>
           <ul>
@@ -156,7 +156,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4">
+      <div class="col-lg-3 col-md-4 col-6">
         <div class="list">
           <h3>Navigate</h3>
           <ul>
@@ -180,7 +180,6 @@
         <div class="footerup text-end">
           <ul class="my-2">
             <li><a href="">About</a></li>
-            <!-- <li><a href="">{{subjectData}}</a></li> -->
             <li><a href="">Contact</a></li>
             <li><a href="">Faq</a></li>
             <li><a href="">Privacy</a></li>

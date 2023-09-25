@@ -9,7 +9,7 @@
   padding: 20px;
   width: 600px;
   height: auto;
-  position: relative;
+  position:absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -20,7 +20,8 @@
   padding:20px  10px;
    width:100%;
    position: relative;
-   top:0;
+  //  top:0;
+
    border-radius: 5px;
    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
@@ -97,6 +98,6 @@
 @media screen and (max-width: 680px) {
 .log-main-box{
    width: 100%;
+   position:absolute;
 }
-
 }

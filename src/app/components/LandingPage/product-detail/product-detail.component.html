@@ -1,23 +1,31 @@
 <div class="main">
   <div class="main-images-container">
     <div class="row">
-      <div class="mySlides">
-        <!-- <div class="numbertext">1 / 6</div> -->
-        <img class="images" [src]="productImage" alt="Default image">
-      </div>
+         <div class="col-12">
+          <div class="mySlides">
+            <!-- <div class="numbertext">1 / 6</div> -->
+            <img class="images" [src]="productImage" alt="Default image">
+          </div>
 
-      <a class="prev" (click)="showPreviousImage()">❮</a>
-      <a class="next" (click)="showNextImage()">❯</a>
+          <div class="col-12 my-2">
+            <a class="prev" (click)="showPreviousImage()">❮</a>
+            <a class="next" (click)="showNextImage()">❯</a>
+          </div>
+         </div>
+
     </div>
 
 
 
     <div class="row">
-      <div class="column" *ngFor="let item of multipleImages">
-        <div >
-          <img class="demo cursor" [src]="item"  (click)="showImage(item)" alt="The Woods">
+      <div class="col-12">
+         <div class="img-box">
 
-        </div>
+            <img class="demo cursor" [src]="item"  (click)="showImage(item)" alt="The Woods" *ngFor="let item of multipleImages">
+
+
+         </div>
+
       </div>
       <div class="column">
         <img class="demo cursorr" alt="">

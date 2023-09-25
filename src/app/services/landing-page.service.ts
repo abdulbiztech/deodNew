@@ -42,7 +42,6 @@ export class LandingPageService {
   public cartProduct(id: any) {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
-    // console.log('this.tokey_key', this.tokey_key);
     this.productId = this.tokey_key._id;
     this.onlyToken = this.tokey_key.token;
     this.userIdd = this.tokey_key.userId;

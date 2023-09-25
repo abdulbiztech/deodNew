@@ -53,7 +53,6 @@ export class BuyProductComponent implements OnInit {
   signature: any;
   loginCheck: any;
   cartItems: any[] = [];
-  deleteSubscription!: Subscription;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -64,13 +63,6 @@ export class BuyProductComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
-    this.deleteSubscription = this.landingService.delete.subscribe((deletedItemId: any) => {
-      this.cartItems = this.cartItems.filter(item => item.id !== deletedItemId);
-      console.log("this.cartItems ",this.cartItems );
-
-      this.cdr.detectChanges();
-    });
-
     this.getProductByUserId();
     this.isLoggedIn();
   }
@@ -79,11 +71,8 @@ export class BuyProductComponent implements OnInit {
   }
   getProductByUserId() {
     this.landingService.getCartByUserId().subscribe((res) => {
-      console.log('Product by user', res);
       this.mainProduct.response = res;
       this.cartItems = this.mainProduct.response.items;
-      console.log("this.cartItems ",this.cartItems) ;
-
       this.mainProduct.data = this.mainProduct.response.data;
       this.mainProduct.cartId = this.mainProduct.data.cartId;
       this.mainProduct.items = this.mainProduct.data.items;
@@ -101,31 +90,15 @@ export class BuyProductComponent implements OnInit {
       }
     });
   }
-  // removeItem(id: any) {
-  //   console.log('item', id);
-  //   this.landingService.removeCartItem(id).subscribe((res: any) => {
-  //     console.log('item res', res);
-  //     const productList = res;
-  //     console.log("productListfw", productList);
-  //     console.log('productList', productList.data.items);
-  //     this.cartItems = productList.data.items;
-  //     this.toaster.error('Item Deleted successfully');
-  //   });
-  // }
-
 
   removeItem(id: any) {
-    console.log('item', id);
+    // console.log('item', id);
     this.landingService.removeCartItem(id).subscribe((res: any) => {
-      console.log('item res', res);
+      // console.log('item res', res);
       const productList = res;
-      console.log("productListfw", productList);
-      console.log('productList', productList.data.items);
       this.cartItems = productList.data.items;
       this.toaster.error('Item Deleted successfully');
-  
-      // Update the images array based on the updated cartItems
-      this.images = this.cartItems.map(item => {
+      this.images = this.cartItems.map((item) => {
         const imagesfirst = item.images[0];
         const image = `${environment.apiUrl}/image/${imagesfirst}`;
         return { ...item, imageUrl: image };
@@ -133,7 +106,7 @@ export class BuyProductComponent implements OnInit {
     });
     this.cdr.detectChanges();
   }
-  
+
   checkoutOrder() {
     this.landingService.createTransaction(this.checkOutData).subscribe(
       (res) => {
@@ -216,8 +189,5 @@ export class BuyProductComponent implements OnInit {
         this.orderAmt = this.orderId.order.amount;
         this.initializePayment(this.order);
       });
-  }
-  ngOnDestroy() {
-    this.deleteSubscription.unsubscribe();
   }
 }

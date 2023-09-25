@@ -61,22 +61,11 @@ export class LandingpageComponent implements OnInit {
       this.isLoggedIn = true;
     }
   }
-  // getCartDetail() {
-  //   this.landingService.getCardDetails().subscribe((res) => {
-  //     this.cardList = res;
-  //     for (let index = 0; index < this.cardList.data.length; index++) {
-  //       const imagesfirst = this.cardList.data[index].images[0];
-  //       const allsubData = this.cardList.data[index];
-  //       this.image = `${environment.apiUrl}/image/${imagesfirst}`;
-  //       this.newData = { ...allsubData, imageUrl: this.image };
-  //       this.imagess.push(this.newData);
-  //     }
-  //   });
-  // }
+
   getCartDetail(searchCriteria?: any) {
     this.landingService.getCardDetails(searchCriteria).subscribe((res) => {
       this.cardList = res;
-      this.filteredImagess = []; // Clear the existing filteredImagess array
+      this.filteredImagess = [];
       for (let index = 0; index < this.cardList.data.length; index++) {
         const imagesfirst = this.cardList.data[index].images[0];
         const allsubData = this.cardList.data[index];
@@ -88,12 +77,9 @@ export class LandingpageComponent implements OnInit {
   }
 
   addToCart(id: any) {
-    // console.log('id coming right now', id);
-
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
-      console.log('id coming', id);
-
+      // console.log('id coming', id);
       this.landingService.cartProduct(id).subscribe(
         (res: any) => {
           this.cartData = res;
@@ -154,7 +140,7 @@ export class LandingpageComponent implements OnInit {
   }
   getProduct(modelId:any){
     this.landingService.get3DModelByModelId(modelId).subscribe((res:any)=>{
-      console.log("res",res);
+      // console.log("res",res);
       this.cardDetail = res
       this.landingService.updateCardDetails(this.cardDetail);
     })

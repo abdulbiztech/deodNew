@@ -26,8 +26,6 @@ ol, ul {
 }
 .list ul li a:hover{
   color:#dda53f;
-
-
 }
 .list
 {
@@ -48,12 +46,10 @@ button:focus{
   display: inline-block;
   margin-right: 10px;
   text-decoration: none;
-
 }
 .footerup ul li a{
   text-decoration: none;
   color: #adadad;;
-  /* margin: 10px; */
 }
 .footerup a{
   color: #adadad;
@@ -71,8 +67,23 @@ button:focus{
   color:#adadad;
 }
 
-
 select option :hover{
   background-color: rgb(255, 255, 255) !important;
   color: rgb(128, 128, 128) !important;
 }
+@media screen and (max-width: 680px) {
+  .text-end{
+    text-align: left!important;
+    font-size: 14.5px;
+  }
+  .list h3{
+    text-align: center;
+  }
+  .list ul li{
+    text-align: center;
+  }
+  .footerup {
+    text-align: center !important;
+  }
+
+  }
