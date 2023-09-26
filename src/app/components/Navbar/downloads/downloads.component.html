@@ -1,8 +1,8 @@
-    <section *ngIf="allProduct.length > 0" class="section download-page">
+    <section  class="section download-page">
       <div class="container">
         <div class="row g-3">
           <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
-            <table class="table table-bordered table-responsive text-table">
+            <table *ngIf="allProduct.length > 0" class="table table-bordered table-responsive text-table">
               <tr>
                 <td class="w-25">
                   <a href="#" class="button">Review Product</a>
@@ -53,7 +53,6 @@
                         </div>
                         <div class="col-9">
                           <h5>{{ item.modelName }}</h5>
-                          <!-- You can iterate over item properties here -->
                           <p *ngFor="let property of item.properties">
                             <a href="#">{{ property }}</a>
                           </p>
@@ -67,20 +66,17 @@
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section  *ngIf="allProduct.length == 0">
-      <div >
-        <div class="row">
-          <div class="col-12">
-            <div class="order-history-box">
-              <p>There are no previous donwloads available to view.</p>
+            <div *ngIf="allProduct.length == 0">
+              <div class="row">
+                <div class="col-12">
+                  <div class="order-history-box">
+                    <p>There are no previous donwloads available to view.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-
 
