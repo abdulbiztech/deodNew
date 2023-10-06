@@ -1,4 +1,4 @@
-<div class="container" *ngIf="allProduct.length ==0">
+<div class="container" *ngIf="allProduct.length == 0">
   <div class="row">
     <div class="col-12">
       <div class="header">
@@ -24,12 +24,10 @@
           <div class="col-12">
             <div class="order-history-box">
               <p>There are no previous orders available to view.</p>
-
             </div>
           </div>
         </div>
       </ng-template>
-
     </div>
   </div>
 </div>
@@ -37,7 +35,7 @@
 <section class="section products-page">
   <div class="container">
     <div class="row g-3">
-      <div  *ngFor="let item of allProduct;let i = index" class="col-12">
+      <div *ngFor="let item of allProduct; let i = index" class="col-12">
         <div class="card shadow-sm">
           <div class="row g-3">
             <div class="col-lg-3 col-md-6 col-sm-12">
@@ -47,15 +45,15 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
               <div class="order-info">
-                <h4>Order #{{item.modelId}}</h4>
-                <p class="mb-1"><b>Purchased:</b> {{createdAt | date}}</p>
+                <h4>Order #{{ item.modelId }}</h4>
+                <p class="mb-1"><b>Purchased:</b> {{ createdAt | date }}</p>
 
-                <p><b>Total Items:</b> {{item.quantity}}</p>
+                <p><b>Total Items:</b> {{ item.quantity }}</p>
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
               <div class="order-info info-text">
-                <h4>₹{{item.price}}</h4>
+                <h4>₹{{ item.price }}</h4>
                 <p>include ₹0.0 tax</p>
                 <p>
                   <a href="#"
@@ -64,9 +62,8 @@
                   >
                 </p>
                 <p>
-                  <a (click)="navigate()"
-                    ><i class="far fa-pencil-alt me-2"></i> Create
-                    Invoice</a
+                  <a (click)="navigateToInvoice(item.modelId)"
+                    ><i class="far fa-pencil-alt me-2"></i> Create Invoice</a
                   >
                 </p>
               </div>
@@ -75,7 +72,9 @@
               <div class="order-info">
                 <a href="#" class="button">Support Tickets</a>
                 <a href="#" class="button">Request Refund</a>
-                <a (click)="downloadFile(item)" class="button download-btn">Show Downloads</a>
+                <a (click)="downloadFile(item)" class="button download-btn"
+                  >Show Downloads</a
+                >
               </div>
             </div>
           </div>

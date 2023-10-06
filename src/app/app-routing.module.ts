@@ -17,9 +17,9 @@ import { SupportComponent } from './components/Navbar/support/support.component'
 import { DownloadsComponent } from './components/Navbar/downloads/downloads.component';
 import { InvoiceComponent } from './components/Navbar/invoice/invoice.component';
 import { ProductComponent } from './components/LandingPage/product/product.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-
   { path: '', component: LandingpageComponent },
   {
     path: 'login',
@@ -40,26 +40,31 @@ const routes: Routes = [
   {
     path: 'buy-product',
     component: BuyProductComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'success-payment',
     component: SuccessPaymentComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'order-detail',
     component: OrderHistoryComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'my-product',
     component: BuyProductComponent,
+    canActivate: [AuthGuard],
   },
-    {
+  {
     path: 'forget-pass',
     component: ForgetPassComponent,
   },
   {
     path: 'account-detail',
     component: AccountDetailComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'sell-model',
@@ -76,17 +81,23 @@ const routes: Routes = [
   {
     path: 'downloads',
     component: DownloadsComponent,
+    canActivate: [AuthGuard],
   },
   { path: 'reset-password/:userId/:token', component: NewPassComponent },
-  { path: 'order-history', component: OrderHistoryComponent },
-  { path: 'order-detail/invoice', component: InvoiceComponent },
-
+  {
+    path: 'order-history',
+    component: OrderHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'invoice/:modelId',
+    component: InvoiceComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule  {
-
-}
+export class AppRoutingModule {}

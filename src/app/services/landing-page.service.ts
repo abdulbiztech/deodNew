@@ -129,11 +129,13 @@ export class LandingPageService {
     return this.http.get(`${environment.apiUrl}/searchFilter?${params}`);
   }
   //GetCard Detail by Model Id Api
-  public get3DModelByModelId(item:any){
+  public get3DModelByModelId(item: any) {
     const url = `${environment.apiUrl}/get3DModel/${item}`;
     return this.http.get(url);
   }
-  private cardDetailsSubject = new BehaviorSubject<any>(this.getStoredCardDetails());
+  private cardDetailsSubject = new BehaviorSubject<any>(
+    this.getStoredCardDetails()
+  );
   cardDetails$ = this.cardDetailsSubject.asObservable();
   private getStoredCardDetails(): any {
     const storedData = localStorage.getItem('cardDetails');
@@ -142,5 +144,16 @@ export class LandingPageService {
   updateCardDetails(details: any) {
     this.cardDetailsSubject.next(details);
     localStorage.setItem('cardDetails', JSON.stringify(details));
+  }
+  getUserDetail() {
+    this.dataStore = localStorage.getItem('login');
+    this.tokey_key = JSON.parse(this.dataStore).data;
+    this.userIdd = this.tokey_key.userId;
+    const url = `${environment.apiUrl}/getUser/${this.userIdd}`;
+    return this.http.get(url);
+  }
+  isAuthenticated(): boolean {
+    const authToken = localStorage.getItem('login');
+    return !!authToken;
   }
 }

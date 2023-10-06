@@ -37,7 +37,7 @@ export class LandingpageComponent implements OnInit {
   searchResults: any[] = [];
   filteredImagess: any[] = [];
   searchText: string = '';
-  cardDetail:any;
+  cardDetail: any;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -79,7 +79,6 @@ export class LandingpageComponent implements OnInit {
   addToCart(id: any) {
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
-      // console.log('id coming', id);
       this.landingService.cartProduct(id).subscribe(
         (res: any) => {
           this.cartData = res;
@@ -88,8 +87,11 @@ export class LandingpageComponent implements OnInit {
         },
         (err) => {
           if (err.status == 400) {
-            alert('Product is already in the cart');
-            this.router.navigate(['/buy-product']);
+            this.landingService.getProduct().subscribe((res: any) => {
+              this.cartData === res;
+            });
+            this.toastr.error(err.error.message);
+            this.router.navigate(['/order-detail']);
           }
         }
       );
@@ -126,9 +128,10 @@ export class LandingpageComponent implements OnInit {
         if (data.status) {
           this.searchResults = data.data;
           this.filteredImagess = this.imagess.filter((item: any) =>
-          this.searchResults.some((result) => result.modelName === item.modelName)
-        );
-
+            this.searchResults.some(
+              (result) => result.modelName === item.modelName
+            )
+          );
         } else {
           console.error(data.message);
         }
@@ -138,11 +141,11 @@ export class LandingpageComponent implements OnInit {
       }
     );
   }
-  getProduct(modelId:any){
-    this.landingService.get3DModelByModelId(modelId).subscribe((res:any)=>{
+  getProduct(modelId: any) {
+    this.landingService.get3DModelByModelId(modelId).subscribe((res: any) => {
       // console.log("res",res);
-      this.cardDetail = res
+      this.cardDetail = res;
       this.landingService.updateCardDetails(this.cardDetail);
-    })
+    });
   }
 }

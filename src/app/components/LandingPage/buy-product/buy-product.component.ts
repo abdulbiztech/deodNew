@@ -66,6 +66,9 @@ export class BuyProductComponent implements OnInit {
     this.getProductByUserId();
     this.isLoggedIn();
   }
+  isUserAuthenticated() {
+    return this.landingService.isAuthenticated();
+  }
   isLoggedIn(): boolean {
     return localStorage.getItem('login') !== null;
   }
