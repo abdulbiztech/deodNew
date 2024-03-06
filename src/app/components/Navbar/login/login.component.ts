@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (res) => {
             if (res.status === true) {
-              console.log('res message', res.status);
+              // console.log('res message', res.status);
               this.userState = res;
               const jsonData = JSON.stringify(this.userState);
               // console.log("jsonData",jsonData);

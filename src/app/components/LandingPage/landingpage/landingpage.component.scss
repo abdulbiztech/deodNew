@@ -101,19 +101,26 @@ button {
 }
 
 .cus-product-cart {
-  position: relative;
-  top: 0;
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  margin-bottom: 15px;
-  transition: all 0.3s;
+  // position: relative;
+  // top: 0;
+  // width: 100%;
+  // border-radius: 10px;
+  // box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  // margin-bottom: 15px;
+  // transition: all 0.3s;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .cus-product-cart:hover {
-  top: -10px;
-  transition: all 0.3s;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  // top: -10px;
+  // transition: all 0.3s;
+  // box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -132,8 +139,10 @@ button {
   top: 0;
   width: 100%;
   height: 210px;
-  border: 1px solid orange;
+  // border: 1px solid orange;
   border-radius: 10px;
+  // position: relative;
+  // overflow: hidden;
 
 }
 
@@ -142,18 +151,21 @@ button {
 }
 
 .cus-card-body {
-  background-color: #f9f9f9;
-  border-radius: 10px;
+  // background-color: #f9f9f9;
+  // border-radius: 10px;
+  padding: 10px;
 }
 
 .avtr {
   white-space: nowrap;
 }
 
-.avtr p:nth-child(1) {
-  color: #424242;
-  font-size: 15px;
-  margin-bottom: 0;
+.avtr p {
+  // color: #424242;
+  // font-size: 15px;
+  // margin-bottom: 0;
+  // font-weight: 600;
+  margin: 0;
   font-weight: 600;
 }
 
@@ -163,8 +175,11 @@ button {
 
 }
 
-.avtrs p:nth-child(1) {
-  color: green;
+.avtrs p {
+  // color: green;
+  margin: 0;
+  font-weight: bold;
+  color: #f89e52;
 }
 
 .dwnl {
@@ -172,6 +187,25 @@ button {
   align-items: center;
   font-size: 12px;
 }
+.dwnl svg {
+  vertical-align: middle;
+}
+.dwnl span {
+  vertical-align: middle;
+}
+.dwnl2 a {
+  color: #f89e52;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+.dwnl2 a:hover {
+  color: #ff7f27;
+  cursor: pointer;
+}
+.dwnl2 svg {
+  vertical-align: middle;
+}
+
 
 .dwnl2 {
   display: flex;
