@@ -69,7 +69,7 @@ export class OrderHistoryComponent {
     this.userIdd = this.tokey_key.userId;
     this.http
       .get(
-        `http://localhost:8080/downloadOrder/${this.userIdd}/${this.orderID}/${item.modelId}`,
+        `${environment.apiUrl}/downloadOrder/${this.userIdd}/${this.orderID}/${item.modelId}`,
         {
           responseType: 'blob', // Important!
         }

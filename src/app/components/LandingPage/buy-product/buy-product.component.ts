@@ -93,12 +93,14 @@ export class BuyProductComponent implements OnInit {
       },
       () => {
         // Recalculate total price here
-        this.totalPrice = this.cartItems.reduce((total, item) => total + item.price, 0);
+        this.totalPrice = this.cartItems.reduce(
+          (total, item) => total + item.price,
+          0
+        );
         this.checkOutData = { amount: this.totalPrice };
       }
     );
   }
-
 
   removeItem(modelId: any): void {
     this.landingService.removeCartItem(modelId).subscribe(
@@ -112,7 +114,10 @@ export class BuyProductComponent implements OnInit {
         }));
 
         // Recalculate total price after item removal
-        this.totalPrice = this.cartItems.reduce((total, item) => total + item.price, 0);
+        this.totalPrice = this.cartItems.reduce(
+          (total, item) => total + item.price,
+          0
+        );
         this.checkOutData = { amount: this.totalPrice };
       },
       (error) => {
@@ -121,7 +126,6 @@ export class BuyProductComponent implements OnInit {
       }
     );
   }
-
 
   checkoutOrder(): void {
     this.landingService.createTransaction(this.checkOutData).subscribe(
@@ -195,7 +199,7 @@ export class BuyProductComponent implements OnInit {
 
   Order() {
     this.http
-      .post('http://localhost:8080/createOrder', this.checkOutData)
+      .post(`${environment.apiUrl}/createOrder`, this.checkOutData)
       .subscribe((res) => {
         console.log('createOrder response', res);
         this.orderId = res;
