@@ -43,7 +43,7 @@ export class TestPaymentComponent {
     this.showProduct(this.id);
   }
   showProduct(id: any) {
-    this.landingService.ShowProductDetail().subscribe((res) => {
+    this.landingService.ShowProductDetail().subscribe((res:any) => {
       this.product = res;
       this.productDetail = this.product.data.carts;
       this.productDate = this.productDetail.updatedAt;

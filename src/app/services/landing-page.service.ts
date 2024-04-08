@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environement';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, Subject, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,6 +13,8 @@ export class LandingPageService {
   productId: any;
   userIdd: any;
   useId: any;
+  private cartSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  cart$: Observable<any> = this.cartSubject.asObservable();
 
   public loggedIn = new BehaviorSubject<any>(false);
   constructor(private http: HttpClient, private router: Router) {
@@ -57,30 +59,54 @@ export class LandingPageService {
       requestBody
     );
   }
-
-  public getCartByUserId() {
+  getCartByUserId(): Observable<any> {
     try {
       const loginData = localStorage.getItem('login');
+      let userId;
 
       if (loginData !== null) {
-        this.dataStore = JSON.parse(loginData);
-        this.useId = this.dataStore.data.userId;
+        const dataStore = JSON.parse(loginData);
+        userId = dataStore.data.userId;
       } else {
-        // alert('Please Login first');
+        throw new Error('User not logged in');
       }
+
+      return this.http.get<any>(`${environment.apiUrl}/getCart/${userId}`).pipe(
+        tap((cartData) => this.cartSubject.next(cartData)),
+        catchError((error) => {
+          console.error('Error fetching cart data:', error);
+          throw error;
+        })
+      );
     } catch (error) {
       console.error('Error parsing JSON data:', error);
-      this.dataStore = {};
+      throw error;
     }
-    return this.http.get(
-      `${environment.apiUrl}` + `/getCart/` + `${this.useId}`
-    );
   }
-  delete = new Subject<any>();
-  public removeCartItem(id: any) {
-    const url = `${environment.apiUrl}/removeCartItem/${this.useId}/${id}`;
-    return this.http.delete(url);
+  private getUserId(): any {
+    const loginData = localStorage.getItem('login');
+    let userId;
+
+    if (loginData !== null) {
+      const dataStore = JSON.parse(loginData);
+      userId = dataStore.data.userId;
+    } else {
+      throw new Error('User not logged in');
+    }
+
+    return userId;
   }
+public removeCartItem(modelId: any): Observable<any> {
+  const userId = this.getUserId();
+  const url = `${environment.apiUrl}/removeCartItem/${userId}/${modelId}`;
+  return this.http.delete(url).pipe(
+    tap(() => {
+      this.getCartByUserId().subscribe();
+    })
+  );
+}
+
+
   public createTransaction(amount: any) {
     return this.http.post(`${environment.apiUrl}` + `/createOrder/`, amount);
   }

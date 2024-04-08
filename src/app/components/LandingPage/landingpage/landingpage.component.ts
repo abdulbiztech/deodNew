@@ -36,7 +36,7 @@ export class LandingpageComponent implements OnInit {
   parentData: any = '';
   searchResults: any[] = [];
   filteredImagess: any[] = [];
-  searchText: string = '';
+  searchText: any;
   cardDetail: any;
   constructor(
     private http: HttpClient,
@@ -82,7 +82,7 @@ export class LandingpageComponent implements OnInit {
       this.landingService.cartProduct(id).subscribe(
         (res: any) => {
           this.cartData = res;
-          alert('product added successfully');
+          this.toastr.success('Product added to cart successfully');
           this.router.navigate(['/buy-product']);
         },
         (err) => {
@@ -90,13 +90,15 @@ export class LandingpageComponent implements OnInit {
             this.landingService.getProduct().subscribe((res: any) => {
               this.cartData === res;
             });
-            this.toastr.error(err.error.message);
+            this.toastr.error(
+              'Failed to add product to cart: ' + err.error.message
+            );
             this.router.navigate(['/order-detail']);
           }
         }
       );
     } else {
-      alert('please Login to buy a product');
+      this.toastr.info('Please log in to add the product to your cart');
     }
   }
   routerToLogin() {
@@ -121,7 +123,6 @@ export class LandingpageComponent implements OnInit {
         });
       });
   }
-
   onSubmit(formValue: any) {
     this.landingService.searchProducts(formValue).subscribe(
       (data) => {
@@ -143,7 +144,7 @@ export class LandingpageComponent implements OnInit {
   }
   getProduct(modelId: any) {
     this.landingService.get3DModelByModelId(modelId).subscribe((res: any) => {
-      // console.log("res",res);
+      console.log('res', res);
       this.cardDetail = res;
       this.landingService.updateCardDetails(this.cardDetail);
     });

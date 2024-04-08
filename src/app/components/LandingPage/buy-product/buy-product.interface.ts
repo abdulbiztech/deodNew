@@ -1,0 +1,52 @@
+import { FormGroup } from "@angular/forms";
+import { Subscription } from "rxjs";
+
+export interface BuyProductComponentInterface {
+    mainProduct: any;
+    ngForm: FormGroup;
+    razorpayPayment: any;
+    id: any;
+    productDetail: any;
+    product: any;
+    productImages: any;
+    newImageData: any;
+    productImage: any;
+    image: any[];
+    images: any[];
+    newData: any[];
+    date: any;
+    productDate: any;
+    latest_date: any;
+    total: any;
+    products: any[];
+    orderId: any;
+    order: any;
+    orderAmt: number;
+    amount: any;
+    getProduct: any;
+    pro: any;
+    res: any;
+    amt: any;
+    redirect: any;
+    hundred: number;
+    proId: any;
+    totalPrice: any;
+    checkOutData: any;
+    checkoutDetail: any;
+    orderCurrency: any;
+    paymentId: any;
+    signature: any;
+    loginCheck: any;
+    cartItems: any[];
+    cartSubscription: Subscription | undefined;
+
+    ngOnInit(): void;
+    isUserAuthenticated(): boolean;
+    isLoggedIn(): boolean;
+    ngOnDestroy(): void;
+    getCartByUserId(): void;
+    removeItem(modelId: any): void;
+    checkoutOrder(): void;
+    initializePayment(orderId: string): void;
+    Order(): void;
+  }

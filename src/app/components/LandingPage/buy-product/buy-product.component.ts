@@ -53,17 +53,16 @@ export class BuyProductComponent implements OnInit {
   signature: any;
   loginCheck: any;
   cartItems: any[] = [];
+  cartSubscription!: Subscription;
   constructor(
     private http: HttpClient,
-    private router: Router,
     private landingService: LandingPageService,
-    public datepipe: DatePipe,
-    private fb: FormBuilder,
     private toaster: ToastrService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
   ngOnInit(): void {
-    this.getProductByUserId();
+    this.getCartByUserId();
     this.isLoggedIn();
   }
   isUserAuthenticated() {
@@ -72,55 +71,67 @@ export class BuyProductComponent implements OnInit {
   isLoggedIn(): boolean {
     return localStorage.getItem('login') !== null;
   }
-  getProductByUserId() {
-    this.landingService.getCartByUserId().subscribe((res) => {
-      this.mainProduct.response = res;
-      this.cartItems = this.mainProduct.response.items;
-      this.mainProduct.data = this.mainProduct.response.data;
-      this.mainProduct.cartId = this.mainProduct.data.cartId;
-      this.mainProduct.items = this.mainProduct.data.items;
-      this.totalPrice = this.mainProduct.data.totalPrice;
-      this.checkOutData = {
-        amount: this.totalPrice,
-      };
-      for (let index = 0; index < this.mainProduct.items.length; index++) {
-        const element = this.mainProduct.items[index];
-        const imagesfirst = this.mainProduct.items[index].images[0];
-        this.image = `${environment.apiUrl}/image/${imagesfirst}`;
-        const allsubData = this.mainProduct.items[index];
-        this.newData = { ...allsubData, imageUrl: this.image };
-        this.images.push(this.newData);
-      }
-    });
+  ngOnDestroy(): void {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
-
-  removeItem(id: any) {
-    // console.log('item', id);
-    this.landingService.removeCartItem(id).subscribe((res: any) => {
-      // console.log('item res', res);
-      const productList = res;
-      this.cartItems = productList.data.items;
-      this.toaster.error('Item Deleted successfully');
-      this.images = this.cartItems.map((item) => {
-        const imagesfirst = item.images[0];
-        const image = `${environment.apiUrl}/image/${imagesfirst}`;
-        return { ...item, imageUrl: image };
-      });
-    });
-    this.cdr.detectChanges();
-  }
-
-  checkoutOrder() {
-    this.landingService.createTransaction(this.checkOutData).subscribe(
-      (res) => {
-        console.log('checkout res', res);
-        this.checkoutDetail = res;
-        this.orderId = this.checkoutDetail.order.id;
-        this.orderAmt = this.checkoutDetail.order.amount;
-        this.orderCurrency = this.checkoutDetail.order.currency;
+  getCartByUserId(): void {
+    this.cartSubscription = this.landingService.getCartByUserId().subscribe(
+      (res: any) => {
+        this.cartItems = res.data.items;
+        this.totalPrice = res.data.totalPrice;
+        this.checkOutData = { amount: this.totalPrice };
+        this.images = this.cartItems.map((item) => ({
+          ...item,
+          imageUrl: `${environment.apiUrl}/image/${item.images[0]}`,
+        }));
       },
       (error) => {
-        console.log(error);
+        console.error('Error fetching cart:', error);
+        this.toaster.error('Failed to fetch cart items');
+      },
+      () => {
+        // Recalculate total price here
+        this.totalPrice = this.cartItems.reduce((total, item) => total + item.price, 0);
+        this.checkOutData = { amount: this.totalPrice };
+      }
+    );
+  }
+
+
+  removeItem(modelId: any): void {
+    this.landingService.removeCartItem(modelId).subscribe(
+      (res: any) => {
+        this.cartItems = res.data.items;
+        console.log('this.cartItem', this.cartItems);
+        this.toaster.success('Item deleted successfully');
+        this.images = this.cartItems.map((item) => ({
+          ...item,
+          imageUrl: `${environment.apiUrl}/image/${item.images[0]}`,
+        }));
+
+        // Recalculate total price after item removal
+        this.totalPrice = this.cartItems.reduce((total, item) => total + item.price, 0);
+        this.checkOutData = { amount: this.totalPrice };
+      },
+      (error) => {
+        console.error('Error removing item from cart:', error);
+        this.toaster.error('Failed to remove item from cart');
+      }
+    );
+  }
+
+
+  checkoutOrder(): void {
+    this.landingService.createTransaction(this.checkOutData).subscribe(
+      (res: any) => {
+        console.log('Checkout response:', res);
+        // Handle successful checkout
+      },
+      (error) => {
+        console.error('Error during checkout:', error);
+        this.toaster.error('Failed to initiate checkout process');
       }
     );
   }

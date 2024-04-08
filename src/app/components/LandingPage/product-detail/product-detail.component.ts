@@ -41,7 +41,6 @@ export class ProductDetailComponent implements OnInit {
         const storedData = JSON.parse(storedDataString);
         const price = storedData.data.price;
         const id = storedData.data.price;
-        // console.log('Price:', price);
       } else {
         console.log('Data not found in local storage');
       }
@@ -143,15 +142,15 @@ export class ProductDetailComponent implements OnInit {
         (res: any) => {
           this.cartData = res;
           console.log("cartData",this.cartData);
-
-          alert('product added successfully');
+          this.toastr.success('Product added successfully');
+          // alert('product added successfully');
           this.router.navigate(['/buy-product']);
         },
         (err) => {
           console.log("err",err);
 
           if (err.status == 400) {
-            alert('Product is already in the cart');
+            this.toastr.warning('Product is already in the cart');
             this.router.navigate(['/buy-product']);
           }
         }
@@ -163,27 +162,6 @@ export class ProductDetailComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
-  // addToCart(id: any) {
-  //   const loginInfo = localStorage.getItem('login');
-  //   if (loginInfo) {
-  //     // console.log('id coming', id);
-  //     this.landingService.cartProduct(this.modelId).subscribe(
-  //       (res: any) => {
-  //         this.cartData = res;
-  //         alert('product added successfully');
-  //         this.router.navigate(['/buy-product']);
-  //       },
-  //       (err) => {
-  //         if (err.status == 400) {
-  //           alert('Product is already in the cart');
-  //           this.router.navigate(['/buy-product']);
-  //         }
-  //       }
-  //     );
-  //   } else {
-  //     alert('please Login to buy a product');
-  //   }
-  // }
   navigateToBuyProduct() {
     this.router.navigate(['/buy-product']);
   }

@@ -62,38 +62,7 @@ export class OrderHistoryComponent {
       }
     });
   }
-  // downloadProduct(item: any) {
-  //   this.landingService.getDownload(this.orderID, item.modelId).subscribe(
-  //     (res: any) => {
-  //       console.log('res', res);
-  //       this.landingService.setData(res);
-  //       this.router.navigate(['downloads']);
-  //     },
-  //     (err) => {
-  //       console.log('error coming', err);
-  //     }
-  //   );
-  // }
-  // downloadProduct(item: any) {
-  //   this.landingService.getDownload(this.orderID, item.modelId).subscribe(
-  //     (res: any) => {
-  //       if (res instanceof Blob) {
-  //         const blob = new Blob([res], { type: 'application/octet-stream' });
-  //         const url = window.URL.createObjectURL(blob);
-  //         const a = document.createElement('a');
-  //         a.href = url;
-  //         document.body.appendChild(a);
-  //         a.click();
-  //         window.URL.revokeObjectURL(url);
-  //       } else {
-  //         console.error('Unexpected response format for download');
-  //       }
-  //     },
-  //     (err) => {
-  //       console.log('Error during download', err);
-  //     }
-  //   );
-  // }
+
   downloadFile(item: any) {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;

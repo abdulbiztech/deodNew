@@ -36,10 +36,8 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (res) => {
             if (res.status === true) {
-              // console.log('res message', res.status);
               this.userState = res;
               const jsonData = JSON.stringify(this.userState);
-              // console.log("jsonData",jsonData);
               this.tokey_key = this.userState.data;
               this.toaster.success('You are successfully Login');
               this.myForm.reset();
@@ -47,7 +45,7 @@ export class LoginComponent implements OnInit {
               this.landgingService.loggedIn.next(true);
               localStorage.setItem('login', jsonData);
             } else {
-              alert('something went');
+              this.toaster.error("something went wrong!")
             }
           },
           (err) => {
