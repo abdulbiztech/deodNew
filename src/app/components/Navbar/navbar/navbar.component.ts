@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
   cartProductImages: any = [];
   newImageData: any;
   cartProductID: any;
-  totalItems: number = 2;
+  totalItems!: number;
   apiCall: any;
   isAuthenticated = false;
   cartData: any;

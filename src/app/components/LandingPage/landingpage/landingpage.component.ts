@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LandingPageService } from 'src/app/services/landing-page.service';
 import { environment } from 'src/environments/environement';
-
+const ItemModel = {
+  modelName: '',
+  price: 0
+};
 @Component({
   selector: 'app-landingpage',
   templateUrl: './landingpage.component.html',
@@ -38,6 +41,8 @@ export class LandingpageComponent implements OnInit {
   filteredImagess: any[] = [];
   searchText: any;
   cardDetail: any;
+  items: typeof ItemModel[] = [];
+  sortBy: string = 'priceHighToLow';
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -49,8 +54,31 @@ export class LandingpageComponent implements OnInit {
   ngOnInit(): void {
     this.getCartDetail();
     this.checkLocalStorageLoginStatus();
+    this.fetchItems();
   }
-
+  sortItems(): void {
+    switch (this.sortBy) {
+      case 'priceLowToHigh':
+        this.filteredImagess.sort((a, b) => a.price - b.price);
+        break;
+      case 'priceHighToLow':
+      default:
+        this.filteredImagess.sort((a, b) => b.price - a.price);
+        break;
+    }
+  }
+  fetchItems(): void {
+    this.http.get<typeof ItemModel[]>(`${environment.apiUrl}/items`).subscribe(
+      (data) => {
+        this.items = data;
+        // Apply initial sorting
+        this.sortItems();
+      },
+      (error) => {
+        console.error('Error fetching items:', error);
+      }
+    );
+  }
   checkLocalStorageLoginStatus() {
     const loginInfo = localStorage.getItem('login');
     if (loginInfo) {
