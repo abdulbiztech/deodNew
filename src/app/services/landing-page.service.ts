@@ -145,9 +145,16 @@ public removeCartItem(modelId: any): Observable<any> {
   setData(data: any) {
     this.dataSubject.next(data);
   }
-  public donwnloadApi(item: any) {
-    const url = `${environment.apiUrl}/getAllUserDownload/${item}`;
+  // API request to get all downloads for a specific user
+  public getAllUserDownload(userId: string) {
+    const url = `${environment.apiUrl}/getAllUserDownload/${userId}`;
     return this.http.get(url);
+  }
+
+  // API request to download a specific order model
+  public downloadOrder(userId: string, orderId: string, modelId: string) {
+    const url = `${environment.apiUrl}/downloadOrder/${userId}/${orderId}/${modelId}`;
+    return this.http.get(url, { responseType: 'blob' });
   }
 
   searchProducts(queryParams: any): Observable<any> {

@@ -158,7 +158,7 @@ export class LandingpageComponent implements OnInit {
           this.searchResults = data.data;
           this.filteredImagess = this.imagess.filter((item: any) =>
             this.searchResults.some(
-              (result) => result.modelName === item.modelName
+              (result) => result.modelName.toLowerCase() === item.modelName.toLowerCase()
             )
           );
         } else {
@@ -170,6 +170,7 @@ export class LandingpageComponent implements OnInit {
       }
     );
   }
+
   getProduct(modelId: any) {
     this.landingService.get3DModelByModelId(modelId).subscribe((res: any) => {
       console.log('res', res);

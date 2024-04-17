@@ -1,82 +1,58 @@
-    <section  class="section download-page">
-      <div class="container">
-        <div class="row g-3">
-          <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
-            <table *ngIf="allProduct.length > 0" class="table table-bordered table-responsive text-table">
-              <tr>
-                <td class="w-25">
-                  <a href="#" class="button">Review Product</a>
-                </td>
-                <td class="w-75">
-                  <p class="p-2">
-                    <b>Please don't forget</b> rate and review any products that
-                    you have purchased or download. It is in credible help to our
-                    community of artists.
-                  </p>
-                </td>
-              </tr>
-            </table>
-            <table class="table table-responsive table-bordered table-content">
-              <thead>
-                <th>
-                  <div class="form-check star-icon">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                  </div>
-                </th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Date Added</th>
-                <th>Review Status</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of products; let i = index">
-                  <td>
-                    <div class="form-check star-icon">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckDefault"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div class="name-info">
-                      <div class="row">
-                        <div class="col-3">
-                          <img [src]="item.image" alt="" />
-                        </div>
-                        <div class="col-9">
-                          <h5>{{ item.modelName }}</h5>
-                          <p *ngFor="let property of item.properties">
-                            <a href="#">{{ property }}</a>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>${{ item.price }}</td>
-                  <td>{{ item.dateAdded }}</td>
-                  <td>{{ item.reviewStatus }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div *ngIf="allProduct.length == 0">
-              <div class="row">
-                <div class="col-12">
-                  <div class="order-history-box">
-                    <p>There are no previous donwloads available to view.</p>
-                  </div>
-                </div>
+<section class="section download-page">
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
+        <table
+          *ngIf="allProduct.length > 0"
+          class="table table-bordered table-responsive text-table"
+        >
+          <tr>
+            <td class="w-25">
+              <a  class="button">Downloaded Models</a>
+            </td>
+            <!-- <td class="w-75">
+              <p class="p-2">
+                <b>Please don't forget</b> rate and review any products that you
+                have purchased or download. It is in credible help to our
+                community of artists.
+              </p>
+            </td> -->
+          </tr>
+        </table>
+
+        <table class="table table-responsive table-bordered table-content">
+          <thead>
+            <tr>
+              <th>Download ID</th>
+              <th>Model Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <!-- <th>Zip File</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let download of allProduct; let i = index">
+              <td>{{ download.downloadId }}</td>
+              <td>{{ download.items[0].modelName }}</td>
+              <td>{{ download.items[0].description }}</td>
+              <td>${{ download.items[0].price }}</td>
+              <td>{{ download.items[0].quantity }}</td>
+              <!-- <td>{{ download.items[0].zipFile }}</td> -->
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf="allProduct.length == 0">
+          <div class="row">
+            <div class="col-12">
+              <div class="order-history-box">
+                <p>There are no previous donwloads available to view.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-
+    </div>
+  </div>
+</section>

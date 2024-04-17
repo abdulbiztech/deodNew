@@ -60,7 +60,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SlickCarouselModule,
-    ToastrModule.forRoot({timeOut : 1500}),
+    ToastrModule.forRoot({timeOut : 2000}),
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

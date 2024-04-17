@@ -41,22 +41,19 @@ export class OrderHistoryComponent {
     this.getProductDetail();
     this.route.paramMap.subscribe((params: ParamMap) => {});
   }
-
   getProductDetail() {
     this.landingService.getProduct().subscribe((res: any) => {
       this.products = res;
-      // console.log('this.products ', this.products);
       const data = this.products.data;
       for (let index = 0; index < data.length; index++) {
         const element = data[index];
-        // console.log('element', element);
-        this.orderID = element.orderId;
+        const orderId = element.orderId; // Assign orderId here
         this.createdAt = element.createdAt;
         const items = element.items;
         for (let index = 0; index < items.length; index++) {
           const element1 = items[index];
-          this.images = element1.images[0];
-          element1.image = `${environment.apiUrl}/image/${this.images}`;
+          element1.orderId = orderId; // Assign orderId to each item
+          element1.image = `${environment.apiUrl}/image/${element1.images[0]}`;
           this.allProduct.push(element1);
         }
       }
@@ -66,40 +63,49 @@ export class OrderHistoryComponent {
   downloadFile(item: any) {
     this.dataStore = localStorage.getItem('login');
     this.tokey_key = JSON.parse(this.dataStore).data;
-    this.userIdd = this.tokey_key.userId;
-    this.http
-      .get(
-        `${environment.apiUrl}/downloadOrder/${this.userIdd}/${this.orderID}/${item.modelId}`,
-        {
-          responseType: 'blob', // Important!
-        }
-      )
-      .subscribe(
-        (data: Blob) => {
-          const modelName = item.modelName;
-          console.log('modelName', modelName);
-          const blob = new Blob([data], { type: 'application/octet-stream' });
-          const url = window.URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `${modelName}.zip`;
-          document.body.appendChild(link);
-          link.click();
-          window.URL.revokeObjectURL(url);
-        },
-        (error) => {
-          if (error.status == 400) {
-            this.toaster.error('Model has already been downloaded');
-            // this.router.navigate(['downloads'])
-          }
-          console.error('Download error:');
-        }
-      );
+    const userId = this.tokey_key.userId;
+    const orderId = item.orderId;
+    const url = `${environment.apiUrl}/downloadOrder/${userId}/${orderId}/${item.modelId}`;
+
+    this.http.get(url, { responseType: 'blob' }).subscribe(
+      (data: Blob) => {
+        const blob = new Blob([data], { type: 'application/octet-stream' });
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = `${item.modelId}.zip`;
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(blobUrl);
+      },
+      (error) => {
+        // if (
+        //   error.status == 400 &&
+        //   error.error?.message === 'Model has already been downloaded'
+        // ) {
+          this.toaster.info('Model has already been downloaded');
+        // } else {
+        //   this.toaster.error('Failed to download the model');
+        // }
+        console.error('Download error:', error);
+      }
+    );
   }
+
+  checkDownloadFile(item: any) {
+    this.dataStore = localStorage.getItem('login');
+    this.tokey_key = JSON.parse(this.dataStore).data;
+    this.userIdd = this.tokey_key.userId;
+    console.log('this.userIdd', this.userIdd);
+    this.landingService
+      .getAllUserDownload(this.userIdd)
+      .subscribe((res: any) => {
+        console.log('Download response:', res);
+      });
+  }
+
   navigateToInvoice(modelId: string) {
     console.log('id', modelId);
-
-    // Navigate to the invoice page with the orderID as a route parameter
     this.router.navigate(['/invoice', modelId]);
   }
 }
